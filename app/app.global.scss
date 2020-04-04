@@ -1,0 +1,20 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+@import '~bulma/bulma.sass';
+
+/*
+ @import '~bulma/sass/utilities/_all.sass';
+ @import '~bulma/sass/grid/columns.sass';
+ @import '~bulma/sass/components/navbar.sass';
+*/
+
+body {
+  /*
+  font-family: Arial, Helvetica, Helvetica Neue, serif;
+*/
+  overflow-y: hidden;
+}
