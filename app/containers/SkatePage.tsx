@@ -1,39 +1,26 @@
-import { bindActionCreators, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import Skate from '../components/Skate';
+import React from 'react';
+import SkateOptions from './SkateOptions';
+import SkatePanel from './SkatePanel';
+import SkateBoard from './SkateBoard';
 
-import { onSkateBoardTextUpdate, initState, onKeyDown } from '../actions/index';
-
-import { StateType } from '../reducers/types';
-
-function mapStateToProps(state: StateType) {
-  const {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
-    searchResult,
-    selectedParam,
-    selectedResult
-  } = state;
-  return {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
-    searchResult,
-    selectedParam,
-    selectedResult
-  };
-}
-
-function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(
-    {
-      onSkateBoardTextUpdate,
-      onKeyDown,
-      initState
-    },
-    dispatch
+export default function Skate() {
+  return (
+    <div>
+      <div className="columns>">
+        <div className="column is-12">
+          <SkateBoard />
+        </div>
+        <div className="column is-6 is-mobile">
+          <div className="columns">
+            <div className="column is-12">
+              <SkateOptions />
+            </div>
+            <div className="column is-12">
+              <SkatePanel />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Skate);
