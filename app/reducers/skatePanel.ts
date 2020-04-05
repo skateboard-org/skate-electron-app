@@ -1,46 +1,41 @@
 import { Action } from 'redux';
-import {
-  NEXT_RESULT,
-  PREVIOUS_RESULT,
-  CHOOSE_RESULT,
-  RESET
-} from '../actions/actions';
 
-export default function selectedResult(state = '', action: Action<string>) {
+import { EXECUTE } from '../actions/actions';
+
+import mac from '../skate-apps/@mac/index';
+import giphy from '../skate-apps/@giphy/index';
+
+export default function skatePanel(state = [], action: Action<string>) {
   switch (action.type) {
-    case NEXT_RESULT: {
-      const mySearchResult = action.payload.searchResult;
-      if (mySearchResult.length === 0) {
-        return state;
-      }
-      const index = mySearchResult.indexOf(state);
-      const nextIndex = index === -1 ? 0 : index + 1;
-      if (nextIndex <= mySearchResult.length - 1) {
-        return mySearchResult[nextIndex];
-      }
-      return mySearchResult[0];
-    }
-    case PREVIOUS_RESULT: {
-      const mySearchResult = action.payload.searchResult;
-      if (mySearchResult.length === 0) {
-        return state;
-      }
-      const index = mySearchResult.indexOf(state);
-      const nextIndex = index === -1 ? mySearchResult.length - 1 : index - 1;
-      if (nextIndex >= 0) {
-        return mySearchResult[nextIndex];
-      }
-      return mySearchResult[mySearchResult.length - 1];
-    }
+    case EXECUTE:
+      {
+        const param = param;
+        const bot = action.payload.selectedBot;
 
-    case CHOOSE_RESULT: {
-      return '';
-    }
+        switch (bot) {
+          case '@mac':
+            mac(param || '', () => {
+              console.log('slept bitches');
+            });
+            return 'idle';
 
-    case RESET: {
-      return '';
-    }
+          case '@giphy':
+            giphy(param || '')
+              .then((res: any) => {
+                console.log(res);
+                return 'idle';
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+            return 'idle';
 
+          default:
+            console.log('bot not found ', bot);
+            break;
+        }
+      }
+      break;
     default:
       return state;
   }

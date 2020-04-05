@@ -66,6 +66,23 @@ export default [
     type: 'terminal',
     typeAheadSource: 'static',
     typeAheadOptions: ['sleep', 'sound']
+  },
+  {
+    name: '@giphy',
+    title: 'Search for GIFs',
+    icon: '',
+    desc: 'get gifs wherever you need them',
+    url: '',
+    returnType: 'ListOfImages',
+    parameterEnabled: true,
+    inputParameter: 'searchterm',
+    parameterDesc: 'search term',
+    typeAheadEnabled: false,
+    typeAheadUrl: '',
+
+    type: 'cloud',
+    typeAheadSource: '',
+    typeAheadOptions: []
   }
 ];
 
