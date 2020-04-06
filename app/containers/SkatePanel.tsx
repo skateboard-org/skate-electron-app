@@ -7,29 +7,15 @@ import { onSkateBoardTextUpdate, initState, onKeyDown } from '../actions/index';
 import { StateType } from '../reducers/types';
 
 function mapStateToProps(state: StateType) {
-  const {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
-    searchResult,
-    selectedParam,
-    selectedResult
-  } = state;
+  const { skatePanel } = state;
   return {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
-    searchResult,
-    selectedParam,
-    selectedResult
+    skatePanel
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      onSkateBoardTextUpdate,
-      onKeyDown,
       initState
     },
     dispatch
