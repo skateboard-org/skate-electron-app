@@ -6,7 +6,7 @@ export const KEY_ENTER = 'KEY_ENTER';
 export const KEY_TAB = 'KEY_TAB';
 export const INVALID_KEY = 'INVALID_KEY';
 
-export function keyMapper(event) {
+export function keyMapper(event: KeyboardEvent) {
   const { keyCode } = event;
   if (keyCode === 37) {
     return KEY_LEFT;
