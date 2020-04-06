@@ -6,7 +6,13 @@ export function cleanString(str: string) {
   return str.trim().toLowerCase();
 }
 
-export function stringAnalysis(str: string) {
+interface SkateBoardTextComponents {
+  botString?: string;
+  paramString?: string;
+  result: string;
+}
+
+export function stringAnalysis(str: string): SkateBoardTextComponents {
   const cleanStr = cleanString(str);
   if (cleanStr === undefined || cleanStr.length === 0) {
     return { result: INVALID_STRING_IN_SKATEBOARD };
