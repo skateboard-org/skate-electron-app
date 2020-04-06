@@ -60,6 +60,10 @@ const createWindow = async () => {
     height: 600,
     frame: false,
     transparent: true,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    center: true,
+    fullscreenable: false,
     webPreferences:
       process.env.NODE_ENV === 'development' || process.env.E2E_BUILD === 'true'
         ? {
