@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Panel from '../components/Panel';
 
-import { onSkateBoardTextUpdate, initState, onKeyDown } from '../actions/index';
+import { initState } from '../actions/index';
 
 import { StateType } from '../reducers/types';
 

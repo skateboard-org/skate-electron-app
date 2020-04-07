@@ -4,9 +4,9 @@ import {
   SEARCH_PARAMETERS,
   SEARCH_BOTS,
   CHOOSE_RESULT,
-  EXECUTE,
-  INVALID_STRING,
-  RESET
+  RESET,
+  EXECUTION_STARTED,
+  UNKNOWN_COMMAND
 } from '../actions/actions';
 
 export default function searchResult(state = [], action: Action<string>) {
@@ -38,14 +38,11 @@ export default function searchResult(state = [], action: Action<string>) {
       return [];
     }
 
-    case EXECUTE: {
-      if (action.payload.searchingFor === 'parameter') {
-        return [];
-      }
-      return state;
+    case EXECUTION_STARTED: {
+      return [];
     }
 
-    case INVALID_STRING: {
+    case UNKNOWN_COMMAND: {
       return [];
     }
     case RESET: {

@@ -10,7 +10,7 @@ interface requestParameters {
   random_id: string;
 }
 
-export default function giphy(searchTerm: string): any {
+export default async function giphy(searchTerm: string): any {
   const url = 'https://api.giphy.com/v1/gifs/search';
 
   const params: requestParameters = {
@@ -23,25 +23,24 @@ export default function giphy(searchTerm: string): any {
     random_id: '1234'
   };
 
-  return axios
-    .get(url, {
-      params
-    })
-    .then((res: any) => {
-      const data = res.data.data.map((gif: any) => {
-        return {
-          id: gif.id,
-          src: gif.images.preview_webp.url,
-          height: gif.images.preview_webp.height,
-          width: gif.images.preview_webp.width
-        };
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url, {
+        params
+      })
+      .then((res: any) => {
+        const data = res.data.data.map((gif: any) => {
+          return {
+            id: gif.id,
+            src: gif.images.preview_webp.url,
+            height: gif.images.preview_webp.height,
+            width: gif.images.preview_webp.width
+          };
+        });
+        return resolve(data);
+      })
+      .catch(error => {
+        return reject(error);
       });
-      return {
-        success: true,
-        data
-      };
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  });
 }

@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export const KEY_UP = 'KEY_UP';
 export const KEY_DOWN = 'KEY_DOWN';
 export const KEY_LEFT = 'KEY_LEFT';
@@ -6,7 +8,7 @@ export const KEY_ENTER = 'KEY_ENTER';
 export const KEY_TAB = 'KEY_TAB';
 export const INVALID_KEY = 'INVALID_KEY';
 
-export function keyMapper(event: KeyboardEvent) {
+export function keyMapper(event: ChangeEvent<HTMLInputElement>) {
   const { keyCode } = event;
   if (keyCode === 37) {
     return KEY_LEFT;

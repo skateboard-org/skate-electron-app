@@ -1,4 +1,5 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
+import { BotType } from './allBotsDictionary';
 
 export type StateType = {
   counter: number;
@@ -11,7 +12,7 @@ export type StateType = {
   selectedParam: string;
   selectedResult: string;
   task: string;
-  skatePanel: [string];
+  skatePanel: [any];
 };
 
 export type GetState = () => StateType;

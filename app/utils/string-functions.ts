@@ -7,15 +7,19 @@ export function cleanString(str: string) {
 }
 
 interface SkateBoardTextComponents {
-  botString?: string;
-  paramString?: string;
+  botString: string;
+  paramString: string;
   result: string;
 }
 
 export function stringAnalysis(str: string): SkateBoardTextComponents {
   const cleanStr = cleanString(str);
   if (cleanStr === undefined || cleanStr.length === 0) {
-    return { result: INVALID_STRING_IN_SKATEBOARD };
+    return {
+      result: INVALID_STRING_IN_SKATEBOARD,
+      botString: '',
+      paramString: ''
+    };
   }
   const tokens = cleanStr.split(' ');
   if (cleanStr.startsWith('@')) {
@@ -28,14 +32,14 @@ export function stringAnalysis(str: string): SkateBoardTextComponents {
     }
     if (tokens.length === 1)
       return {
-        paramString: undefined,
+        paramString: '',
         botString: tokens[0],
         result: ONLY_BOT_PRESENT
       };
   }
   return {
     result: INVALID_STRING_IN_SKATEBOARD,
-    paramString: undefined,
-    botString: undefined
+    paramString: '',
+    botString: ''
   };
 }

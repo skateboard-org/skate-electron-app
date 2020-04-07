@@ -2,35 +2,51 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Board from '../components/Board';
 
-import { onSkateBoardTextUpdate, initState, onKeyDown } from '../actions/index';
+import {
+  initState,
+  executeCommand,
+  moveSelection,
+  chooseResult,
+  invalidCommand,
+  reset,
+  search,
+  updateSkateBoardText
+} from '../actions/index';
 
 import { StateType } from '../reducers/types';
 
 function mapStateToProps(state: StateType) {
   const {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
     searchResult,
+    selectedResult,
+    searchingFor,
+    allBotsDictionary,
+    allBotsNames,
     selectedParam,
-    selectedResult
+    skateBoardText
   } = state;
   return {
-    skateBoardText,
-    selectedBot,
-    searchingFor,
     searchResult,
+    selectedResult,
+    searchingFor,
+    allBotsDictionary,
+    allBotsNames,
     selectedParam,
-    selectedResult
+    skateBoardText
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      onSkateBoardTextUpdate,
-      onKeyDown,
-      initState
+      initState,
+      executeCommand,
+      moveSelection,
+      chooseResult,
+      invalidCommand,
+      reset,
+      search,
+      updateSkateBoardText
     },
     dispatch
   );

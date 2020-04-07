@@ -4,21 +4,36 @@ import { cleanString } from '../../utils/string-functions';
 import sleep from './sleep';
 import sound from './sound';
 
-export default function mac(param: string, callback: void): Command {
-  switch (cleanString(param)) {
-    case 'sleep':
-      sleep(callback);
-      return {
-        success: true
-      };
-    case 'sound':
-      sound();
-      return {
-        success: true
-      };
-    default:
-      return {
-        success: false
-      };
-  }
+function onSuccess() {
+  return {
+    success: true
+  };
+}
+
+function onError() {
+  return {
+    success: false
+  };
+}
+
+export default async function mac(
+  param: string,
+  callback: void
+): Promise<Command> {
+  return new Promise((resolve, reject) => {
+    switch (cleanString(param)) {
+      case 'sleep':
+        sleep(callback);
+        resolve();
+        break;
+      case 'sound':
+        sound();
+        resolve();
+        break;
+      default:
+        reject();
+    }
+  })
+    .then(onSuccess)
+    .catch(onError);
 }
