@@ -1,5 +1,4 @@
 import { Action } from 'redux';
-import allBots from '../data/bots';
 import { LOAD_BOTS } from '../actions/actions';
 
 export interface BotType {
@@ -27,6 +26,7 @@ export default function allBotsDictionary(
   switch (action.type) {
     case LOAD_BOTS: {
       const myAllBotsDictionary: Map<string, BotType> = new Map();
+      const { allBots } = action.payload;
 
       allBots.forEach(bot => {
         const newBot: BotType = {
