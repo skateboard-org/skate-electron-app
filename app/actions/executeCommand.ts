@@ -19,9 +19,15 @@ export default function executeCommand(botName: string, botParam: string) {
     app(botParam)
       .then(res => {
         console.log(res);
+        if (res.success) {
+          return dispatch({
+            type: EXECUTION_COMPLETED,
+            payload: { res: res || {} }
+          });
+        }
         return dispatch({
-          type: EXECUTION_COMPLETED,
-          payload: { res }
+          type: EXECUTION_FAILED,
+          payload: { res: res || {} }
         });
       })
       .catch(error => {

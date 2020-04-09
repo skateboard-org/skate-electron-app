@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import styles from './Skate.scss';
+import styles from './Board.scss';
 
 import {
   keyMapper,

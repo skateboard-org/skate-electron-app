@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Panel.scss';
 
 type Props = {
   skatePanel: any[];
@@ -8,8 +9,14 @@ export default function Skate(props: Props) {
   const { skatePanel } = props;
 
   const columns = skatePanel.map((item, idx) => (
-    <div key={idx} className="column">
-      <img alt="gif" src={item.src} />
+    <div key={idx} className={styles.imgContainer}>
+      <img
+        alt="gif"
+        src={item.src}
+        className={styles.imgElement}
+        width={item.width}
+        height={item.height}
+      />
     </div>
   ));
 
@@ -32,7 +39,7 @@ export default function Skate(props: Props) {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div>
-      <div className="container is-clipped">{columns}</div>
+      <div className={styles.imgGallery}>{columns}</div>
     </div>
   );
 }

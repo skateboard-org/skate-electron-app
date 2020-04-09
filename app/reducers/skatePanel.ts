@@ -3,7 +3,8 @@ import { Action } from 'redux';
 import {
   EXECUTION_STARTED,
   EXECUTION_COMPLETED,
-  EXECUTION_FAILED
+  EXECUTION_FAILED,
+  RESET
 } from '../actions/actions';
 
 export default function skatePanel(state = [], action: Action<string>) {
@@ -12,9 +13,15 @@ export default function skatePanel(state = [], action: Action<string>) {
       return [];
     }
     case EXECUTION_COMPLETED: {
-      return action.payload.res || state;
+      if (action.payload.res.success) {
+        return action.payload.res.data || [];
+      }
+      break;
     }
     case EXECUTION_FAILED: {
+      return [];
+    }
+    case RESET: {
       return [];
     }
     default:
