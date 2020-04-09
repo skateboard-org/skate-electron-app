@@ -1,4 +1,16 @@
-import { ListOfGifs } from './types';
+export enum TypesName {
+  Text = 'Text',
+  ListOfImages = 'ListOfImages',
+  ListOfGifs = 'ListOfGifs',
+  ListOfLinks = 'ListOfLinks',
+  ListOfText = 'ListOfText'
+}
+
+export interface ErrorType {
+  success: boolean;
+  type: string;
+  error: string;
+}
 
 export interface ListOfImages {
   data: [string];

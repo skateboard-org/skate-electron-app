@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TypesName } from '../types';
 
 interface requestParameters {
   api_key: string;
@@ -41,11 +42,16 @@ export default async function giphy(searchTerm: string): any {
           data,
           success: true,
           error: undefined,
-          type: 'ListOfGifs'
+          type: TypesName.ListOfGifs
         });
       })
       .catch(error => {
-        return reject({ data: undefined, success: false, error });
+        return reject({
+          data: undefined,
+          success: false,
+          error,
+          type: TypesName.ListOfGifs
+        });
       });
   });
 }
