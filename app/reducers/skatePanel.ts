@@ -14,7 +14,9 @@ export default function skatePanel(state = [], action: Action<string>) {
     }
     case EXECUTION_COMPLETED: {
       if (action.payload.res.success) {
-        return action.payload.res.data || [];
+        return (
+          { data: action.payload.res.data, type: action.payload.res.type } || []
+        );
       }
       break;
     }
@@ -27,4 +29,5 @@ export default function skatePanel(state = [], action: Action<string>) {
     default:
       return state;
   }
+  return state;
 }

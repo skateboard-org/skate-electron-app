@@ -121,13 +121,13 @@ export default function Skate(props: Props) {
         }
       }
     } else if (keyPressed === KEY_ENTER) {
-      const { result, botString, paramString } = strfn.stringAnalysis(
-        event.target.value
-      );
+      const stringAnalysis = strfn.stringAnalysis(event.target.value);
+      console.log(stringAnalysis);
+      const { result, botString, paramString } = stringAnalysis;
       switch (result) {
         case strfn.ONLY_BOT_PRESENT: {
-          if (searchResult.indexOf(botString) > -1) {
-            // IF THE BOTSTRING IS A BOT AVAILABLE IN THE SEARCH RESULTS
+          if (allBotsNames.indexOf(botString) > -1) {
+            // IF THE BOTSTRING IS A BOT AVAILABLE IN THE LISTS OF BOTS
             // CHECK IF IT REQUIRES PARAMETER IF NOT EXECUTE
             const bot = allBotsDictionary.get(botString);
             if (bot?.parameterEnabled) {

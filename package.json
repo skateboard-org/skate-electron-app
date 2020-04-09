@@ -294,7 +294,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.16",
-    "typesafe-actions": "^5.1.0"
+    "typesafe-actions": "^5.1.0",
+    "unsplash-js": "^6.0.0"
   },
   "devEngines": {
     "node": ">=7.x",

@@ -5,10 +5,8 @@ type Props = {
   skatePanel: any[];
 };
 
-export default function Skate(props: Props) {
-  const { skatePanel } = props;
-
-  const columns = skatePanel.map((item, idx) => (
+function listOfImages(data) {
+  const items = data.map((item, idx) => (
     <div key={idx} className={styles.imgContainer}>
       <img
         alt="gif"
@@ -19,6 +17,32 @@ export default function Skate(props: Props) {
       />
     </div>
   ));
+  return <div className={styles.imgGallery}>{items}</div>;
+}
+
+function text(data) {
+  return <div className={styles.textContainer}>{data}</div>;
+}
+
+function contentTypeMapper(data: any, type: string) {
+  switch (type) {
+    case 'ListOfGifs': {
+      return listOfImages(data);
+    }
+    case 'ListOfImages': {
+      return listOfImages(data);
+    }
+    case 'Text':
+      return text(data);
+    default:
+      return null;
+  }
+}
+
+export default function Skate(props: Props) {
+  const { skatePanel } = props;
+
+  const content = contentTypeMapper(skatePanel.data, skatePanel.type);
 
   // let rows;
 
@@ -39,7 +63,7 @@ export default function Skate(props: Props) {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div>
-      <div className={styles.imgGallery}>{columns}</div>
+      <div className={styles.content}>{content}</div>
     </div>
   );
 }

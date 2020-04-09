@@ -37,7 +37,12 @@ export default async function giphy(searchTerm: string): any {
             width: gif.images.preview_webp.width
           };
         });
-        return resolve({ data, success: true, error: undefined });
+        return resolve({
+          data,
+          success: true,
+          error: undefined,
+          type: 'ListOfGifs'
+        });
       })
       .catch(error => {
         return reject({ data: undefined, success: false, error });

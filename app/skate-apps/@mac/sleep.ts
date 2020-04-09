@@ -15,6 +15,7 @@ export default function sleep(): Command {
   });
 
   return {
-    success: true
+    success: true,
+    type: 'Command'
   };
 }

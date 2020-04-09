@@ -1,3 +1,5 @@
+import { ListOfGifs } from './types';
+
 export interface ListOfImages {
   data: [string];
   success: boolean;
@@ -24,4 +26,11 @@ export interface Text {
 
 export interface Command {
   success: boolean;
+  type: string;
+}
+
+export interface Response {
+  success: boolean;
+  data: ListOfImages | ListOfGifs | ListOfLinks | Text | Command | undefined;
+  error: Error;
 }

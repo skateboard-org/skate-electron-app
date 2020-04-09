@@ -1,5 +1,5 @@
 import { LOAD_BOT_NAMES, LOAD_BOTS } from './actions';
-import allBots from '../data/bots';
+import allBots from '../skate-apps/bots';
 
 import { GetState, Dispatch } from '../reducers/types';
 
