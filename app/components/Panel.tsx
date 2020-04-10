@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './Panel.scss';
+import { copyText, copyImageFromUrl } from '../utils/clipboard';
+import { TypesName } from '../skate-apps/types';
 
 type Props = {
   skatePanel: any[];
 };
+
+function copyContent(content) {
+  copyText(content);
+}
 
 function listOfImages(data) {
   const items = data.map((item, idx) => (
@@ -15,24 +21,52 @@ function listOfImages(data) {
         width={item.width}
         height={item.height}
       />
+      <button
+        type="button"
+        onClick={() => copyImageFromUrl(item.src)}
+        className={`button ${styles.copyBtn}`}
+      >
+        Copy Image
+      </button>
     </div>
   ));
   return <div className={styles.imgGallery}>{items}</div>;
 }
 
 function text(data) {
-  return <div className={styles.textContainer}>{data}</div>;
+  return (
+    <div className={styles.textContainer}>
+      <p>{data}</p>
+      <button
+        type="button"
+        onClick={() => copyContent(data)}
+        className={`button ${styles.copyBtn}`}
+      >
+        Copy Text
+      </button>
+    </div>
+  );
+}
+
+function listOfLinks(data) {
+  const links = data.map(link => {
+    return link;
+  });
+  return links;
 }
 
 function contentTypeMapper(data: any, type: string) {
   switch (type) {
-    case 'ListOfGifs': {
+    case TypesName.ListOfImages: {
       return listOfImages(data);
     }
-    case 'ListOfImages': {
+    case TypesName.ListOfGifs: {
       return listOfImages(data);
     }
-    case 'Text':
+    case TypesName.ListOfLinks: {
+      return listOfLinks(data);
+    }
+    case TypesName.Text:
       return text(data);
     default:
       return null;
