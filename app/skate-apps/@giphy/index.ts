@@ -33,9 +33,9 @@ export default async function giphy(searchTerm: string): any {
         const data = res.data.data.map((gif: any) => {
           return {
             id: gif.id,
-            src: gif.images.preview_webp.url,
-            height: gif.images.preview_webp.height,
-            width: gif.images.preview_webp.width
+            src: gif.images.preview_gif.url,
+            height: gif.images.preview_gif.height,
+            width: gif.images.preview_gif.width
           };
         });
         return resolve({

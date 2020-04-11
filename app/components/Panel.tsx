@@ -7,33 +7,73 @@ type Props = {
   skatePanel: any[];
 };
 
-function copyContent(content) {
+function copyContent(content: string) {
   copyText(content);
 }
 
-function listOfImages(data) {
-  const items = data.map((item, idx) => (
-    <div key={idx} className={styles.imgContainer}>
-      <img
-        alt="gif"
-        src={item.src}
-        className={styles.imgElement}
-        width={item.width}
-        height={item.height}
-      />
-      <button
-        type="button"
-        onClick={() => copyImageFromUrl(item.src)}
-        className={`button ${styles.copyBtn}`}
-      >
-        Copy Image
-      </button>
-    </div>
-  ));
+function ListOfGifs(data: any[]) {
+  const items = data.map(
+    (
+      item: {
+        src: string | undefined;
+        width: string | number | undefined;
+        height: string | number | undefined;
+      },
+      idx: string | number | undefined
+    ) => (
+      <div key={idx} className={styles.imgContainer}>
+        <img
+          alt="gif"
+          src={item.src}
+          className={styles.imgElement}
+          width={item.width}
+          height={item.height}
+        />
+        <button
+          type="button"
+          onClick={() => copyImageFromUrl(item.src)}
+          className={`button ${styles.copyBtn}`}
+        >
+          Copy Image
+        </button>
+      </div>
+    )
+  );
   return <div className={styles.imgGallery}>{items}</div>;
 }
 
-function text(data) {
+function listOfImages(data: any[]) {
+  const items = data.map(
+    (
+      item: {
+        src: string | undefined;
+        width: string | number | undefined;
+        height: string | number | undefined;
+      },
+      idx: string | number | undefined
+    ) => (
+      <div key={idx} className={styles.imgContainer}>
+        <img
+          alt="gif"
+          src={item.src}
+          className={styles.imgElement}
+          width={item.width}
+          height={item.height}
+        />
+        <button
+          type="button"
+          onClick={() => copyImageFromUrl(item.src)}
+          className={`button ${styles.copyBtn}`}
+        >
+          Copy Image
+        </button>
+      </div>
+    )
+  );
+  return <div className={styles.imgGallery}>{items}</div>;
+}
+
+function text(data: string) {
   return (
     <div className={styles.textContainer}>
       <p>{data}</p>
@@ -48,8 +88,8 @@ function text(data) {
   );
 }
 
-function listOfLinks(data) {
-  const links = data.map(link => {
+function listOfLinks(data: any[]) {
+  const links = data.map((link: any) => {
     return link;
   });
   return links;
@@ -61,7 +101,7 @@ function contentTypeMapper(data: any, type: string) {
       return listOfImages(data);
     }
     case TypesName.ListOfGifs: {
-      return listOfImages(data);
+      return ListOfGifs(data);
     }
     case TypesName.ListOfLinks: {
       return listOfLinks(data);
@@ -77,22 +117,6 @@ export default function Skate(props: Props) {
   const { skatePanel } = props;
 
   const content = contentTypeMapper(skatePanel.data, skatePanel.type);
-
-  // let rows;
-
-  // columns.forEach((element, idx) => {
-  //   if ((idx + 1) % 3 === 0) {
-  //     rows.push(
-  //       <div key={`gif-row-${idx}`} className="columns">
-  //         {element}
-  //         {columns[idx - 1]}
-  //         {columns[idx - 2]}
-  //       </div>
-  //     );
-  //   } else if (columns.length % idx < 3) {
-  //     rows.push(element);
-  //   }
-  // });
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
