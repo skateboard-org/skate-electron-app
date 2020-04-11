@@ -1,18 +1,21 @@
-import { Command } from '../types';
+import { Command, TypesName } from '../types';
 
 import { cleanString } from '../../utils/string-functions';
 import sleep from './sleep';
 import sound from './sound';
+import hideWindow from './hide';
 
-function onSuccess() {
+function onSuccess(): Command {
   return {
-    success: true
+    success: true,
+    type: TypesName.Command
   };
 }
 
-function onError() {
+function onError(): Command {
   return {
-    success: false
+    success: false,
+    type: TypesName.Command
   };
 }
 
@@ -28,6 +31,10 @@ export default async function mac(
         break;
       case 'sound':
         sound();
+        resolve();
+        break;
+      case 'hide':
+        hideWindow();
         resolve();
         break;
       default:

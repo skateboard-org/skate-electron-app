@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -23,6 +23,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+let isAppHidden: boolean;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -73,25 +74,74 @@ const createWindow = async () => {
             preload: path.join(__dirname, 'dist/renderer.prod.js')
           }
   });
-
+  mainWindow.hide();
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
+
+  const hideMainWindow = () => {
+    if (!isAppHidden) {
+      mainWindow?.webContents.send('window-did-hide');
+      console.log('Hide app!');
+      isAppHidden = true;
+      mainWindow?.hide();
+    }
+  };
+
+  const showMainWindow = () => {
+    if (isAppHidden) {
+      console.log('Show app!');
+      mainWindow?.webContents.send('window-did-show');
+      mainWindow?.show();
+      mainWindow?.focus();
+      isAppHidden = false;
+    }
+  };
+
+  const toggleMainWindow = () => {
+    if (isAppHidden) {
+      showMainWindow();
+    } else {
+      hideMainWindow();
+    }
+  };
+
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    if (process.env.START_MINIMIZED) {
-      mainWindow.minimize();
-    } else {
-      mainWindow.show();
-      mainWindow.focus();
-    }
+    isAppHidden = true;
+    globalShortcut.register('Option+Space', () => {
+      console.log('Skate Toggle Key Pressed!');
+      toggleMainWindow();
+    });
+    globalShortcut.register('Escape', () => {
+      console.log('Skate Toggle Key Pressed!');
+      hideMainWindow();
+    });
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+
+  mainWindow.on('close', event => {
+    event.preventDefault();
+    hideMainWindow();
+  });
+
+  mainWindow.on('blur', () => {
+    hideMainWindow();
+  });
+
+  ipcMain.on('hide-main-window', () => {
+    hideMainWindow();
+  });
+
+  ipcMain.on('show-main-window', () => {
+    if (mainWindow === null) createWindow();
+    else showMainWindow();
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
@@ -124,3 +174,5 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+// eslint-disable-next-line promise/catch-or-return

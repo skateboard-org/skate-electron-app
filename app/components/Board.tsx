@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, Component } from 'react';
 import styles from './Board.scss';
 
 import {
@@ -10,9 +10,13 @@ import {
   KEY_TAB
 } from '../utils/keys';
 
-import { isCursorAtTheEnd } from '../utils/caret';
-
 import * as strfn from '../utils/string-functions';
+import { isCursorAtTheEnd } from '../utils/caret';
+import { BotType } from '../reducers/allBotsDictionary';
+
+type BoardState = {
+  skateBoardText2: string;
+};
 
 type Props = {
   initState: () => void;
@@ -37,28 +41,42 @@ type Props = {
   skateBoardText: string;
 };
 
-export default function Skate(props: Props) {
-  const {
-    initState,
-    searchResult,
-    selectedResult,
-    executeCommand,
-    moveSelection,
-    chooseResult,
-    invalidCommand,
-    searchingFor,
-    allBotsDictionary,
-    allBotsNames,
-    selectedParam,
-    skateBoardText,
-    updateSkateBoardText,
-    search,
-    reset
-  } = props;
+export default class Skate extends Component<Props, BoardState> {
+  skateBoardInputRef: React.RefObject<HTMLInputElement>;
 
-  initState();
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      skateBoardText2: 'hello'
+    };
+    this.skateBoardInputRef = React.createRef<HTMLInputElement>();
+  }
 
-  function onTextUpdate(newText: string) {
+  componentDidMount() {
+    const { initState } = this.props;
+    initState();
+
+    // Attach callback to event listener
+  }
+
+  focusSkateBoard = () => {
+    if (this.skateBoardInputRef.current) {
+      console.log('focused');
+      this.skateBoardInputRef.current.focus();
+    }
+  };
+
+  onTextUpdate = (newText: string) => {
+    const {
+      invalidCommand,
+      searchingFor,
+      allBotsDictionary,
+      allBotsNames,
+      updateSkateBoardText,
+      search,
+      reset
+    } = this.props;
+
     updateSkateBoardText(newText);
 
     if (newText.length === 0) {
@@ -99,9 +117,21 @@ export default function Skate(props: Props) {
       default:
         break;
     }
-  }
+  };
 
-  function onKeyDown(event: ChangeEvent<HTMLInputElement>) {
+  onKeyDown = (event: ChangeEvent<HTMLInputElement>) => {
+    const {
+      searchResult,
+      selectedResult,
+      executeCommand,
+      moveSelection,
+      chooseResult,
+      invalidCommand,
+      allBotsDictionary,
+      allBotsNames,
+      selectedParam
+    } = this.props;
+
     const keyPressed = keyMapper(event);
 
     if (keyPressed === KEY_UP) {
@@ -171,24 +201,28 @@ export default function Skate(props: Props) {
           break;
       }
     }
-  }
+  };
 
-  return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div>
-      <div className="container is-clipped">
-        <div className={`${styles.skate}`} data-tid="skate">
-          <input
-            onKeyDown={e => onKeyDown(e)}
-            id="skateBoard"
-            type="text"
-            value={skateBoardText}
-            className={`input ${styles.skateBoard}`}
-            data-tid="skateBoard"
-            onChange={e => onTextUpdate(e.target.value)}
-          />
+  render() {
+    const { skateBoardText } = this.props;
+
+    return (
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+      <div>
+        <div className="container is-clipped">
+          <div className={`${styles.skateBoardContainer}`} data-tid="skate">
+            <input
+              onKeyDown={e => this.onKeyDown(e)}
+              id="skateBoard"
+              type="text"
+              value={skateBoardText}
+              className={`input ${styles.skateBoard}`}
+              data-tid="skateBoard"
+              onChange={e => this.onTextUpdate(e.target.value)}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
