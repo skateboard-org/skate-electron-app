@@ -114,7 +114,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  app.dock.hide();
+  createWindow();
+});
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
