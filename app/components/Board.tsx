@@ -14,9 +14,7 @@ import * as strfn from '../utils/string-functions';
 import { isCursorAtTheEnd } from '../utils/caret';
 import { BotType } from '../reducers/allBotsDictionary';
 
-type BoardState = {
-  skateBoardText2: string;
-};
+type BoardState = {};
 
 type Props = {
   initState: () => void;
@@ -46,9 +44,7 @@ export default class Skate extends Component<Props, BoardState> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {
-      skateBoardText2: 'hello'
-    };
+    this.state = {};
     this.skateBoardInputRef = React.createRef<HTMLInputElement>();
   }
 
@@ -72,6 +68,7 @@ export default class Skate extends Component<Props, BoardState> {
       searchingFor,
       allBotsDictionary,
       allBotsNames,
+      chooseResult,
       updateSkateBoardText,
       search,
       reset
@@ -103,7 +100,7 @@ export default class Skate extends Component<Props, BoardState> {
 
       case strfn.BOT_AND_PARAM_PRESENT: {
         const bot = allBotsDictionary.get(botString);
-        if (bot.name !== undefined && paramString !== undefined) {
+        if (bot?.name !== undefined && paramString !== undefined) {
           // if (['one', 'two', 'three'].indexOf(paramString) === -1) {
           search('params', paramString, bot.typeAheadOptions);
         }
