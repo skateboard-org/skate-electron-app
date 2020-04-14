@@ -7,7 +7,7 @@ export default function Skate() {
   return (
     <div>
       <div className="columns>">
-        <div className="column is-12">
+        <div className="column is-12 is-paddingless">
           <SkateBoard />
         </div>
         <div className="column is-6 is-mobile">

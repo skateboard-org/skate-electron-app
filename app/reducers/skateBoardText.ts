@@ -1,5 +1,9 @@
 import { Action } from 'redux';
-import { UPDATE_SKATEBOARD_TEXT, CHOOSE_RESULT } from '../actions/actions';
+import {
+  RESET,
+  UPDATE_SKATEBOARD_TEXT,
+  CHOOSE_RESULT
+} from '../actions/actions';
 
 export default function skateBoardText(state = '', action: Action<string>) {
   switch (action.type) {
@@ -15,7 +19,9 @@ export default function skateBoardText(state = '', action: Action<string>) {
         return `${action.payload.selectedBotIfAny} ${action.payload.selectedResult}`;
       }
       return state;
-
+    case RESET: {
+      return '';
+    }
     default:
       return state;
   }

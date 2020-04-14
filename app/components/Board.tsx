@@ -1,5 +1,4 @@
 import React, { ChangeEvent, Component } from 'react';
-import styles from './Board.scss';
 
 import {
   keyMapper,
@@ -11,10 +10,16 @@ import {
 } from '../utils/keys';
 
 import * as strfn from '../utils/string-functions';
-import { isCursorAtTheEnd } from '../utils/caret';
+import {
+  isCursorAtTheEnd,
+  setCaretPosition,
+  getCaretPosition
+} from '../utils/caret';
 import { BotType } from '../reducers/allBotsDictionary';
 
-type BoardState = {};
+type BoardState = {
+  placeholder: string;
+};
 
 type Props = {
   initState: () => void;
@@ -44,22 +49,26 @@ export default class Skate extends Component<Props, BoardState> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {};
+    this.state = {
+      placeholder: 'Type Your Command'
+    };
     this.skateBoardInputRef = React.createRef<HTMLInputElement>();
   }
 
   componentDidMount() {
     const { initState } = this.props;
     initState();
-
+    this.focusInputField();
     // Attach callback to event listener
   }
 
-  focusSkateBoard = () => {
-    if (this.skateBoardInputRef.current) {
-      console.log('focused');
-      this.skateBoardInputRef.current.focus();
-    }
+  focusInputField = () => {
+    console.log('focused');
+  };
+
+  selectAllText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { end, id } = getCaretPosition(event);
+    setCaretPosition(id, 0, end);
   };
 
   onTextUpdate = (newText: string) => {
@@ -73,6 +82,10 @@ export default class Skate extends Component<Props, BoardState> {
       search,
       reset
     } = this.props;
+
+    if (newText === ' ' || newText === '@ ') {
+      return;
+    }
 
     updateSkateBoardText(newText);
 
@@ -202,20 +215,23 @@ export default class Skate extends Component<Props, BoardState> {
 
   render() {
     const { skateBoardText } = this.props;
+    const { placeholder } = this.state;
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div>
-        <div className="container is-clipped">
-          <div className={`${styles.skateBoardContainer}`} data-tid="skate">
+        <div className="is-clipped">
+          <div className="skateBoardContainer" data-tid="skate">
             <input
               onKeyDown={e => this.onKeyDown(e)}
               id="skateBoard"
               type="text"
               value={skateBoardText}
-              className={`input ${styles.skateBoard}`}
+              className="input skateBoard"
               data-tid="skateBoard"
               onChange={e => this.onTextUpdate(e.target.value)}
+              placeholder={placeholder}
+              onBlur={e => this.selectAllText(e)}
             />
           </div>
         </div>

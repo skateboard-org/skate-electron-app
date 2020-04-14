@@ -14,10 +14,6 @@ export default function Navbar() {
       <Link className="navbar-item" to={routes.COUNTER}>
         Counter
       </Link>
-
-      <Link className="navbar-item" to={routes.SKATE}>
-        Skate
-      </Link>
     </nav>
   );
 }

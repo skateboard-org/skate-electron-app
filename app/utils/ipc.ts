@@ -12,6 +12,6 @@ export function windowDidHide(callback: () => void): void {
   });
 }
 
-export function hideMainWindor(): void {
+export function hideMainWindow(): void {
   ipcRenderer.send('hide-main-window');
 }

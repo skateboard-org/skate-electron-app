@@ -1,25 +1,27 @@
 import { ChangeEvent } from 'react';
 
-export function getCaretPosition(id: string) {
+export function getCaretPosition(
+  event: ChangeEvent<HTMLInputElement>
+): { start: number; end: number; id: string } {
+  const { id } = event.currentTarget;
   const element = document.getElementById(id) as HTMLInputElement;
   if (element.selectionStart || element.selectionStart === 0) {
     return {
       start: element.selectionStart,
-      end: element.selectionEnd
+      end: element.selectionEnd || 0,
+      id
     };
   }
   return {
     start: 0,
-    end: 0
+    end: 0,
+    id
   };
 }
 
-export function setCaretPosition(
-  element: HTMLInputElement,
-  start: number,
-  end: number
-) {
+export function setCaretPosition(id: string, start: number, end: number) {
   // IE >= 9 and other browsers
+  const element = document.getElementById(id) as HTMLInputElement;
   element.focus();
   element.setSelectionRange(start, end);
 }
