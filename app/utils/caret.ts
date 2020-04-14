@@ -37,7 +37,7 @@ export function insertText(
 }
 
 export function isCursorAtTheEnd(event: ChangeEvent<HTMLInputElement>) {
-  const positions = getCaretPosition(event.currentTarget.id);
+  const positions = getCaretPosition(event);
   if (positions.start === positions.end) {
     if (positions.end === event.target.value.length) {
       return true;
