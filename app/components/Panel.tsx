@@ -5,6 +5,7 @@ import { TypesName } from '../skate-apps/types';
 
 type Props = {
   skatePanel: any[];
+  botResponseType: string;
 };
 
 function copyContent(content: string) {
@@ -114,14 +115,19 @@ function contentTypeMapper(data: any, type: string) {
 }
 
 export default function Panel(props: Props) {
-  const { skatePanel } = props;
+  const { skatePanel, botResponseType } = props;
 
-  const content = contentTypeMapper(skatePanel.data, skatePanel.type);
+  if (botResponseType && botResponseType !== '') {
+    if (skatePanel && skatePanel.length > 0) {
+      const content = contentTypeMapper(skatePanel, botResponseType);
 
-  return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className="column is-6">
-      <div className={styles.content}>{content}</div>
-    </div>
-  );
+      return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div className="column is-equal">
+          <div className={styles.content}>{content}</div>
+        </div>
+      );
+    }
+  }
+  return null;
 }

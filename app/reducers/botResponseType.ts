@@ -7,22 +7,22 @@ import {
   RESET
 } from '../actions/actions';
 
-export default function skatePanel(state = [], action: Action<string>) {
+export default function botResponseType(state = '', action: Action<string>) {
   switch (action.type) {
     case EXECUTION_STARTED: {
-      return [];
+      return '';
     }
     case EXECUTION_COMPLETED: {
       if (action.payload.res.success) {
-        return action.payload.res.data;
+        return action.payload.res.type;
       }
-      return [];
+      return '';
     }
     case EXECUTION_FAILED: {
-      return [];
+      return '';
     }
     case RESET: {
-      return [];
+      return '';
     }
     default:
       return state;

@@ -13,6 +13,7 @@ import selectedParam from './selectedParam';
 import selectedResult from './selectedResult';
 import task from './task';
 import skatePanel from './skatePanel';
+import botResponseType from './botResponseType';
 
 export default function createRootReducer(history: History) {
   return combineReducers({
@@ -27,6 +28,7 @@ export default function createRootReducer(history: History) {
     selectedParam,
     selectedResult,
     task,
-    skatePanel
+    skatePanel,
+    botResponseType
   });
 }

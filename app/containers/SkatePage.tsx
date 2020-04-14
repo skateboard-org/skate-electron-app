@@ -5,7 +5,7 @@ import SkateBoard from './SkateBoard';
 
 export default function Skate() {
   return (
-    <div className="container">
+    <div className="container is-fullhd">
       <div className="columns is-mobile">
         <SkateBoard />
       </div>

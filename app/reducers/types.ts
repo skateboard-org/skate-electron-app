@@ -13,6 +13,7 @@ export type StateType = {
   selectedResult: string;
   task: string;
   skatePanel: [any];
+  botResponseType: string;
 };
 
 export type GetState = () => StateType;

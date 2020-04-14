@@ -50,7 +50,7 @@ export default class Board extends Component<Props, BoardState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      placeholder: 'Type Your Command'
+      placeholder: 'Type @ to begin'
     };
     this.skateBoardInputRef = React.createRef<HTMLInputElement>();
   }
@@ -141,6 +141,7 @@ export default class Board extends Component<Props, BoardState> {
       allBotsNames,
       selectedParam
     } = this.props;
+    console.log(allBotsDictionary);
 
     const keyPressed = keyMapper(event);
 
@@ -226,8 +227,8 @@ export default class Board extends Component<Props, BoardState> {
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className="column is-12 board-padding">
-        <div className="is-clipped">
+      <div className="column is-12">
+        <div className="is-clipped board-padding">
           <div className="skateBoardContainer" data-tid="skate">
             <input
               onKeyDown={e => this.onKeyDown(e)}
