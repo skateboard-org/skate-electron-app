@@ -1,23 +1,16 @@
-.content {
+.option-container {
+  margin-bottom: 0.5rem;
+  border-radius: 20px;
 }
 
-.imgGallery {
-  line-height: 0;
-  column-count: 5;
-  column-gap: 5px;
+.option {
+  padding: 0.5rem;
 }
 
-.imgContainer {
-  margin-bottom: 5px;
+.options-padding {
+  padding-left: 1.5rem;
 }
 
-.imgElement {
-  width: 100% !important;
-  height: auto !important;
-}
-
-.textContainer {
-}
-
-.copyBtn {
+.option-tip {
+  margin-right: 0.75rem;
 }

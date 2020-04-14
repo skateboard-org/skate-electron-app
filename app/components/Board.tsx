@@ -44,7 +44,7 @@ type Props = {
   skateBoardText: string;
 };
 
-export default class Skate extends Component<Props, BoardState> {
+export default class Board extends Component<Props, BoardState> {
   skateBoardInputRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Props) {
@@ -153,10 +153,17 @@ export default class Skate extends Component<Props, BoardState> {
     } else if (keyPressed === KEY_RIGHT || keyPressed === KEY_TAB) {
       if (isCursorAtTheEnd(event)) {
         event.preventDefault();
-        if (selectedResult === '' || selectedResult === undefined) {
+        if (
+          (selectedResult === '' || selectedResult === undefined) &&
+          searchResult.length > 0
+        ) {
           chooseResult(0);
         }
-        if (selectedResult !== '' && typeof selectedResult === 'string') {
+        if (
+          selectedResult !== '' &&
+          typeof selectedResult === 'string' &&
+          searchResult.length > 0
+        ) {
           chooseResult();
         }
       }
@@ -219,7 +226,7 @@ export default class Skate extends Component<Props, BoardState> {
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div>
+      <div className="column is-12 board-padding">
         <div className="is-clipped">
           <div className="skateBoardContainer" data-tid="skate">
             <input

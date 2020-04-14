@@ -113,14 +113,14 @@ function contentTypeMapper(data: any, type: string) {
   }
 }
 
-export default function Skate(props: Props) {
+export default function Panel(props: Props) {
   const { skatePanel } = props;
 
   const content = contentTypeMapper(skatePanel.data, skatePanel.type);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div>
+    <div className="column is-6">
       <div className={styles.content}>{content}</div>
     </div>
   );
