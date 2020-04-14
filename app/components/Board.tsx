@@ -16,6 +16,7 @@ import {
   getCaretPosition
 } from '../utils/caret';
 import { BotType } from '../reducers/allBotsDictionary';
+import { contractWindow, expandWindow } from '../utils/window';
 
 type BoardState = {
   placeholder: string;
@@ -141,7 +142,6 @@ export default class Board extends Component<Props, BoardState> {
       allBotsNames,
       selectedParam
     } = this.props;
-    console.log(allBotsDictionary);
 
     const keyPressed = keyMapper(event);
 
@@ -224,24 +224,24 @@ export default class Board extends Component<Props, BoardState> {
   render() {
     const { skateBoardText } = this.props;
     const { placeholder } = this.state;
-
+    if (skateBoardText.length > 0) {
+      expandWindow();
+    } else contractWindow();
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className="column is-12">
-        <div className="is-clipped board-padding">
-          <div className="skateBoardContainer" data-tid="skate">
-            <input
-              onKeyDown={e => this.onKeyDown(e)}
-              id="skateBoard"
-              type="text"
-              value={skateBoardText}
-              className="input skateBoard"
-              data-tid="skateBoard"
-              onChange={e => this.onTextUpdate(e.target.value)}
-              placeholder={placeholder}
-              onBlur={e => this.selectAllText(e)}
-            />
-          </div>
+      <div className="column is-12 board-padding">
+        <div className="skateBoardContainer" data-tid="skate">
+          <input
+            onKeyDown={e => this.onKeyDown(e)}
+            id="skateBoard"
+            type="text"
+            value={skateBoardText}
+            className="input skateBoard"
+            data-tid="skateBoard"
+            onChange={e => this.onTextUpdate(e.target.value)}
+            placeholder={placeholder}
+            onBlur={e => this.selectAllText(e)}
+          />
         </div>
       </div>
     );
