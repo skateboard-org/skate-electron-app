@@ -3,6 +3,7 @@ import temp from 'temp';
 import path from 'path';
 import downloadImage from './download-image';
 import { hideMainWindow } from './ipc';
+import { TypesName } from '../skate-apps/types';
 
 export function copyText(text: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -17,7 +18,6 @@ export function pasteText(): string {
 }
 
 export async function copyImageFromUrl(url: string): Promise<void> {
-  console.log(url);
   temp.track();
   await temp.mkdir('clipboard-temp-data', async function callback(
     err: any,
@@ -47,20 +47,30 @@ export function copyContent(
       contentType === TypesName.Text ||
       contentType === TypesName.ListOfText
     ) {
-      return resolve(copyText(content));
+      copyText(content);
+      return resolve();
     }
     if (
       contentType === TypesName.ListOfImages ||
       contentType === TypesName.ListOfGifs
     ) {
-      return resolve(copyImageFromUrl(content));
+      copyImageFromUrl(content);
+      return resolve();
     }
     reject();
   });
 }
 
-export function copyAndCleanExit(content: string, contentType: string) {
-  copyContent(content, contentType)
-    .then(() => hideMainWindow())
-    .catch(() => console.log('Couldnt Hide Window'));
+export function copyAndExit(content: string, contentType: string) {
+  return new Promise((resolve, reject) => {
+    copyContent(content, contentType)
+      .then(() => {
+        hideMainWindow();
+        return resolve();
+      })
+      .catch(() => {
+        console.log('copyConent not working');
+        reject();
+      });
+  });
 }

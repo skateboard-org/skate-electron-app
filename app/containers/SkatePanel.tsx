@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Panel from '../components/Panel';
 
-import { initState } from '../actions/index';
+import { reset } from '../actions/index';
 
 import { StateType } from '../reducers/types';
 
@@ -17,7 +17,7 @@ function mapStateToProps(state: StateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      initState
+      reset
     },
     dispatch
   );

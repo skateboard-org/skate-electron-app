@@ -10,7 +10,6 @@ export default async function downloadImage(
       dest,
       extractFilename: false
     });
-    console.log(filename); // => /path/to/dest/image.jpg
     return filename;
   } catch (e) {
     console.error(e);

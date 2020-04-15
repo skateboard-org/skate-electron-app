@@ -1,45 +1,25 @@
 import React from 'react';
 import styles from './Panel.scss';
-import { copyAndCleanExit } from '../utils/clipboard';
+import { copyAndExit } from '../utils/clipboard';
 import { TypesName } from '../skate-apps/types';
 
 type Props = {
   skatePanel: any[];
   botResponseType: string;
+  reset: () => void;
 };
 
-function ListOfGifs(data: any[]) {
-  const items = data.map(
-    (
-      item: {
-        src: string | undefined;
-        width: string | number | undefined;
-        height: string | number | undefined;
-      },
-      idx: string | number | undefined
-    ) => (
-      <div key={idx} className={styles.imgContainer}>
-        <img
-          alt="gif"
-          src={item.src}
-          className={styles.imgElement}
-          width={item.width}
-          height={item.height}
-        />
-        <button
-          type="button"
-          onClick={() => copyAndCleanExit(item.src || '', TypesName.ListOfGifs)}
-          className={`button ${styles.copyBtn}`}
-        >
-          Copy Image
-        </button>
-      </div>
-    )
-  );
-  return <div className={styles.imgGallery}>{items}</div>;
+function copyAndCleanExit(
+  content: string,
+  contentType: string,
+  reset: () => void
+) {
+  copyAndExit(content, contentType)
+    .then(() => reset())
+    .catch(() => console.log('Couldnt copy and exit'));
 }
 
-function listOfImages(data: any[]) {
+function ListOfGifs(data: any[], reset: () => void) {
   const items = data.map(
     (
       item: {
@@ -60,7 +40,7 @@ function listOfImages(data: any[]) {
         <button
           type="button"
           onClick={() =>
-            copyAndCleanExit(item.src || '', TypesName.ListOfImages)
+            copyAndCleanExit(item.src || '', TypesName.ListOfGifs, reset)
           }
           className={`button ${styles.copyBtn}`}
         >
@@ -72,13 +52,46 @@ function listOfImages(data: any[]) {
   return <div className={styles.imgGallery}>{items}</div>;
 }
 
-function text(data: string) {
+function listOfImages(data: any[], reset: () => void) {
+  const items = data.map(
+    (
+      item: {
+        src: string | undefined;
+        width: string | number | undefined;
+        height: string | number | undefined;
+      },
+      idx: string | number | undefined
+    ) => (
+      <div key={idx} className={styles.imgContainer}>
+        <img
+          alt="gif"
+          src={item.src}
+          className={styles.imgElement}
+          width={item.width}
+          height={item.height}
+        />
+        <button
+          type="button"
+          onClick={() =>
+            copyAndCleanExit(item.src || '', TypesName.ListOfImages, reset)
+          }
+          className={`button ${styles.copyBtn}`}
+        >
+          Copy Image
+        </button>
+      </div>
+    )
+  );
+  return <div className={styles.imgGallery}>{items}</div>;
+}
+
+function text(data: string, reset: () => void) {
   return (
     <div className={styles.textContainer}>
       <p>{data}</p>
       <button
         type="button"
-        onClick={() => copyAndCleanExit(data, TypesName.Text)}
+        onClick={() => copyAndCleanExit(data, TypesName.Text, reset)}
         className={`button ${styles.copyBtn}`}
       >
         Copy Text
@@ -94,29 +107,29 @@ function listOfLinks(data: any[]) {
   return links;
 }
 
-function contentTypeMapper(data: any, type: string) {
+function contentTypeMapper(data: any, type: string, reset: () => void) {
   switch (type) {
     case TypesName.ListOfImages: {
-      return listOfImages(data);
+      return listOfImages(data, reset);
     }
     case TypesName.ListOfGifs: {
-      return ListOfGifs(data);
+      return ListOfGifs(data, reset);
     }
     case TypesName.ListOfLinks: {
       return listOfLinks(data);
     }
     case TypesName.Text:
-      return text(data);
+      return text(data, reset);
     default:
       return null;
   }
 }
 
 export default function Panel(props: Props) {
-  const { skatePanel, botResponseType } = props;
+  const { skatePanel, botResponseType, reset } = props;
   if (botResponseType && botResponseType !== '') {
     if (skatePanel) {
-      const content = contentTypeMapper(skatePanel, botResponseType);
+      const content = contentTypeMapper(skatePanel, botResponseType, reset);
 
       return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
