@@ -1,16 +1,12 @@
 import React from 'react';
 import styles from './Panel.scss';
-import { copyText, copyImageFromUrl } from '../utils/clipboard';
+import { copyAndCleanExit } from '../utils/clipboard';
 import { TypesName } from '../skate-apps/types';
 
 type Props = {
   skatePanel: any[];
   botResponseType: string;
 };
-
-function copyContent(content: string) {
-  copyText(content);
-}
 
 function ListOfGifs(data: any[]) {
   const items = data.map(
@@ -32,7 +28,7 @@ function ListOfGifs(data: any[]) {
         />
         <button
           type="button"
-          onClick={() => copyImageFromUrl(item.src)}
+          onClick={() => copyAndCleanExit(item.src || '', TypesName.ListOfGifs)}
           className={`button ${styles.copyBtn}`}
         >
           Copy Image
@@ -63,7 +59,9 @@ function listOfImages(data: any[]) {
         />
         <button
           type="button"
-          onClick={() => copyImageFromUrl(item.src)}
+          onClick={() =>
+            copyAndCleanExit(item.src || '', TypesName.ListOfImages)
+          }
           className={`button ${styles.copyBtn}`}
         >
           Copy Image
@@ -80,7 +78,7 @@ function text(data: string) {
       <p>{data}</p>
       <button
         type="button"
-        onClick={() => copyContent(data)}
+        onClick={() => copyAndCleanExit(data, TypesName.Text)}
         className={`button ${styles.copyBtn}`}
       >
         Copy Text
@@ -90,7 +88,7 @@ function text(data: string) {
 }
 
 function listOfLinks(data: any[]) {
-  const links = data.map((link: any) => {
+  const links = data.map((link: string) => {
     return link;
   });
   return links;

@@ -1,11 +1,14 @@
 import { clipboard, nativeImage } from 'electron';
 import temp from 'temp';
-
 import path from 'path';
 import downloadImage from './download-image';
+import { hideMainWindow } from './ipc';
 
-export function copyText(text: string): void {
-  clipboard.writeText(text);
+export function copyText(text: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    clipboard.writeText(text);
+    resolve();
+  });
 }
 
 export function pasteText(): string {
@@ -32,4 +35,32 @@ export async function copyImageFromUrl(url: string): Promise<void> {
 
     temp.cleanup();
   });
+}
+
+export function copyContent(
+  content: string,
+  contentType: string
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (
+      contentType === TypesName.ListOfLinks ||
+      contentType === TypesName.Text ||
+      contentType === TypesName.ListOfText
+    ) {
+      return resolve(copyText(content));
+    }
+    if (
+      contentType === TypesName.ListOfImages ||
+      contentType === TypesName.ListOfGifs
+    ) {
+      return resolve(copyImageFromUrl(content));
+    }
+    reject();
+  });
+}
+
+export function copyAndCleanExit(content: string, contentType: string) {
+  copyContent(content, contentType)
+    .then(() => hideMainWindow())
+    .catch(() => console.log('Couldnt Hide Window'));
 }
