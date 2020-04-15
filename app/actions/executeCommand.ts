@@ -9,7 +9,7 @@ import {
 import commandMapper from '../skate-apps/commandMapper';
 
 export default function executeCommand(botName: string, botParam: string) {
-  return function action(dispatch: Dispatch, getState: GetState) {
+  return function action(dispatch: Dispatch) {
     dispatch({
       type: EXECUTION_STARTED
     });

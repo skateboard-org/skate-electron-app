@@ -116,9 +116,8 @@ function contentTypeMapper(data: any, type: string) {
 
 export default function Panel(props: Props) {
   const { skatePanel, botResponseType } = props;
-
   if (botResponseType && botResponseType !== '') {
-    if (skatePanel && skatePanel.length > 0) {
+    if (skatePanel) {
       const content = contentTypeMapper(skatePanel, botResponseType);
 
       return (
