@@ -5,6 +5,7 @@ export const UPDATE_SKATEBOARD_TEXT = 'UPDATE_SKATEBOARD_TEXT';
 
 export const SEARCH_BOTS = 'SEARCH_BOTS';
 
+export const FIRST_RESULT = 'FIRST_RESULT';
 export const NEXT_RESULT = 'NEXT_RESULT';
 export const PREVIOUS_RESULT = 'PREVIOUS_RESULT';
 

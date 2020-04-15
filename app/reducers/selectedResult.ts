@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import {
+  FIRST_RESULT,
   NEXT_RESULT,
   PREVIOUS_RESULT,
   CHOOSE_RESULT,
@@ -8,6 +9,13 @@ import {
 
 export default function selectedResult(state = '', action: Action<string>) {
   switch (action.type) {
+    case FIRST_RESULT: {
+      const mySearchResult = action.payload.searchResult;
+      if (mySearchResult.length > 0) {
+        return mySearchResult[0];
+      }
+      return state;
+    }
     case NEXT_RESULT: {
       const mySearchResult = action.payload.searchResult;
       if (mySearchResult.length === 0) {

@@ -81,6 +81,8 @@ export default class Board extends Component<Props, BoardState> {
       chooseResult,
       updateSkateBoardText,
       search,
+      moveSelection,
+      searchResult,
       reset
     } = this.props;
 
@@ -105,6 +107,7 @@ export default class Board extends Component<Props, BoardState> {
           // } else {
 
           search('bots', botString);
+          moveSelection('first');
           // }
         } else if (searchingFor === 'bot' && botString !== undefined) {
           // WHEN BOT STRING IS ENTERED AND MATCHES PERFECTLY WITH A BOT, CHOOSE THAT BOT
