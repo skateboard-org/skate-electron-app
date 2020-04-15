@@ -23,6 +23,13 @@ export function stringAnalysis(str: string): SkateBoardTextComponents {
   }
   const tokens = cleanStr.split(' ');
   if (cleanStr.startsWith('@')) {
+    if (tokens.length === 1) {
+      return {
+        paramString: '',
+        botString: tokens[0],
+        result: ONLY_BOT_PRESENT
+      };
+    }
     if (tokens.length === 2) {
       return {
         botString: tokens[0],
@@ -30,12 +37,15 @@ export function stringAnalysis(str: string): SkateBoardTextComponents {
         result: BOT_AND_PARAM_PRESENT
       };
     }
-    if (tokens.length === 1)
+    if (tokens.length > 2) {
+      const botName = tokens[0];
+      tokens.shift();
       return {
-        paramString: '',
-        botString: tokens[0],
-        result: ONLY_BOT_PRESENT
+        paramString: tokens.join(' '),
+        botString: botName,
+        result: BOT_AND_PARAM_PRESENT
       };
+    }
   }
   return {
     result: INVALID_STRING_IN_SKATEBOARD,
