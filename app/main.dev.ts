@@ -112,12 +112,11 @@ const createWindow = async () => {
       throw new Error('"mainWindow" is not defined');
     }
     isAppHidden = true;
-    globalShortcut.register('Option+Space', () => {
+    globalShortcut.register('Shift+Space', () => {
       console.log('Skate Toggle Key Pressed!');
       toggleMainWindow();
     });
     globalShortcut.register('Escape', () => {
-      console.log('Skate Toggle Key Pressed!');
       hideMainWindow();
     });
   });
