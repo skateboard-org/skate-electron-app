@@ -1,4 +1,6 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image';
+import Gallery from 'react-photo-gallery';
 import styles from './Panel.scss';
 import { copyAndExit } from '../utils/clipboard';
 import { TypesName } from '../skate-apps/types';
@@ -19,70 +21,57 @@ function copyAndCleanExit(
     .catch(() => console.log('Couldnt copy and exit'));
 }
 
-function ListOfGifs(data: any[], reset: () => void) {
+const gifClickHandler = (event, { index, photo }) => {
+  copyAndExit(photo.src || '', TypesName.ListOfGifs);
+};
+
+const imageClickHandler = (event, { index, photo }) => {
+  copyAndExit(photo.src || '', TypesName.ListOfImages);
+};
+
+function listOfGifs(data: any[], reset: () => void) {
   const items = data.map(
-    (
-      item: {
-        src: string | undefined;
-        width: string | number | undefined;
-        height: string | number | undefined;
-      },
-      idx: string | number | undefined
-    ) => (
-      <div key={idx} className={styles.imgContainer}>
-        <img
-          alt="gif"
-          src={item.src}
-          className={styles.imgElement}
-          width={item.width}
-          height={item.height}
-        />
-        <button
-          type="button"
-          onClick={() =>
-            copyAndCleanExit(item.src || '', TypesName.ListOfGifs, reset)
-          }
-          className={`button ${styles.copyBtn}`}
-        >
-          Copy Image
-        </button>
-      </div>
-    )
+    (item: {
+      src: string;
+      width: number;
+      height: number;
+      placeholder: string;
+      preview_src: string;
+    }) => {
+      return {
+        src: item.preview_src,
+        width: item.width,
+        height: item.height,
+        orignal: item.src
+      };
+    }
   );
-  return <div className={styles.imgGallery}>{items}</div>;
+  return (
+    <Gallery
+      photos={items}
+      columns={3}
+      direction="column"
+      onClick={gifClickHandler}
+    />
+  );
 }
 
 function listOfImages(data: any[], reset: () => void) {
   const items = data.map(
-    (
-      item: {
-        src: string | undefined;
-        width: string | number | undefined;
-        height: string | number | undefined;
-      },
-      idx: string | number | undefined
-    ) => (
-      <div key={idx} className={styles.imgContainer}>
-        <img
-          alt="gif"
-          src={item.src}
-          className={styles.imgElement}
-          width={item.width}
-          height={item.height}
-        />
-        <button
-          type="button"
-          onClick={() =>
-            copyAndCleanExit(item.src || '', TypesName.ListOfImages, reset)
-          }
-          className={`button ${styles.copyBtn}`}
-        >
-          Copy Image
-        </button>
-      </div>
-    )
+    (item: { src: string; width: number; height: number }) => ({
+      src: item.src,
+      width: item.width,
+      height: item.height
+    })
   );
-  return <div className={styles.imgGallery}>{items}</div>;
+  return (
+    <Gallery
+      photos={items}
+      columns={3}
+      direction="column"
+      onClick={imageClickHandler}
+    />
+  );
 }
 
 function text(data: string, reset: () => void) {
@@ -113,7 +102,7 @@ function contentTypeMapper(data: any, type: string, reset: () => void) {
       return listOfImages(data, reset);
     }
     case TypesName.ListOfGifs: {
-      return ListOfGifs(data, reset);
+      return listOfGifs(data, reset);
     }
     case TypesName.ListOfLinks: {
       return listOfLinks(data);

@@ -45,15 +45,13 @@ export function copyContent(
     if (
       contentType === TypesName.ListOfLinks ||
       contentType === TypesName.Text ||
-      contentType === TypesName.ListOfText
+      contentType === TypesName.ListOfText ||
+      contentType === TypesName.ListOfGifs
     ) {
       copyText(content);
       return resolve();
     }
-    if (
-      contentType === TypesName.ListOfImages ||
-      contentType === TypesName.ListOfGifs
-    ) {
+    if (contentType === TypesName.ListOfImages) {
       copyImageFromUrl(content);
       return resolve();
     }
