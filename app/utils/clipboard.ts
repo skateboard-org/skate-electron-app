@@ -3,7 +3,7 @@ import temp from 'temp';
 import path from 'path';
 import downloadImage from './download-image';
 import { hideMainWindow } from './ipc';
-import { TypesName } from '../skate-apps/types';
+import { ResponseTypes } from '../skate-apps/types';
 
 export function copyText(text: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -43,15 +43,15 @@ export function copyContent(
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     if (
-      contentType === TypesName.ListOfLinks ||
-      contentType === TypesName.Text ||
-      contentType === TypesName.ListOfText ||
-      contentType === TypesName.ListOfGifs
+      contentType === ResponseTypes.ListOfLinks ||
+      contentType === ResponseTypes.Text ||
+      contentType === ResponseTypes.ListOfText ||
+      contentType === ResponseTypes.ListOfGifs
     ) {
       copyText(content);
       return resolve();
     }
-    if (contentType === TypesName.ListOfImages) {
+    if (contentType === ResponseTypes.ListOfImages) {
       copyImageFromUrl(content);
       return resolve();
     }

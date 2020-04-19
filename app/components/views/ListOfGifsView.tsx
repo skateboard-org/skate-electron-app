@@ -4,14 +4,14 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName, GifItemType } from '../../skate-apps/types';
+import { ResponseTypes, GifItemType } from '../../skate-apps/types';
 
 type Props = {
   data: [GifItemType];
 };
 
 const gifClickHandler = (event, { index, photo }) => {
-  copyAndExit(photo.src || '', TypesName.ListOfGifs);
+  copyAndExit(photo.src || '', ResponseTypes.ListOfGifs);
 };
 
 export default function ListOfGifs(props: Props) {

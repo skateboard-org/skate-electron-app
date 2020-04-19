@@ -4,7 +4,7 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName, ImageItemType } from '../../skate-apps/types';
+import { ResponseTypes, ImageItemType } from '../../skate-apps/types';
 import styles from '../Panel.scss';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const imageClickHandler = (event, { index, photo }) => {
-  copyAndExit(photo.src || '', TypesName.ListOfImages);
+  copyAndExit(photo.src || '', ResponseTypes.ListOfImages);
 };
 
 export default function ListOfImages(props: Props) {

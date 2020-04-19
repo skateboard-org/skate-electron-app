@@ -1,5 +1,5 @@
 import { titleCase } from 'title-case';
-import { TypesName, TextResponseType } from '../types';
+import { ResponseTypes, TextResponseType } from '../types';
 
 export default async function title(string: string): Promise<TextResponseType> {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export default async function title(string: string): Promise<TextResponseType> {
         data: { text: titleCase(string) }
       });
     } catch (error) {
-      reject({ error, type: TypesName.Text, success: false });
+      reject({ error, success: false });
     }
   });
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Panel.scss';
-import { TypesName } from '../skate-apps/types';
+import { ResponseTypes } from '../skate-apps/types';
 import ListOfLinksView from './views/ListOfLinksView';
 import ListOfImagesView from './views/ListOfImagesView';
 import ListOfGifsView from './views/ListOfGifsView';
@@ -24,16 +24,16 @@ type Props = {
 
 function contentTypeMapper(data: any, responseType: string) {
   switch (responseType) {
-    case TypesName.ListOfImages: {
+    case ResponseTypes.ListOfImages: {
       return <ListOfImagesView data={data} />;
     }
-    case TypesName.ListOfGifs: {
+    case ResponseTypes.ListOfGifs: {
       return <ListOfGifsView data={data} />;
     }
-    case TypesName.ListOfLinks: {
+    case ResponseTypes.ListOfLinks: {
       return <ListOfLinksView data={data} />;
     }
-    case TypesName.Text:
+    case ResponseTypes.Text:
       return <TextView data={data} />;
     default:
       return null;

@@ -4,7 +4,7 @@
 import React from 'react';
 import styles from '../Panel.scss';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName, LinkItemType } from '../../skate-apps/types';
+import { ResponseTypes, LinkItemType } from '../../skate-apps/types';
 import { openLinkInDefaultBrowser } from '../../utils/ipc';
 
 type Props = {
@@ -31,7 +31,7 @@ export default function ListOfLinks(props: Props) {
             <div className="buttons has-addons">
               <button
                 type="button"
-                onClick={() => copyAndExit(linkItem.link, TypesName.Text)}
+                onClick={() => copyAndExit(linkItem.link, ResponseTypes.Text)}
                 className={`button ${styles.copyBtn} `}
               >
                 Copy Link

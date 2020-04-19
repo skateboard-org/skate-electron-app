@@ -1,4 +1,4 @@
-export enum TypesName {
+export enum ResponseTypes {
   Text = 'Text',
   ListOfImages = 'ListOfImages',
   ListOfGifs = 'ListOfGifs',
