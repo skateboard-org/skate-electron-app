@@ -26,9 +26,9 @@ export default function allBotsDictionary(
   switch (action.type) {
     case LOAD_BOTS: {
       const myAllBotsDictionary: Map<string, BotType> = new Map();
-      const { allBots } = action.payload;
+      const { newAllBots } = action.payload;
 
-      allBots.forEach(bot => {
+      newAllBots.forEach((bot: BotType) => {
         const newBot: BotType = {
           name: bot.name,
           type: bot.type,
