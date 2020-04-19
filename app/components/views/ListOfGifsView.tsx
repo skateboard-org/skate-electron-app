@@ -4,11 +4,10 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName } from '../../skate-apps/types';
-import styles from '../Panel.scss';
+import { TypesName, GifItemType } from '../../skate-apps/types';
 
 type Props = {
-  data: [any];
+  data: [GifItemType];
 };
 
 const gifClickHandler = (event, { index, photo }) => {
@@ -17,22 +16,13 @@ const gifClickHandler = (event, { index, photo }) => {
 
 export default function ListOfGifs(props: Props) {
   const { data } = props;
-  const items = data.map(
-    (item: {
-      src: string;
-      width: number;
-      height: number;
-      placeholder: string;
-      preview_src: string;
-    }) => {
-      return {
-        src: item.preview_src,
-        width: item.width,
-        height: item.height,
-        orignal: item.src
-      };
-    }
-  );
+  const items = data.map((item: GifItemType) => {
+    return {
+      src: item.src,
+      width: item.width,
+      height: item.height
+    };
+  });
   return (
     <Gallery
       photos={items}

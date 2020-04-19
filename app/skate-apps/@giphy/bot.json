@@ -4,7 +4,7 @@
   "icon": "",
   "desc": "get gifs wherever you need them",
   "url": "",
-  "returnType": "ListOfGifs",
+  "responseType": "ListOfGifs",
   "parameterEnabled": true,
   "inputParameter": "searchterm",
   "parameterDesc": "search term",

@@ -184,7 +184,7 @@ export default class Board extends Component<Props, BoardState> {
             if (bot?.parameterEnabled) {
               invalidCommand('requestParam');
             } else {
-              executeCommand(botString, paramString);
+              executeCommand(botString, paramString, bot?.responseType);
             }
           } else if (selectedResult !== '') {
             // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
@@ -205,16 +205,19 @@ export default class Board extends Component<Props, BoardState> {
           }
           break;
         }
-        case strfn.BOT_AND_PARAM_PRESENT:
+        case strfn.BOT_AND_PARAM_PRESENT: {
           if (selectedParam !== paramString) {
             // IF PARAMSTRING IS DIFFERENT FROM THE SELECTED PARAM CHOOSE RESULT
             chooseResult(paramString);
           }
 
           // IF BOT AND PARAM ARE BOTH PRESENT AND ENTER KEY IS PROCESSED TIME
-          executeCommand(botString, paramString);
+          const bot = allBotsDictionary.get(botString);
+
+          executeCommand(botString, paramString, bot?.responseType);
 
           break;
+        }
         case strfn.INVALID_STRING_IN_SKATEBOARD:
           invalidCommand('unknownCommand');
           break;

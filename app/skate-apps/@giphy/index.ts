@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TypesName } from '../types';
+import { ListOfGifsResponseType } from '../types';
 
 interface requestParameters {
   api_key: string;
@@ -11,7 +11,9 @@ interface requestParameters {
   random_id: string;
 }
 
-export default async function giphy(searchTerm: string): any {
+export default async function giphy(
+  searchTerm: string
+): Promise<ListOfGifsResponseType> {
   const url = 'https://api.giphy.com/v1/gifs/search';
 
   const params: requestParameters = {
@@ -32,26 +34,21 @@ export default async function giphy(searchTerm: string): any {
       .then((res: any) => {
         const data = res.data.data.map((gif: any) => {
           return {
-            id: gif.id,
-            preview_src: gif.images.preview_gif.url,
-            src: gif.images.original.url,
+            src: gif.images.preview_gif.url,
             height: Number(gif.images.preview_gif.height),
             width: Number(gif.images.preview_gif.width)
           };
         });
         return resolve({
           data,
-          success: true,
-          error: undefined,
-          type: TypesName.ListOfGifs
+          success: true
         });
       })
       .catch(error => {
         return reject({
           data: undefined,
           success: false,
-          error,
-          type: TypesName.ListOfGifs
+          error
         });
       });
   });

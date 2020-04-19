@@ -3,22 +3,22 @@
 
 import React from 'react';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName } from '../../skate-apps/types';
+import { TypesName, TextItemType } from '../../skate-apps/types';
 import styles from '../Panel.scss';
 
 type Props = {
-  data: string;
+  data: TextItemType;
 };
 
 export default function Text(props: Props) {
   const { data } = props;
   return (
     <div className={`box ${styles.textContainer}`}>
-      <p>{data}</p>
+      <p>{data.text}</p>
       <div className="has-text-right">
         <button
           type="button"
-          onClick={() => copyAndExit(data, TypesName.Text)}
+          onClick={() => copyAndExit(data.text, TypesName.Text)}
           className={`button ${styles.copyBtn} `}
         >
           Copy Text

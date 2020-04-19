@@ -4,7 +4,7 @@
   "icon": "",
   "desc": "control your mac",
   "url": "",
-  "returnType": "ListOfText",
+  "responseType": "ListOfText",
   "parameterEnabled": true,
   "inputParameter": "expression",
   "parameterDesc": "controls for mac",

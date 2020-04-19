@@ -1,5 +1,5 @@
 import wiki from 'wikijs';
-import { TypesName } from '../types';
+import { ListOfLinksResponseType } from '../types';
 
 interface requestParameters {
   api_key: string;
@@ -18,11 +18,12 @@ function transformResponse(res: any) {
       link: res[3][index]
     };
   });
-  console.log(obj);
   return obj;
 }
 
-export default async function wikiBot(searchTerm: string): any {
+export default async function wikiBot(
+  searchTerm: string
+): Promise<ListOfLinksResponseType> {
   return new Promise((resolve, reject) => {
     wiki()
       .api({
@@ -36,8 +37,7 @@ export default async function wikiBot(searchTerm: string): any {
       .then((res: any) => {
         return resolve({
           data: transformResponse(res),
-          success: true,
-          type: TypesName.ListOfLinks
+          success: true
         });
       })
       .catch((error: any) => {

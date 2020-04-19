@@ -13,8 +13,8 @@ export default function botResponseType(state = '', action: Action<string>) {
       return '';
     }
     case EXECUTION_COMPLETED: {
-      if (action.payload.res.success) {
-        return action.payload.res.type;
+      if (action.payload.success) {
+        return action.payload.responseType;
       }
       return '';
     }

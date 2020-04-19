@@ -4,7 +4,7 @@
   "icon": "",
   "desc": "Convert text into titlecase",
   "url": "",
-  "returnType": "Text",
+  "responseType": "Text",
   "parameterEnabled": true,
   "inputParameter": "title",
   "parameterDesc": "",

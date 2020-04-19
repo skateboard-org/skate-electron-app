@@ -13,8 +13,8 @@ export default function skatePanel(state = [], action: Action<string>) {
       return [];
     }
     case EXECUTION_COMPLETED: {
-      if (action.payload.res.success) {
-        return action.payload.res.data;
+      if (action.payload.success) {
+        return action.payload.data;
       }
       return [];
     }

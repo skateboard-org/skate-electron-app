@@ -4,7 +4,7 @@
   "icon": "",
   "desc": "evaluates maths",
   "url": "",
-  "returnType": "Text",
+  "responseType": "Text",
   "parameterEnabled": true,
   "inputParameter": "expression",
   "parameterDesc": "the expression you want to evaluate",

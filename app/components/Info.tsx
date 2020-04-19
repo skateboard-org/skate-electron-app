@@ -12,7 +12,7 @@ const botPropertiesKeys = [
   'title',
   'icon',
   'desc',
-  'returnType',
+  'responseType',
   'inputParameter',
   'parameterDesc'
 ];

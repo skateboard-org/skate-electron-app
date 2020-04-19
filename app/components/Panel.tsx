@@ -22,8 +22,8 @@ type Props = {
 //     .catch(() => console.log('Couldnt copy and exit'));
 // }
 
-function contentTypeMapper(data: any, type: string) {
-  switch (type) {
+function contentTypeMapper(data: any, responseType: string) {
+  switch (responseType) {
     case TypesName.ListOfImages: {
       return <ListOfImagesView data={data} />;
     }
@@ -41,7 +41,8 @@ function contentTypeMapper(data: any, type: string) {
 }
 
 export default function Panel(props: Props) {
-  const { skatePanel, botResponseType, reset } = props;
+  const { skatePanel, botResponseType } = props;
+
   if (botResponseType && botResponseType !== '') {
     if (skatePanel) {
       const content = contentTypeMapper(skatePanel, botResponseType);

@@ -4,11 +4,11 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName } from '../../skate-apps/types';
+import { TypesName, ImageItemType } from '../../skate-apps/types';
 import styles from '../Panel.scss';
 
 type Props = {
-  data: [any];
+  data: [ImageItemType];
 };
 
 const imageClickHandler = (event, { index, photo }) => {
@@ -17,13 +17,11 @@ const imageClickHandler = (event, { index, photo }) => {
 
 export default function ListOfImages(props: Props) {
   const { data } = props;
-  const items = data.map(
-    (item: { src: string; width: number; height: number }) => ({
-      src: item.src,
-      width: item.width,
-      height: item.height
-    })
-  );
+  const items = data.map((item: ImageItemType) => ({
+    src: item.src,
+    width: item.width,
+    height: item.height
+  }));
   return (
     <Gallery
       photos={items}

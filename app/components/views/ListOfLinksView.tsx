@@ -4,21 +4,16 @@
 import React from 'react';
 import styles from '../Panel.scss';
 import { copyAndExit } from '../../utils/clipboard';
-import { TypesName } from '../../skate-apps/types';
+import { TypesName, LinkItemType } from '../../skate-apps/types';
 import { openLinkInDefaultBrowser } from '../../utils/ipc';
 
-interface LinkItem {
-  link: string;
-  title: string;
-}
-
 type Props = {
-  data: [any];
+  data: [LinkItemType];
 };
 
 export default function ListOfLinks(props: Props) {
   const { data } = props;
-  const links = data.map((linkItem: LinkItem, index: number) => {
+  const links = data.map((linkItem: LinkItemType, index: number) => {
     return (
       <div key={index} className={`column box ${styles.linkContainer}`}>
         <div className="level is-mobile">

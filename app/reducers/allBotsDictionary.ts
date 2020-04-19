@@ -7,7 +7,7 @@ export interface BotType {
   icon: string;
   desc: string;
   url: string;
-  returnType: string;
+  responseType: string;
   inputParameter: string;
   parameterDesc: string;
   typeAheadUrl: string;
@@ -36,7 +36,7 @@ export default function allBotsDictionary(
           icon: bot.icon,
           desc: bot.desc,
           url: bot.url,
-          returnType: bot.returnType,
+          responseType: bot.responseType,
           parameterEnabled: bot.parameterEnabled,
           inputParameter: bot.inputParameter,
           parameterDesc: bot.parameterDesc,

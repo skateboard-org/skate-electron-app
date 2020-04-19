@@ -7,43 +7,74 @@ export enum TypesName {
   Command = 'Command'
 }
 
+// GIF
+
+export interface ListOfGifsResponseType {
+  data: [GifItemType];
+  success: boolean;
+}
+
+export interface GifItemType {
+  src: string;
+  width: number;
+  height: number;
+}
+
+// IMAGES
+
+export interface ListOfImagesResponseType {
+  data: [ImageItemType];
+  success: boolean;
+}
+
+export interface ImageItemType {
+  src: string;
+  width: number;
+  height: number;
+}
+
+// LINKS
+export interface LinkItemType {
+  link: string;
+  title: string;
+}
+
+export interface ListOfLinksResponseType {
+  data: [LinkItemType];
+  success: boolean;
+}
+
+// TEXT
+
+export interface TextItemType {
+  text: string;
+}
+
+export interface ListOfTextResponseType {
+  data: [TextItemType];
+  success: boolean;
+}
+
+export interface TextResponseType {
+  data: TextItemType;
+  success: boolean;
+}
+
+// COMMAND
+export interface CommandResponseType {
+  success: boolean;
+}
+
+// ERROR
+
 export interface ErrorType {
   success: boolean;
-  type: string;
   error: string;
 }
 
-export interface ListOfImages {
-  data: [string];
-  success: boolean;
-}
-
-export interface ListOfGifs {
-  data: [string];
-  success: boolean;
-}
-export interface ListOfLinks {
-  data: [string];
-  success: boolean;
-}
-
-export interface ListOfText {
-  data: [string];
-  success: boolean;
-}
-
-export interface Text {
-  data: string;
-  success: boolean;
-}
-
-export interface Command {
-  success: boolean;
-  type: string;
-}
-
-export interface Response {
-  success: boolean;
-  data: ListOfImages | ListOfGifs | ListOfLinks | Text | Command | undefined;
-  error: Error;
-}
+export type Response =
+  | CommandResponseType
+  | TextResponseType
+  | ListOfGifsResponseType
+  | ListOfImagesResponseType
+  | ListOfLinksResponseType;

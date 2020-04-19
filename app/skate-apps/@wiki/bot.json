@@ -4,7 +4,7 @@
   "icon": "",
   "desc": "get wikipedia pages",
   "url": "",
-  "returnType": "ListOfLinks",
+  "responseType": "ListOfLinks",
   "parameterEnabled": true,
   "inputParameter": "searchterm",
   "parameterDesc": "search term",
