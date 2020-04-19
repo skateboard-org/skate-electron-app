@@ -1,0 +1,17 @@
+{
+  "name": "@calc",
+  "title": "Calculator",
+  "icon": "",
+  "desc": "evaluates maths",
+  "url": "",
+  "returnType": "Text",
+  "parameterEnabled": true,
+  "inputParameter": "expression",
+  "parameterDesc": "the expression you want to evaluate",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "terminal",
+  "typeAheadSource": "url",
+  "typeAheadOptions": []
+}

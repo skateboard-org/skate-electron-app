@@ -1,0 +1,17 @@
+{
+  "name": "@title",
+  "title": "Title Case",
+  "icon": "",
+  "desc": "Convert text into titlecase",
+  "url": "",
+  "returnType": "Text",
+  "parameterEnabled": true,
+  "inputParameter": "title",
+  "parameterDesc": "",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "terminal",
+  "typeAheadSource": "",
+  "typeAheadOptions": []
+}

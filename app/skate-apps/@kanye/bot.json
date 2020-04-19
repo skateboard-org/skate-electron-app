@@ -1,0 +1,17 @@
+{
+  "name": "@kanye",
+  "title": "Kanye Bot",
+  "icon": "",
+  "desc": "Get Random Kanye West Quotes",
+  "url": "",
+  "returnType": "Text",
+  "parameterEnabled": false,
+  "inputParameter": "",
+  "parameterDesc": "",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "cloud",
+  "typeAheadSource": "",
+  "typeAheadOptions": []
+}

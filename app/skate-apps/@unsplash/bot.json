@@ -1,0 +1,17 @@
+{
+  "name": "@unsplash",
+  "title": "Unsplash Bot",
+  "icon": "",
+  "desc": "Get unsplash bot",
+  "url": "",
+  "returnType": "ListOfImages",
+  "parameterEnabled": true,
+  "inputParameter": "search term",
+  "parameterDesc": "",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "cloud",
+  "typeAheadSource": "",
+  "typeAheadOptions": []
+}

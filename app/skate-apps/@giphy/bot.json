@@ -1,0 +1,17 @@
+{
+  "name": "@giphy",
+  "title": "Giphy Bot",
+  "icon": "",
+  "desc": "get gifs wherever you need them",
+  "url": "",
+  "returnType": "ListOfGifs",
+  "parameterEnabled": true,
+  "inputParameter": "searchterm",
+  "parameterDesc": "search term",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "cloud",
+  "typeAheadSource": "",
+  "typeAheadOptions": []
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@wiki",
+  "title": "Wikipedia Bot",
+  "icon": "",
+  "desc": "get wikipedia pages",
+  "url": "",
+  "returnType": "ListOfLinks",
+  "parameterEnabled": true,
+  "inputParameter": "searchterm",
+  "parameterDesc": "search term",
+  "typeAheadEnabled": false,
+  "typeAheadUrl": "",
+
+  "type": "cloud",
+  "typeAheadSource": "",
+  "typeAheadOptions": []
+}
