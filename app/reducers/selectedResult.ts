@@ -14,6 +14,10 @@ export default function selectedResult(state = '', action: Action<string>) {
       if (mySearchResult.length > 0) {
         return mySearchResult[0];
       }
+      if (mySearchResult.length === 0) {
+        console.log(state);
+        return '';
+      }
       return state;
     }
     case NEXT_RESULT: {
