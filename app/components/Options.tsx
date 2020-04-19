@@ -18,10 +18,6 @@ export default function Options(props: Props) {
     return '';
   }
 
-  function chooseResultWithClick(botName: string) {
-    chooseResult(botName);
-  }
-
   if (searchResult && searchResult.length > 0) {
     const allSearchResult = searchResult.map(result => (
       <div
