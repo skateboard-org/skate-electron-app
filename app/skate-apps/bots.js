@@ -87,6 +87,23 @@ export default [
     typeAheadOptions: []
   },
   {
+    name: '@wiki',
+    title: 'Wikipedia Bot',
+    icon: '',
+    desc: 'get wikipedia pages',
+    url: '',
+    returnType: TypesName.ListOfLinks,
+    parameterEnabled: true,
+    inputParameter: 'searchterm',
+    parameterDesc: 'search term',
+    typeAheadEnabled: false,
+    typeAheadUrl: '',
+
+    type: 'cloud',
+    typeAheadSource: '',
+    typeAheadOptions: []
+  },
+  {
     name: '@kanye',
     title: 'Kanye Bot',
     icon: '',
@@ -119,33 +136,22 @@ export default [
     type: 'cloud',
     typeAheadSource: '',
     typeAheadOptions: []
+  },
+  {
+    name: '@title',
+    title: 'Title Case',
+    icon: '',
+    desc: 'Convert text into titlecase',
+    url: '',
+    returnType: TypesName.Text,
+    parameterEnabled: true,
+    inputParameter: 'title',
+    parameterDesc: '',
+    typeAheadEnabled: false,
+    typeAheadUrl: '',
+
+    type: 'terminal',
+    typeAheadSource: '',
+    typeAheadOptions: []
   }
 ];
-
-// export class Bot implements BotType {
-//   name: string;
-
-//   title: string;
-
-//   icon: string;
-
-//   desc: string;
-
-//   url: string;
-
-//   returnType: string;
-
-//   parameterEnabled: string;
-
-//   inputParameter: string;
-
-//   parameterDesc: string;
-
-//   typeAheadEnabled: boolean;
-
-//   typeAheadUrl: string;
-
-//   constructor(name: string) {
-//     this.name = name;
-//   }
-// }
