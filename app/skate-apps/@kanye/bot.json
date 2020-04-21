@@ -1,7 +1,7 @@
 {
   "name": "@kanye",
   "title": "Kanye Bot",
-  "icon": "",
+  "icon": "fas fa-globe-africa",
   "desc": "Get Random Kanye West Quotes",
   "url": "",
   "responseType": "Text",

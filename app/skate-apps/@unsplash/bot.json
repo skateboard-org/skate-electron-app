@@ -1,7 +1,7 @@
 {
   "name": "@unsplash",
   "title": "Unsplash Bot",
-  "icon": "",
+  "icon": "fas fa-image",
   "desc": "Get unsplash bot",
   "url": "",
   "responseType": "ListOfImages",

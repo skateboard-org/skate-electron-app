@@ -1,7 +1,7 @@
 {
   "name": "@calc",
   "title": "Calculator",
-  "icon": "",
+  "icon": "fas fa-calculator",
   "desc": "evaluates maths",
   "url": "",
   "responseType": "Text",

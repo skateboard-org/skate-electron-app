@@ -1,7 +1,7 @@
 {
   "name": "@mac",
   "title": "Mac Controls",
-  "icon": "",
+  "icon": "fab fa-apple",
   "desc": "control your mac",
   "url": "",
   "responseType": "ListOfText",

@@ -1,7 +1,7 @@
 {
   "name": "@wiki",
   "title": "Wikipedia Bot",
-  "icon": "",
+  "icon": "fab fa-wikipedia-w",
   "desc": "get wikipedia pages",
   "url": "",
   "responseType": "ListOfLinks",

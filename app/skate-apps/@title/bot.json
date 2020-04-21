@@ -1,7 +1,7 @@
 {
   "name": "@title",
   "title": "Title Case",
-  "icon": "",
+  "icon": "fas fa-heading",
   "desc": "Convert text into titlecase",
   "url": "",
   "responseType": "Text",

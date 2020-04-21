@@ -1,7 +1,7 @@
 {
   "name": "@giphy",
   "title": "Giphy Bot",
-  "icon": "",
+  "icon": "fas fa-forward",
   "desc": "get gifs wherever you need them",
   "url": "",
   "responseType": "ListOfGifs",
