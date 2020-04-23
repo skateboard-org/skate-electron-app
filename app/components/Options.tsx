@@ -18,6 +18,13 @@ export default function Options(props: Props) {
     return '';
   }
 
+  function shortcut(botName: string) {
+    if (botName === selectedResult) {
+      return '↩';
+    }
+    return '';
+  }
+
   if (searchResult && searchResult.length > 0) {
     const allSearchResult = searchResult.map(result => (
       <div
@@ -34,7 +41,7 @@ export default function Options(props: Props) {
           <div>
             <div className="level-right">
               <div className="level-item">
-                <div className="option-tip">Press Enter</div>
+                <div className="option-tip">{shortcut(result)}</div>
               </div>
             </div>
           </div>

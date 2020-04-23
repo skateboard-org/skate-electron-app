@@ -48,7 +48,6 @@ export default function Panel(props: Props) {
       const content = contentTypeMapper(skatePanel, botResponseType);
 
       return (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div className="column is-equal">
           <div className={styles.content}>{content}</div>
         </div>
