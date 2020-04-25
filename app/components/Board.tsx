@@ -186,15 +186,17 @@ export default class Board extends Component<Props, BoardState> {
             // IF THE BOTSTRING IS A BOT AVAILABLE IN THE LISTS OF BOTS
             // CHECK IF IT REQUIRES PARAMETER IF NOT EXECUTE
             const bot = allBotsDictionary.get(botString);
-            if (bot?.parameterEnabled) {
-              invalidCommand('requestParam');
-            } else {
-              executeCommand(
-                botString,
-                paramString,
-                bot?.responseType,
-                bot?.type
-              );
+            if (bot !== undefined) {
+              if (bot.parameterEnabled) {
+                invalidCommand('requestParam');
+              } else {
+                executeCommand(
+                  botString,
+                  paramString,
+                  bot.responseType,
+                  bot.type
+                );
+              }
             }
           } else if (selectedResult !== '') {
             // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
@@ -223,9 +225,9 @@ export default class Board extends Component<Props, BoardState> {
 
           // IF BOT AND PARAM ARE BOTH PRESENT AND ENTER KEY IS PROCESSED TIME
           const bot = allBotsDictionary.get(botString);
-
-          executeCommand(botString, paramString, bot?.responseType, bot?.type);
-
+          if (bot !== undefined) {
+            executeCommand(botString, paramString, bot.responseType, bot.type);
+          }
           break;
         }
         case strfn.INVALID_STRING_IN_SKATEBOARD:
