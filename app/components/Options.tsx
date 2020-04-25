@@ -12,21 +12,21 @@ type Props = {
 export default function Options(props: Props) {
   const { searchResult, selectedResult, chooseResult } = props;
 
-  function botClass(botName: string) {
+  const botClass = (botName: string) => {
     if (botName === selectedResult)
       return 'has-background-black-bis has-text-white-bis';
     return '';
-  }
+  };
 
-  function shortcut(botName: string) {
+  const shortcut = (botName: string, index: number) => {
     if (botName === selectedResult) {
-      return '↩';
+      return `↩`;
     }
-    return '';
-  }
+    // return `⌘ + ${index + 1}`;
+  };
 
   if (searchResult && searchResult.length > 0) {
-    const allSearchResult = searchResult.map(result => (
+    const allSearchResult = searchResult.map((result, index) => (
       <div
         key={result}
         className={`option-container ${botClass(result)}`}
@@ -41,7 +41,7 @@ export default function Options(props: Props) {
           <div>
             <div className="level-right">
               <div className="level-item">
-                <div className="option-tip">{shortcut(result)}</div>
+                <div className="option-tip">{shortcut(result, index)}</div>
               </div>
             </div>
           </div>
