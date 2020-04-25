@@ -3,7 +3,7 @@ import temp from 'temp';
 import path from 'path';
 import downloadImage from './download-image';
 import { hideMainWindow } from './ipc';
-import { ResponseTypes } from '../skate-apps/types';
+import { ResponseTypes } from '../bots/types';
 
 export function copyText(text: string): Promise<void> {
   return new Promise((resolve, reject) => {

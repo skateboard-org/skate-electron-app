@@ -24,7 +24,12 @@ type BoardState = {
 
 type Props = {
   initState: () => void;
-  executeCommand: (botName: string, botParam: string) => void;
+  executeCommand: (
+    botName: string,
+    botParam: string,
+    responseType: string,
+    type: string
+  ) => void;
   moveSelection: (direction: string) => void;
   chooseResult: (selection?: 0 | string) => void;
   invalidCommand: (problem: 'unknownCommand' | 'requestParam') => void;
@@ -184,7 +189,12 @@ export default class Board extends Component<Props, BoardState> {
             if (bot?.parameterEnabled) {
               invalidCommand('requestParam');
             } else {
-              executeCommand(botString, paramString, bot?.responseType);
+              executeCommand(
+                botString,
+                paramString,
+                bot?.responseType,
+                bot?.type
+              );
             }
           } else if (selectedResult !== '') {
             // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
@@ -214,7 +224,12 @@ export default class Board extends Component<Props, BoardState> {
           // IF BOT AND PARAM ARE BOTH PRESENT AND ENTER KEY IS PROCESSED TIME
           const bot = allBotsDictionary.get(botString);
 
-          executeCommand(botString, paramString, bot?.responseType);
+          executeCommand(
+            botString,
+            paramString,
+            bot?.responseType,
+            bot?.responseType
+          );
 
           break;
         }

@@ -1,5 +1,9 @@
-import { Response } from '../skate-apps/types';
 import { Dispatch, GetState } from '../reducers/types';
+import {
+  typesOfBots,
+  executeCloudBot,
+  executeTerminalBot
+} from '../bots/index';
 
 import {
   EXECUTION_COMPLETED,
@@ -7,47 +11,73 @@ import {
   EXECUTION_FAILED
 } from './actions';
 
-import commandMapper from '../skate-apps/commandMapper';
-
 export default function executeCommand(
   botName: string,
   botParam: string,
-  responseType: string
+  responseType: string,
+  type: string
 ) {
-  return function action(dispatch: Dispatch) {
+  return function action(dispatch: Dispatch, getState: GetState) {
     dispatch({
       type: EXECUTION_STARTED
     });
 
-    const app = commandMapper(botName);
-
-    app(botParam)
-      .then((res: Response) => {
-        console.log(res);
-        if (res.success) {
-          return dispatch({
-            type: EXECUTION_COMPLETED,
-            payload: {
-              data: res.data,
-              success: res.success,
-              responseType
-            }
-          });
+    const handleExecution = (res: any) => {
+      return dispatch({
+        type: EXECUTION_COMPLETED,
+        payload: {
+          data: res.data,
+          success: res.success,
+          responseType
         }
-        return dispatch({
-          type: EXECUTION_FAILED,
-          payload: {
-            data: res.data,
-            success: res.success,
-            responseType
-          }
-        });
-      })
-      .catch((error: any) => {
-        console.log(error);
-        return dispatch({
-          type: EXECUTION_FAILED
-        });
       });
+    };
+
+    const handleError = (error: any) => {
+      return dispatch({
+        type: EXECUTION_FAILED,
+        payload: {
+          data: error,
+          success: false,
+          responseType
+        }
+      });
+    };
+
+    if (type === typesOfBots.Cloud) {
+      executeCloudBot(botName, botParam)
+        .then(handleExecution)
+        .catch(handleError);
+    }
+    if (type === typesOfBots.Terminal) {
+      const { allBotsDictionary } = getState();
+      const { terminalCommandTemplate } = allBotsDictionary.get(botName);
+      executeTerminalBot(terminalCommandTemplate, botParam)
+        .then(handleExecution)
+        .catch(handleError);
+    }
+
+    // const app = commandMapper(botName);
+
+    // app(botParam)
+    //   .then((res: Response) => {
+    //     console.log(res);
+    //     if (res.success) {
+    //     }
+    //     return dispatch({
+    //       type: EXECUTION_FAILED,
+    //       payload: {
+    //         data: res.data,
+    //         success: res.success,
+    //         responseType
+    //       }
+    //     });
+    //   })
+    //   .catch((error: any) => {
+    //     console.log(error);
+    //     return dispatch({
+    //       type: EXECUTION_FAILED
+    //     });
+    //   });
   };
 }

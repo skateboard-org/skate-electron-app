@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, TextItemType } from '../../skate-apps/types';
+import { ResponseTypes, TextItemType } from '../../bots/types';
 import styles from '../Panel.scss';
 
 type Props = {

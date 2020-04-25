@@ -4,7 +4,7 @@
 import React from 'react';
 import styles from '../Panel.scss';
 import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, LinkItemType } from '../../skate-apps/types';
+import { ResponseTypes, LinkItemType } from '../../bots/types';
 import { openLinkInDefaultBrowser } from '../../utils/ipc';
 
 type Props = {

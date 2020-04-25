@@ -4,7 +4,7 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, GifItemType } from '../../skate-apps/types';
+import { ResponseTypes, GifItemType } from '../../bots/types';
 
 type Props = {
   data: [GifItemType];

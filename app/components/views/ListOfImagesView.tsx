@@ -4,7 +4,7 @@
 import React from 'react';
 import Gallery from 'react-photo-gallery';
 import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, ImageItemType } from '../../skate-apps/types';
+import { ResponseTypes, ImageItemType } from '../../bots/types';
 import styles from '../Panel.scss';
 
 type Props = {

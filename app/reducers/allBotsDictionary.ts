@@ -14,6 +14,8 @@ export interface BotType {
   parameterEnabled: boolean;
   typeAheadEnabled: boolean;
 
+  terminalCommandTemplate: string;
+
   type: string;
   typeAheadSource: string;
   typeAheadOptions: string[];
@@ -43,7 +45,8 @@ export default function allBotsDictionary(
           typeAheadEnabled: bot.typeAheadEnabled,
           typeAheadUrl: bot.typeAheadUrl,
           typeAheadSource: bot.typeAheadSource,
-          typeAheadOptions: bot.typeAheadOptions
+          typeAheadOptions: bot.typeAheadOptions,
+          terminalCommandTemplate: bot.terminalCommandTemplate
         };
 
         myAllBotsDictionary.set(bot.name, newBot);

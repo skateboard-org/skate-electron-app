@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Panel.scss';
-import { ResponseTypes } from '../skate-apps/types';
+import { ResponseTypes } from '../bots/types';
 import ListOfLinksView from './views/ListOfLinksView';
 import ListOfImagesView from './views/ListOfImagesView';
 import ListOfGifsView from './views/ListOfGifsView';
