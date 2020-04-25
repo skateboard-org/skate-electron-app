@@ -224,12 +224,7 @@ export default class Board extends Component<Props, BoardState> {
           // IF BOT AND PARAM ARE BOTH PRESENT AND ENTER KEY IS PROCESSED TIME
           const bot = allBotsDictionary.get(botString);
 
-          executeCommand(
-            botString,
-            paramString,
-            bot?.responseType,
-            bot?.responseType
-          );
+          executeCommand(botString, paramString, bot?.responseType, bot?.type);
 
           break;
         }
