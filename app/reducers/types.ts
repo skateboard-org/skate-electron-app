@@ -11,7 +11,7 @@ export type StateType = {
   selectedBot: string;
   selectedParam: string;
   selectedResult: string;
-  task: string;
+  isLoading: string;
   skatePanel: [any];
   botResponseType: string;
 };

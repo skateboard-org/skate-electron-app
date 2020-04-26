@@ -5,10 +5,12 @@ import ListOfLinksView from './views/ListOfLinksView';
 import ListOfImagesView from './views/ListOfImagesView';
 import ListOfGifsView from './views/ListOfGifsView';
 import TextView from './views/TextView';
+import Loader from './helper/loader';
 
 type Props = {
   skatePanel: any[];
   botResponseType: string;
+  isLoading: 'running' | 'idle';
   reset: () => void;
 };
 
@@ -41,8 +43,7 @@ function contentTypeMapper(data: any, responseType: string) {
 }
 
 export default function Panel(props: Props) {
-  const { skatePanel, botResponseType } = props;
-
+  const { botResponseType, skatePanel } = props;
   if (botResponseType && botResponseType !== '') {
     if (skatePanel) {
       const content = contentTypeMapper(skatePanel, botResponseType);

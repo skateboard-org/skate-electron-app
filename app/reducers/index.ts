@@ -11,7 +11,7 @@ import searchingFor from './searchingFor';
 import searchResult from './searchResult';
 import selectedParam from './selectedParam';
 import selectedResult from './selectedResult';
-import task from './task';
+import isLoading from './isLoading';
 import skatePanel from './skatePanel';
 import botResponseType from './botResponseType';
 
@@ -27,7 +27,7 @@ export default function createRootReducer(history: History) {
     searchResult,
     selectedParam,
     selectedResult,
-    task,
+    isLoading,
     skatePanel,
     botResponseType
   });

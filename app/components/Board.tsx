@@ -17,6 +17,7 @@ import {
 } from '../utils/caret';
 import { BotType } from '../reducers/allBotsDictionary';
 import { contractWindow, expandWindow } from '../utils/window';
+import Loader from './helper/loader';
 
 type BoardState = {
   placeholder: string;
@@ -48,6 +49,7 @@ type Props = {
   allBotsNames: string[];
   selectedParam: string;
   skateBoardText: string;
+  isLoading: string;
 };
 
 export default class Board extends Component<Props, BoardState> {
@@ -240,26 +242,32 @@ export default class Board extends Component<Props, BoardState> {
   };
 
   render() {
-    const { skateBoardText } = this.props;
+    const { skateBoardText, isLoading } = this.props;
     const { placeholder } = this.state;
     if (skateBoardText.length > 0) {
       expandWindow();
     } else contractWindow();
+
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div className="column is-12 board-padding">
         <div className="skateBoardContainer" data-tid="skate">
-          <input
-            onKeyDown={e => this.onKeyDown(e)}
-            id="skateBoard"
-            type="text"
-            value={skateBoardText}
-            className="input skateBoard"
-            data-tid="skateBoard"
-            onChange={e => this.onTextUpdate(e.target.value)}
-            placeholder={placeholder}
-            onBlur={e => this.selectAllText(e)}
-          />
+          <div className="control has-icons-right">
+            <input
+              onKeyDown={e => this.onKeyDown(e)}
+              id="skateBoard"
+              type="text"
+              value={skateBoardText}
+              className="input skateBoard"
+              data-tid="skateBoard"
+              onChange={e => this.onTextUpdate(e.target.value)}
+              placeholder={placeholder}
+              onBlur={e => this.selectAllText(e)}
+            />
+            <span className="icon is-right loaderContainer">
+              <Loader show={isLoading === 'running'} />
+            </span>
+          </div>
         </div>
       </div>
     );

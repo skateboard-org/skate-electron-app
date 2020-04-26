@@ -7,10 +7,11 @@ import { reset } from '../actions/index';
 import { StateType } from '../reducers/types';
 
 function mapStateToProps(state: StateType) {
-  const { skatePanel, botResponseType } = state;
+  const { skatePanel, botResponseType, isLoading } = state;
   return {
     skatePanel,
-    botResponseType
+    botResponseType,
+    isLoading
   };
 }
 

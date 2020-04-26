@@ -1,6 +1,6 @@
 import { remote } from 'electron';
 
-const WINDOW_HEIGHT = 65;
+const WINDOW_HEIGHT = 60;
 const EXPANDED_WINDOW_HEIGHT = 600;
 const WINDOW_WIDTH = 700;
 const WINDOW_WIDTH_DEV = WINDOW_WIDTH + 500;
