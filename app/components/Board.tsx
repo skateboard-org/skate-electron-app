@@ -71,7 +71,9 @@ export default class Board extends Component<Props, BoardState> {
   }
 
   focusInputField = () => {
-    console.log('focused');
+    if (this.skateBoardInputRef.current !== null) {
+      this.skateBoardInputRef.current.focus();
+    }
   };
 
   selectAllText = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +91,6 @@ export default class Board extends Component<Props, BoardState> {
       updateSkateBoardText,
       search,
       moveSelection,
-      searchResult,
       reset
     } = this.props;
 
@@ -263,6 +264,7 @@ export default class Board extends Component<Props, BoardState> {
               onChange={e => this.onTextUpdate(e.target.value)}
               placeholder={placeholder}
               onBlur={e => this.selectAllText(e)}
+              ref={this.skateBoardInputRef}
             />
             <span className="icon is-right loaderContainer">
               <Loader show={isLoading === 'running'} />
