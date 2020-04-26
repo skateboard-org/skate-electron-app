@@ -6,7 +6,7 @@ import InfoPage from './InfoPage';
 
 export default function Skate() {
   return (
-    <div className="container is-fullhd">
+    <div className="container is-fullhd is-clipped">
       <div className="columns is-mobile">
         <SkateBoard />
       </div>
