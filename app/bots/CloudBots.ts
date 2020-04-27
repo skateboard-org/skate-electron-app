@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3000/api/bot';
+const apiUrl = 'https://us-central1-skate-board.cloudfunctions.net/default/api';
 
 const executeCloudBot = async (botName: string, botParam: string) => {
   const data = await axios
-    .get(`${apiUrl}/exec/${botName}/${botParam}`)
+    .get(`${apiUrl}/bot/exec/${botName}/${botParam}`)
     .then((res: any) => {
       return res.data;
     })
