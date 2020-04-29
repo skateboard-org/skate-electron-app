@@ -2,7 +2,7 @@ import axios from 'axios';
 import executeTerminalBot from './TerminalBots';
 import executeCloudBot from './CloudBots';
 
-const apiUrl = 'https://us-central1-skate-board.cloudfunctions.net/default/api';
+import serverConstants from '../constants/server.json';
 
 enum typesOfBots {
   Cloud = 'cloud',
@@ -11,7 +11,7 @@ enum typesOfBots {
 
 const getAllBots = async () => {
   const allBots = await axios
-    .get(`${apiUrl}/bot/all`)
+    .get(`${serverConstants.devApiUrl}/bot/all`)
     .then((res: any) => {
       if (res.data.success) return res.data.bots;
       throw new Error();

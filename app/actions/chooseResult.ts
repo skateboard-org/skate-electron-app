@@ -2,33 +2,24 @@ import { CHOOSE_RESULT } from './actions';
 
 import { GetState, Dispatch } from '../reducers/types';
 
-export default function chooseResult(selection?: 0 | string) {
+export default function chooseResult(bot: string, param: string) {
   return (dispatch: Dispatch, getState: GetState) => {
-    const {
-      searchingFor,
-      selectedBot,
-      searchResult,
-      selectedResult
-    } = getState();
+    const { searchingFor } = getState();
 
-    let mySelectedResult;
+    console.log('CHOOSE_RESULT');
+    console.log(bot, param);
 
-    if (selection === undefined) {
-      mySelectedResult = selectedResult;
+    if (bot) {
+      // if (param && param.length > 0) {
+      dispatch({
+        type: CHOOSE_RESULT,
+        payload: {
+          searchingFor,
+          selectedBot: bot,
+          selectedParam: param
+        }
+      });
     }
-    if (selection === 0) {
-      mySelectedResult = searchResult[0];
-    }
-    if (typeof selection === 'string') {
-      mySelectedResult = selection;
-    }
-    dispatch({
-      type: CHOOSE_RESULT,
-      payload: {
-        searchingFor,
-        selectedBotIfAny: selectedBot,
-        selectedResult: mySelectedResult
-      }
-    });
+    // }
   };
 }

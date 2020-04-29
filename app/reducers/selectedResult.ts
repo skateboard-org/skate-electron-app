@@ -4,6 +4,7 @@ import {
   NEXT_RESULT,
   PREVIOUS_RESULT,
   CHOOSE_RESULT,
+  REMOVE_SELECTION,
   RESET
 } from '../actions/actions';
 
@@ -45,11 +46,15 @@ export default function selectedResult(state = '', action: Action<string>) {
       return mySearchResult[mySearchResult.length - 1];
     }
 
-    case CHOOSE_RESULT: {
+    // case CHOOSE_RESULT: {
+    //   return '';
+    // }
+
+    case RESET: {
       return '';
     }
 
-    case RESET: {
+    case REMOVE_SELECTION: {
       return '';
     }
 

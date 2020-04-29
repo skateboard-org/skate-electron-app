@@ -14,9 +14,9 @@ export default function searchResult(state = [], action: Action<string>) {
     case SEARCH_PARAMETERS: {
       const myAllParamNames = action.payload.allParamNames;
 
-      if (action.payload.searchTerm === '') {
-        return [];
-      }
+      // if (action.payload.searchTerm === '') {
+      //   return [];
+      // }
 
       const newArray = myAllParamNames.filter(param =>
         param.includes(action.payload.searchTerm)

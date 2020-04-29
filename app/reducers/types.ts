@@ -9,7 +9,6 @@ export type StateType = {
   searchingFor: string;
   searchResult: [string];
   selectedBot: string;
-  selectedParam: string;
   selectedResult: string;
   isLoading: string;
   skatePanel: [any];

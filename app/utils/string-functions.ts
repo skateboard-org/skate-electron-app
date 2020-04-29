@@ -1,5 +1,5 @@
-export const ONLY_BOT_PRESENT = 'ONLY_BOT_PRESENT';
-export const BOT_AND_PARAM_PRESENT = 'BOT_AND_PARAM_PRESENT';
+export const ONE_TOKEN_PRESENT = 'ONE_TOKEN_PRESENT';
+export const MORE_THAN_ONE_TOKEN_PRESENT = 'MORE_THAN_ONE_TOKEN_PRESENT';
 export const INVALID_STRING_IN_SKATEBOARD = 'INVALID_STRING_IN_SKATEBOARD';
 
 export function cleanString(str: string) {
@@ -13,7 +13,8 @@ interface SkateBoardTextComponents {
 }
 
 export function stringAnalysis(str: string): SkateBoardTextComponents {
-  const cleanStr = cleanString(str);
+  const cleanStr = str.toLowerCase();
+
   if (cleanStr === undefined || cleanStr.length === 0) {
     return {
       result: INVALID_STRING_IN_SKATEBOARD,
@@ -27,14 +28,14 @@ export function stringAnalysis(str: string): SkateBoardTextComponents {
       return {
         paramString: '',
         botString: tokens[0],
-        result: ONLY_BOT_PRESENT
+        result: ONE_TOKEN_PRESENT
       };
     }
     if (tokens.length === 2) {
       return {
         botString: tokens[0],
         paramString: tokens[1],
-        result: BOT_AND_PARAM_PRESENT
+        result: MORE_THAN_ONE_TOKEN_PRESENT
       };
     }
     if (tokens.length > 2) {
@@ -43,7 +44,7 @@ export function stringAnalysis(str: string): SkateBoardTextComponents {
       return {
         paramString: tokens.join(' '),
         botString: botName,
-        result: BOT_AND_PARAM_PRESENT
+        result: MORE_THAN_ONE_TOKEN_PRESENT
       };
     }
   }

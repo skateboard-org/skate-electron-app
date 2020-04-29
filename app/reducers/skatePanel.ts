@@ -4,7 +4,8 @@ import {
   EXECUTION_STARTED,
   EXECUTION_COMPLETED,
   EXECUTION_FAILED,
-  RESET
+  RESET,
+  MARK_SEARCH_FOR_BOTS
 } from '../actions/actions';
 
 export default function skatePanel(state = [], action: Action<string>) {
@@ -22,6 +23,9 @@ export default function skatePanel(state = [], action: Action<string>) {
       return [];
     }
     case RESET: {
+      return [];
+    }
+    case MARK_SEARCH_FOR_BOTS: {
       return [];
     }
     default:

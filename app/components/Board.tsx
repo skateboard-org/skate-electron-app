@@ -21,6 +21,7 @@ import Loader from './helper/loader';
 
 type BoardState = {
   placeholder: string;
+  invalidStrings: string[];
 };
 
 type Props = {
@@ -32,7 +33,7 @@ type Props = {
     type: string
   ) => void;
   moveSelection: (direction: string) => void;
-  chooseResult: (selection?: 0 | string) => void;
+  chooseResult: (bot: string, param: string) => void;
   invalidCommand: (problem: 'unknownCommand' | 'requestParam') => void;
   reset: () => void;
   search: (
@@ -41,13 +42,14 @@ type Props = {
     searchSpace?: string[]
   ) => void;
   updateSkateBoardText: (newText: string) => void;
+  markSearch: (searchingFor: 'bot' | 'parameter') => void;
 
   searchResult: [string];
   selectedResult: string;
   searchingFor: string;
   allBotsDictionary: Map<string, BotType>;
   allBotsNames: string[];
-  selectedParam: string;
+  selectedBot: string;
   skateBoardText: string;
   isLoading: string;
 };
@@ -58,7 +60,8 @@ export default class Board extends Component<Props, BoardState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      placeholder: 'Type @ to begin'
+      placeholder: 'Type @ to begin',
+      invalidStrings: [' ', '@ ']
     };
     this.skateBoardInputRef = React.createRef<HTMLInputElement>();
   }
@@ -81,78 +84,265 @@ export default class Board extends Component<Props, BoardState> {
     setCaretPosition(id, 0, end);
   };
 
-  onTextUpdate = (newText: string) => {
-    const {
-      invalidCommand,
-      searchingFor,
-      allBotsDictionary,
-      allBotsNames,
-      chooseResult,
-      updateSkateBoardText,
-      search,
-      moveSelection,
-      reset
-    } = this.props;
+  doesContainInvalidStrings = (newText: string): boolean => {
+    const { invalidStrings } = this.state;
+    let doesContainInvalidStrings = false;
 
-    if (newText === ' ' || newText === '@ ') {
-      return;
-    }
-
-    updateSkateBoardText(newText);
-
-    if (newText.length === 0) {
-      reset();
-    }
-
-    const { result, botString, paramString } = strfn.stringAnalysis(newText);
-
-    switch (result) {
-      case strfn.ONLY_BOT_PRESENT:
-        if (allBotsNames.indexOf(botString) === -1 && botString !== undefined) {
-          // WHEN BOT STRING IS ENTERED AND DOESN'T MATCH WITH ANY BOT
-          // if (searchResult.length === 1) {
-          //   // WHEN BOT STRING AND THERE'S ONLY SEARCH RESULT
-          // } else {
-
-          search('bots', botString);
-          moveSelection('first');
-          // }
-        } else if (searchingFor === 'bot' && botString !== undefined) {
-          // WHEN BOT STRING IS ENTERED AND MATCHES PERFECTLY WITH A BOT, CHOOSE THAT BOT
-          chooseResult(botString);
-        }
-        break;
-
-      case strfn.BOT_AND_PARAM_PRESENT: {
-        const bot = allBotsDictionary.get(botString);
-        if (bot?.name !== undefined && paramString !== undefined) {
-          // if (['one', 'two', 'three'].indexOf(paramString) === -1) {
-          search('params', paramString, bot.typeAheadOptions);
-        }
-        // }
-        break;
+    invalidStrings.forEach((word: string) => {
+      if (word === newText) {
+        doesContainInvalidStrings = true;
       }
-      case strfn.INVALID_STRING_IN_SKATEBOARD:
-        invalidCommand('unknownCommand');
-        break;
+    });
+    return doesContainInvalidStrings;
+  };
 
-      default:
-        break;
+  onlyAllowOneSpace = (newText: string): string => {
+    let finalText = newText;
+    if (newText.endsWith(' ')) {
+      finalText = `${newText.trim()} `;
+    }
+    return finalText;
+  };
+
+  doesUserWantsToReset = (newText: string): boolean => {
+    if (newText.length === 0) {
+      return true;
+    }
+    if (newText === 'clear') {
+      return true;
+    }
+    return false;
+  };
+
+  isThisAValidBot = (botString: string): boolean => {
+    const { allBotsNames } = this.props;
+    if (botString && allBotsNames.indexOf(botString) >= 0) {
+      return true;
+    }
+    return false;
+  };
+
+  isThisAValidParam = (paramString: string, paramArray?: string[]): boolean => {
+    if (paramString && paramString.length > 0) {
+      if (paramArray) {
+        if (paramArray.indexOf(paramString) < 0) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  };
+
+  doesThisBotRequireParam = (botName: string): boolean => {
+    const { allBotsDictionary } = this.props;
+    const bot = allBotsDictionary.get(botName);
+    if (bot && bot.name) {
+      return bot.parameterEnabled;
+    }
+    return false;
+  };
+
+  getTypeAheadOptions = (botName: string): string[] => {
+    const { allBotsDictionary } = this.props;
+    const bot = allBotsDictionary.get(botName);
+    if (bot && bot.parameterEnabled) {
+      return bot.typeAheadOptions;
+    }
+    return [];
+  };
+
+  doesThisBotHasTypeAhead = (botName: string): boolean => {
+    const { allBotsDictionary } = this.props;
+    const bot = allBotsDictionary.get(botName);
+    if (bot && bot.name) {
+      if (bot.typeAheadEnabled) {
+        return bot.typeAheadEnabled;
+      }
+    }
+    return false;
+  };
+
+  areThereAnySearchResults = () => {
+    const { searchResult } = this.props;
+    if (searchResult.length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  isthereAnythingSelected = () => {
+    const { selectedResult } = this.props;
+    if (selectedResult && selectedResult.length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  tellUserParamRequired = () => {
+    console.log('NEED PARAM');
+  };
+
+  tellUserTheyCanExecute = () => {
+    console.log('PRESS ENTER TO EXECUTE');
+  };
+
+  tellUserNoParamRequired = () => {
+    console.log('NO PARAM REQUIRED');
+  };
+
+  tellUserThisIsAValidParam = () => {
+    console.log('GOOD PARAM');
+  };
+
+  tellUserThisIsAnInValidParam = () => {
+    console.log('BAD PARAM');
+  };
+
+  tellUserNoParamFound = () => {
+    console.log('NO PARAM FOUND');
+  };
+
+  tellUserNoBotFound = () => {
+    console.log('NO BOT FOUND');
+  };
+
+  tellUserThisIsAValidBot = () => {
+    console.log('GOOD BOT');
+  };
+
+  execute = (botString: string, paramString: string) => {
+    if (botString) {
+      const { allBotsDictionary, executeCommand } = this.props;
+      const bot = allBotsDictionary.get(botString);
+      if (bot) {
+        executeCommand(botString, paramString, bot.responseType, bot.type);
+      }
     }
   };
 
-  onKeyDown = (event: ChangeEvent<HTMLInputElement>) => {
+  processText = (text: string, shouldExecute: boolean) => {
+    const { chooseResult, search, moveSelection, markSearch } = this.props;
+
+    const { result, botString, paramString } = strfn.stringAnalysis(text);
+
+    // SELECT THE FIRST OPTION BY DEFAULT
+    if (this.areThereAnySearchResults() && !this.isthereAnythingSelected()) {
+      moveSelection('first');
+    }
+
+    if (result === strfn.ONE_TOKEN_PRESENT) {
+      // IF THERE ONLY ONE TOKEN IN THE STRING
+
+      // MARK SEARCH AS SEARCHING FOR BOT
+      markSearch('bot');
+
+      if (this.isThisAValidBot(botString)) {
+        // IF BOTSTRING IS A VALID BOT
+
+        this.tellUserThisIsAValidBot();
+        chooseResult(botString, '');
+        moveSelection('remove');
+
+        if (this.doesThisBotRequireParam(botString)) {
+          this.tellUserParamRequired();
+        } else {
+          this.tellUserTheyCanExecute();
+          if (shouldExecute) {
+            this.execute(botString, paramString);
+          }
+        }
+      } else {
+        // IF BOTSTRING IS NOT A VALID BOT
+
+        search('bots', botString);
+
+        if (!this.areThereAnySearchResults()) {
+          if (this.isthereAnythingSelected()) {
+            moveSelection('remove');
+          }
+          this.tellUserNoBotFound();
+        }
+      }
+    } else if (result === strfn.MORE_THAN_ONE_TOKEN_PRESENT) {
+      markSearch('parameter');
+      if (this.isThisAValidBot(botString)) {
+        this.tellUserThisIsAValidBot();
+        if (this.doesThisBotRequireParam(botString)) {
+          if (this.doesThisBotHasTypeAhead(botString)) {
+            const options = this.getTypeAheadOptions(botString);
+            if (this.isThisAValidParam(paramString, options)) {
+              this.tellUserThisIsAValidParam();
+              this.tellUserTheyCanExecute();
+              if (shouldExecute) {
+                this.execute(botString, paramString);
+              }
+            } else {
+              this.tellUserThisIsAnInValidParam();
+              search('params', paramString, options);
+              if (this.areThereAnySearchResults()) {
+                moveSelection('first');
+              } else {
+                this.tellUserNoParamFound();
+              }
+            }
+          } else if (this.isThisAValidParam(paramString)) {
+            this.tellUserThisIsAValidParam();
+            this.tellUserTheyCanExecute();
+            if (shouldExecute) {
+              this.execute(botString, paramString);
+            }
+          } else {
+            this.tellUserThisIsAnInValidParam();
+          }
+        } else {
+          if (this.isthereAnythingSelected()) {
+            moveSelection('remove');
+          }
+          this.tellUserNoParamRequired();
+        }
+      }
+    }
+  };
+
+  chooseOption = () => {
     const {
-      searchResult,
-      selectedResult,
-      executeCommand,
-      moveSelection,
+      searchingFor,
       chooseResult,
-      invalidCommand,
-      allBotsDictionary,
-      allBotsNames,
-      selectedParam
+      selectedBot,
+      selectedResult
     } = this.props;
+    if (this.isthereAnythingSelected()) {
+      // AND IF THERE IS ANYTHING SELECTION
+      // CHOOSE IT
+      if (searchingFor === 'bot') {
+        chooseResult(selectedResult, '');
+      }
+      if (searchingFor === 'parameter') {
+        chooseResult(selectedBot, selectedResult);
+      }
+    }
+  };
+
+  onTextUpdate = (newText: string) => {
+    const { updateSkateBoardText, reset } = this.props;
+
+    if (this.doesContainInvalidStrings(newText)) {
+      return;
+    }
+
+    const finalText = this.onlyAllowOneSpace(newText);
+    updateSkateBoardText(finalText);
+
+    if (this.doesUserWantsToReset(newText)) {
+      reset();
+    }
+
+    this.processText(newText, false);
+  };
+
+  onKeyDown = (event: ChangeEvent<HTMLInputElement>) => {
+    const { moveSelection } = this.props;
 
     const keyPressed = keyMapper(event);
 
@@ -165,79 +355,16 @@ export default class Board extends Component<Props, BoardState> {
     } else if (keyPressed === KEY_RIGHT || keyPressed === KEY_TAB) {
       if (isCursorAtTheEnd(event)) {
         event.preventDefault();
-        if (
-          (selectedResult === '' || selectedResult === undefined) &&
-          searchResult.length > 0
-        ) {
-          chooseResult(0);
-        }
-        if (
-          selectedResult !== '' &&
-          typeof selectedResult === 'string' &&
-          searchResult.length > 0
-        ) {
-          chooseResult();
-        }
+        this.chooseOption();
       }
     } else if (keyPressed === KEY_ENTER) {
-      const stringAnalysis = strfn.stringAnalysis(event.target.value);
-      console.log(stringAnalysis);
-      const { result, botString, paramString } = stringAnalysis;
-      switch (result) {
-        case strfn.ONLY_BOT_PRESENT: {
-          if (allBotsNames.indexOf(botString) > -1) {
-            // IF THE BOTSTRING IS A BOT AVAILABLE IN THE LISTS OF BOTS
-            // CHECK IF IT REQUIRES PARAMETER IF NOT EXECUTE
-            const bot = allBotsDictionary.get(botString);
-            if (bot !== undefined) {
-              if (bot.parameterEnabled) {
-                invalidCommand('requestParam');
-              } else {
-                executeCommand(
-                  botString,
-                  paramString,
-                  bot.responseType,
-                  bot.type
-                );
-              }
-            }
-          } else if (selectedResult !== '') {
-            // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
-            // AND USER HAS SELECTED A RESULT FROM SEARCH PANEL, CHOOSE IT
-            chooseResult();
-          } else if (searchResult.length > 0) {
-            // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
-            // AND USER HAS NOT SELECTED A RESULT FROM SEARCH PANEL
-            // AND THERE ARE NON ZERO SEARCH RESULTS
-            // CHOOSE THE FIRST ONE
-            chooseResult(0);
-          } else {
-            // IF THE BOTSTRING IS NOT A BOT AVAILABLE IN THE SEARCH RESULTS
-            // AND USER HAS NOT SELECTED A RESULT FROM SEARCH PANEL
-            // AND THERE ARE ZERO SEARCH RESULTS
-            // TELL USER THAT COMMAND IS UNKNOWN
-            invalidCommand('unknownCommand');
-          }
-          break;
-        }
-        case strfn.BOT_AND_PARAM_PRESENT: {
-          if (selectedParam !== paramString) {
-            // IF PARAMSTRING IS DIFFERENT FROM THE SELECTED PARAM CHOOSE RESULT
-            chooseResult(paramString);
-          }
-
-          // IF BOT AND PARAM ARE BOTH PRESENT AND ENTER KEY IS PROCESSED TIME
-          const bot = allBotsDictionary.get(botString);
-          if (bot !== undefined) {
-            executeCommand(botString, paramString, bot.responseType, bot.type);
-          }
-          break;
-        }
-        case strfn.INVALID_STRING_IN_SKATEBOARD:
-          invalidCommand('unknownCommand');
-          break;
-        default:
-          break;
+      const text = event.target.value;
+      if (this.areThereAnySearchResults()) {
+        // IF THERE IS ANY SEARCH RESULTS SHOWN
+        event.preventDefault();
+        this.chooseOption();
+      } else {
+        this.processText(text, true);
       }
     }
   };
@@ -245,6 +372,7 @@ export default class Board extends Component<Props, BoardState> {
   render() {
     const { skateBoardText, isLoading } = this.props;
     const { placeholder } = this.state;
+
     if (skateBoardText.length > 0) {
       expandWindow();
     } else contractWindow();

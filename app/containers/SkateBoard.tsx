@@ -10,7 +10,8 @@ import {
   invalidCommand,
   reset,
   search,
-  updateSkateBoardText
+  updateSkateBoardText,
+  markSearch
 } from '../actions/index';
 
 import { StateType } from '../reducers/types';
@@ -22,9 +23,9 @@ function mapStateToProps(state: StateType) {
     searchingFor,
     allBotsDictionary,
     allBotsNames,
-    selectedParam,
     skateBoardText,
-    isLoading
+    isLoading,
+    selectedBot
   } = state;
   return {
     searchResult,
@@ -32,9 +33,9 @@ function mapStateToProps(state: StateType) {
     searchingFor,
     allBotsDictionary,
     allBotsNames,
-    selectedParam,
     skateBoardText,
-    isLoading
+    isLoading,
+    selectedBot
   };
 }
 
@@ -48,7 +49,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
       invalidCommand,
       reset,
       search,
-      updateSkateBoardText
+      updateSkateBoardText,
+      markSearch
     },
     dispatch
   );

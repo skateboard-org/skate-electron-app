@@ -1,4 +1,9 @@
-import { NEXT_RESULT, PREVIOUS_RESULT, FIRST_RESULT } from './actions';
+import {
+  NEXT_RESULT,
+  PREVIOUS_RESULT,
+  FIRST_RESULT,
+  REMOVE_SELECTION
+} from './actions';
 
 import { GetState, Dispatch } from '../reducers/types';
 
@@ -13,6 +18,9 @@ export default function moveSelection(direction: string) {
     }
     if (direction === 'previous') {
       dispatch({ type: PREVIOUS_RESULT, payload: { searchResult } });
+    }
+    if (direction === 'remove') {
+      dispatch({ type: REMOVE_SELECTION });
     }
   };
 }
