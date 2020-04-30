@@ -1,6 +1,6 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Board from '../components/Board';
+import Board from './Board';
 
 import {
   initState,
@@ -13,9 +13,9 @@ import {
   updateSkateBoardText,
   markSearch,
   updateCommandStatus
-} from '../actions/index';
+} from '../../actions/index';
 
-import { StateType } from '../reducers/types';
+import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
   const {

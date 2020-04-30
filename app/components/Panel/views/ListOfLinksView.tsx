@@ -4,9 +4,9 @@
 import React from 'react';
 import Truncate from 'react-truncate';
 import styles from '../Panel.scss';
-import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, LinkItemType } from '../../bots/types';
-import { openLinkInDefaultBrowser } from '../../utils/ipc';
+import { copyAndExit } from '../../../utils/clipboard';
+import { ResponseTypes, LinkItemType } from '../../../bots/types';
+import { openLinkInDefaultBrowser } from '../../../utils/ipc';
 
 type Props = {
   data: [LinkItemType];

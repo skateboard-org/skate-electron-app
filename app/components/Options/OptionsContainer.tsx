@@ -1,10 +1,10 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Options from '../components/Options';
+import Options from './Options';
 
-import { chooseResult } from '../actions/index';
+import { chooseResult } from '../../actions/index';
 
-import { StateType } from '../reducers/types';
+import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
   const { searchResult, selectedResult } = state;

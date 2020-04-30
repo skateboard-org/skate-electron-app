@@ -1,10 +1,10 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Info from '../components/Info';
+import Info from './Info';
 
-import { initState } from '../actions/index';
+import { initState } from '../../actions/index';
 
-import { StateType } from '../reducers/types';
+import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
   const { selectedResult, allBotsDictionary, searchingFor } = state;

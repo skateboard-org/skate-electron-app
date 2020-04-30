@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import React from 'react';
-import { copyAndExit } from '../../utils/clipboard';
-import { ResponseTypes, TextItemType } from '../../bots/types';
+import { copyAndExit } from '../../../utils/clipboard';
+import { ResponseTypes, TextItemType } from '../../../bots/types';
 import styles from '../Panel.scss';
 
 type Props = {

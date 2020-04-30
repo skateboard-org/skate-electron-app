@@ -1,8 +1,8 @@
 import React from 'react';
-import SkateOptions from './SkateOptions';
-import SkatePanel from './SkatePanel';
-import SkateBoard from './SkateBoard';
-import InfoPage from './InfoPage';
+import SkateOptions from '../components/Options/OptionsContainer';
+import SkatePanel from '../components/Panel/PanelContainer';
+import SkateBoard from '../components/Board/BoardContainer';
+import InfoPage from '../components/Info/InfoContainer';
 
 export default function Skate() {
   return (

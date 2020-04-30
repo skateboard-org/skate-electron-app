@@ -1,5 +1,5 @@
 import React from 'react';
-import { BotType } from '../reducers/allBotsDictionary';
+import { BotType } from '../../reducers/allBotsDictionary';
 
 type Props = {
   allBotsDictionary: Map<string, BotType>;

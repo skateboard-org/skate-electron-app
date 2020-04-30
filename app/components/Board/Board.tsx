@@ -7,22 +7,22 @@ import {
   KEY_RIGHT,
   KEY_ENTER,
   KEY_TAB
-} from '../utils/keys';
+} from '../../utils/keys';
 
-import * as strfn from '../utils/string-functions';
+import * as strfn from '../../utils/string-functions';
 import {
   isCursorAtTheEnd,
   setCaretPosition,
   getCaretPosition
-} from '../utils/caret';
-import { BotType } from '../reducers/allBotsDictionary';
+} from '../../utils/caret';
+import { BotType } from '../../reducers/allBotsDictionary';
 import {
   botStatusMessages,
   paramStatusMessages
-} from '../reducers/commandStatus';
+} from '../../reducers/commandStatus';
 
-import { contractWindow, expandWindow } from '../utils/window';
-import Loader from './helper/loader';
+import { contractWindow, expandWindow } from '../../utils/window';
+import Loader from './Loader';
 
 type BoardState = {
   placeholder: string;

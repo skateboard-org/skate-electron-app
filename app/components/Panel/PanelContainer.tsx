@@ -1,10 +1,10 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Panel from '../components/Panel';
+import Panel from './Panel';
 
-import { reset } from '../actions/index';
+import { reset } from '../../actions/index';
 
-import { StateType } from '../reducers/types';
+import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
   const { skatePanel, botResponseType, isLoading } = state;
