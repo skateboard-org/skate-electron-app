@@ -13,6 +13,7 @@ import selectedBot from './selectedBot';
 import isLoading from './isLoading';
 import skatePanel from './skatePanel';
 import botResponseType from './botResponseType';
+import commandStatus from './commandStatus';
 
 export default function createRootReducer(history: History) {
   return combineReducers({
@@ -27,6 +28,7 @@ export default function createRootReducer(history: History) {
     selectedBot,
     isLoading,
     skatePanel,
-    botResponseType
+    botResponseType,
+    commandStatus
   });
 }

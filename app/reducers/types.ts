@@ -1,5 +1,6 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
 import { BotType } from './allBotsDictionary';
+import { CommandStatusType } from './commandStatus';
 
 export type StateType = {
   counter: number;
@@ -13,6 +14,7 @@ export type StateType = {
   isLoading: string;
   skatePanel: [any];
   botResponseType: string;
+  commandStatus: CommandStatusType;
 };
 
 export type GetState = () => StateType;

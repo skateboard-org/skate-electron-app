@@ -7,6 +7,7 @@ import reset from './reset';
 import search from './search';
 import updateSkateBoardText from './updateSkateBoardText';
 import markSearch from './markSearch';
+import updateCommandStatus from './updateCommandStatus';
 
 export {
   initState,
@@ -17,5 +18,6 @@ export {
   reset,
   search,
   updateSkateBoardText,
-  markSearch
+  markSearch,
+  updateCommandStatus
 };

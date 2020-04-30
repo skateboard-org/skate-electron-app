@@ -11,7 +11,8 @@ import {
   reset,
   search,
   updateSkateBoardText,
-  markSearch
+  markSearch,
+  updateCommandStatus
 } from '../actions/index';
 
 import { StateType } from '../reducers/types';
@@ -25,7 +26,8 @@ function mapStateToProps(state: StateType) {
     allBotsNames,
     skateBoardText,
     isLoading,
-    selectedBot
+    selectedBot,
+    commandStatus
   } = state;
   return {
     searchResult,
@@ -35,7 +37,8 @@ function mapStateToProps(state: StateType) {
     allBotsNames,
     skateBoardText,
     isLoading,
-    selectedBot
+    selectedBot,
+    commandStatus
   };
 }
 
@@ -50,7 +53,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
       reset,
       search,
       updateSkateBoardText,
-      markSearch
+      markSearch,
+      updateCommandStatus
     },
     dispatch
   );

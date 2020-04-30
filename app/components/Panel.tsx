@@ -5,7 +5,6 @@ import ListOfLinksView from './views/ListOfLinksView';
 import ListOfImagesView from './views/ListOfImagesView';
 import ListOfGifsView from './views/ListOfGifsView';
 import TextView from './views/TextView';
-import Loader from './helper/loader';
 
 type Props = {
   skatePanel: any[];

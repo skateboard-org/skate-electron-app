@@ -16,6 +16,11 @@ import {
   getCaretPosition
 } from '../utils/caret';
 import { BotType } from '../reducers/allBotsDictionary';
+import {
+  botStatusMessages,
+  paramStatusMessages
+} from '../reducers/commandStatus';
+
 import { contractWindow, expandWindow } from '../utils/window';
 import Loader from './helper/loader';
 
@@ -43,6 +48,10 @@ type Props = {
   ) => void;
   updateSkateBoardText: (newText: string) => void;
   markSearch: (searchingFor: 'bot' | 'parameter') => void;
+  updateCommandStatus: (
+    type: 'bot' | 'param',
+    status: botStatusMessages | paramStatusMessages
+  ) => void;
 
   searchResult: [string];
   selectedResult: string;
@@ -52,6 +61,10 @@ type Props = {
   selectedBot: string;
   skateBoardText: string;
   isLoading: string;
+  commandStatus: {
+    botStatus: botStatusMessages;
+    paramStatus: paramStatusMessages;
+  };
 };
 
 export default class Board extends Component<Props, BoardState> {
@@ -179,36 +192,8 @@ export default class Board extends Component<Props, BoardState> {
     return false;
   };
 
-  tellUserParamRequired = () => {
-    console.log('NEED PARAM');
-  };
-
   tellUserTheyCanExecute = () => {
     console.log('PRESS ENTER TO EXECUTE');
-  };
-
-  tellUserNoParamRequired = () => {
-    console.log('NO PARAM REQUIRED');
-  };
-
-  tellUserThisIsAValidParam = () => {
-    console.log('GOOD PARAM');
-  };
-
-  tellUserThisIsAnInValidParam = () => {
-    console.log('BAD PARAM');
-  };
-
-  tellUserNoParamFound = () => {
-    console.log('NO PARAM FOUND');
-  };
-
-  tellUserNoBotFound = () => {
-    console.log('NO BOT FOUND');
-  };
-
-  tellUserThisIsAValidBot = () => {
-    console.log('GOOD BOT');
   };
 
   execute = (botString: string, paramString: string) => {
@@ -222,7 +207,13 @@ export default class Board extends Component<Props, BoardState> {
   };
 
   processText = (text: string, shouldExecute: boolean) => {
-    const { chooseResult, search, moveSelection, markSearch } = this.props;
+    const {
+      chooseResult,
+      search,
+      moveSelection,
+      markSearch,
+      updateCommandStatus
+    } = this.props;
 
     const { result, botString, paramString } = strfn.stringAnalysis(text);
 
@@ -240,12 +231,15 @@ export default class Board extends Component<Props, BoardState> {
       if (this.isThisAValidBot(botString)) {
         // IF BOTSTRING IS A VALID BOT
 
-        this.tellUserThisIsAValidBot();
+        updateCommandStatus('param', paramStatusMessages.Valid);
         chooseResult(botString, '');
         moveSelection('remove');
 
         if (this.doesThisBotRequireParam(botString)) {
-          this.tellUserParamRequired();
+          updateCommandStatus(
+            'param',
+            paramStatusMessages.ParamRequiredAndNotGiven
+          );
         } else {
           this.tellUserTheyCanExecute();
           if (shouldExecute) {
@@ -261,45 +255,54 @@ export default class Board extends Component<Props, BoardState> {
           if (this.isthereAnythingSelected()) {
             moveSelection('remove');
           }
-          this.tellUserNoBotFound();
+          updateCommandStatus('bot', botStatusMessages.BotNotFound);
         }
       }
     } else if (result === strfn.MORE_THAN_ONE_TOKEN_PRESENT) {
       markSearch('parameter');
       if (this.isThisAValidBot(botString)) {
-        this.tellUserThisIsAValidBot();
+        updateCommandStatus('bot', botStatusMessages.Valid);
         if (this.doesThisBotRequireParam(botString)) {
           if (this.doesThisBotHasTypeAhead(botString)) {
             const options = this.getTypeAheadOptions(botString);
             if (this.isThisAValidParam(paramString, options)) {
-              this.tellUserThisIsAValidParam();
+              updateCommandStatus(
+                'param',
+                paramStatusMessages.ParamNotFoundInOptions
+              );
               this.tellUserTheyCanExecute();
               if (shouldExecute) {
                 this.execute(botString, paramString);
               }
             } else {
-              this.tellUserThisIsAnInValidParam();
+              updateCommandStatus('param', paramStatusMessages.ParamInvalid);
               search('params', paramString, options);
               if (this.areThereAnySearchResults()) {
                 moveSelection('first');
               } else {
-                this.tellUserNoParamFound();
+                updateCommandStatus(
+                  'param',
+                  paramStatusMessages.ParamNotFoundInOptions
+                );
               }
             }
           } else if (this.isThisAValidParam(paramString)) {
-            this.tellUserThisIsAValidParam();
+            updateCommandStatus('param', paramStatusMessages.Valid);
             this.tellUserTheyCanExecute();
             if (shouldExecute) {
               this.execute(botString, paramString);
             }
           } else {
-            this.tellUserThisIsAnInValidParam();
+            updateCommandStatus('param', paramStatusMessages.ParamInvalid);
           }
         } else {
           if (this.isthereAnythingSelected()) {
             moveSelection('remove');
           }
-          this.tellUserNoParamRequired();
+          updateCommandStatus(
+            'param',
+            paramStatusMessages.ParamNotRequiredAndGiven
+          );
         }
       }
     }
@@ -370,7 +373,7 @@ export default class Board extends Component<Props, BoardState> {
   };
 
   render() {
-    const { skateBoardText, isLoading } = this.props;
+    const { skateBoardText, isLoading, commandStatus } = this.props;
     const { placeholder } = this.state;
 
     if (skateBoardText.length > 0) {
@@ -395,7 +398,10 @@ export default class Board extends Component<Props, BoardState> {
               ref={this.skateBoardInputRef}
             />
             <span className="icon is-right loaderContainer">
-              <Loader show={isLoading === 'running'} />
+              <Loader
+                isLoaderVisible={isLoading === 'running'}
+                commandStatus={commandStatus}
+              />
             </span>
           </div>
         </div>

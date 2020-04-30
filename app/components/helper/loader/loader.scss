@@ -1,18 +1,19 @@
 $spinner-color: #69717d !default;
 $spinner-size: 28px !default;
 
+.icon-container {
+  width: 1em;
+  height: 1em;
+  font-size: $spinner-size;
+  position: relative;
+  display: inline-block;
+}
+
 .overlay {
   background: rgba(0, 0, 0, 0.8);
   height: 100vh;
 }
 
-.spinner {
-  font-size: $spinner-size;
-  position: relative;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-}
 .spinner.center {
   position: absolute;
   left: 0;
@@ -89,3 +90,7 @@ $spinner-size: 28px !default;
     background-color: transparent;
   }
 }
+
+//
+// STYLE FOR STATUS
+//
