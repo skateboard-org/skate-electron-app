@@ -6,9 +6,6 @@ export default function chooseResult(bot: string, param: string) {
   return (dispatch: Dispatch, getState: GetState) => {
     const { searchingFor } = getState();
 
-    console.log('CHOOSE_RESULT');
-    console.log(bot, param);
-
     if (bot) {
       // if (param && param.length > 0) {
       dispatch({

@@ -31,7 +31,9 @@ export default function Loader(props: Props) {
     }
     if (
       commandStatus.botStatus === botStatusMessages.Valid &&
-      commandStatus.paramStatus === paramStatusMessages.Valid
+      (commandStatus.paramStatus === paramStatusMessages.Valid ||
+        commandStatus.paramStatus ===
+          paramStatusMessages.ParamNotRequiredAndNotGiven)
     ) {
       return '💚';
     }

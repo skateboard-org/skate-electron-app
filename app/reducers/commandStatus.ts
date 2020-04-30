@@ -16,6 +16,7 @@ export enum paramStatusMessages {
   ParamNotFoundInOptions = 'ParamNotFoundInOptions',
   ParamRequiredAndNotGiven = 'ParamRequiredAndNotGiven',
   ParamNotRequiredAndGiven = 'ParamNotRequiredAndGiven',
+  ParamNotRequiredAndNotGiven = 'ParamNotRequiredAndNotGiven',
   ParamInvalid = 'ParamInvalid',
   Valid = 'Valid',
   Undefined = 'Undefined'

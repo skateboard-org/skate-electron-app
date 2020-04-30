@@ -241,7 +241,10 @@ export default class Board extends Component<Props, BoardState> {
             paramStatusMessages.ParamRequiredAndNotGiven
           );
         } else {
-          this.tellUserTheyCanExecute();
+          updateCommandStatus(
+            'param',
+            paramStatusMessages.ParamNotRequiredAndNotGiven
+          );
           if (shouldExecute) {
             this.execute(botString, paramString);
           }
@@ -266,11 +269,7 @@ export default class Board extends Component<Props, BoardState> {
           if (this.doesThisBotHasTypeAhead(botString)) {
             const options = this.getTypeAheadOptions(botString);
             if (this.isThisAValidParam(paramString, options)) {
-              updateCommandStatus(
-                'param',
-                paramStatusMessages.ParamNotFoundInOptions
-              );
-              this.tellUserTheyCanExecute();
+              updateCommandStatus('param', paramStatusMessages.Valid);
               if (shouldExecute) {
                 this.execute(botString, paramString);
               }
