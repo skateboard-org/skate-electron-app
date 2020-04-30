@@ -231,7 +231,7 @@ export default class Board extends Component<Props, BoardState> {
       if (this.isThisAValidBot(botString)) {
         // IF BOTSTRING IS A VALID BOT
 
-        updateCommandStatus('param', paramStatusMessages.Valid);
+        updateCommandStatus('bot', botStatusMessages.Valid);
         chooseResult(botString, '');
         moveSelection('remove');
 
@@ -312,15 +312,18 @@ export default class Board extends Component<Props, BoardState> {
       searchingFor,
       chooseResult,
       selectedBot,
-      selectedResult
+      selectedResult,
+      updateCommandStatus
     } = this.props;
     if (this.isthereAnythingSelected()) {
       // AND IF THERE IS ANYTHING SELECTION
       // CHOOSE IT
       if (searchingFor === 'bot') {
+        updateCommandStatus('bot', botStatusMessages.Valid);
         chooseResult(selectedResult, '');
       }
       if (searchingFor === 'parameter') {
+        updateCommandStatus('param', paramStatusMessages.Valid);
         chooseResult(selectedBot, selectedResult);
       }
     }
