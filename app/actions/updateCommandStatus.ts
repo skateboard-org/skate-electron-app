@@ -6,10 +6,10 @@ import { UPDATE_BOT_STATUS, UPDATE_PARAM_STATUS } from './actions';
 
 import { Dispatch } from '../reducers/types';
 
-export default function updateCommandStatus(
+const updateCommandStatus = (
   type: 'bot' | 'param',
   status: botStatusMessages | paramStatusMessages
-) {
+) => {
   return (dispatch: Dispatch) => {
     switch (type) {
       case 'bot':
@@ -28,4 +28,6 @@ export default function updateCommandStatus(
         break;
     }
   };
-}
+};
+
+export default updateCommandStatus;

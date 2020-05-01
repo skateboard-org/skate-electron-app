@@ -2,7 +2,7 @@ import { MARK_SEARCH_FOR_BOTS, MARK_SEARCH_FOR_PARAMS } from './actions';
 
 import { Dispatch } from '../reducers/types';
 
-export default function markSearch(searchingFor: string) {
+const markSearch = (searchingFor: string) => {
   console.log('markSearch', searchingFor);
   return (dispatch: Dispatch) => {
     if (searchingFor === 'bot') {
@@ -12,4 +12,6 @@ export default function markSearch(searchingFor: string) {
       dispatch({ type: MARK_SEARCH_FOR_PARAMS });
     }
   };
-}
+};
+
+export default markSearch;

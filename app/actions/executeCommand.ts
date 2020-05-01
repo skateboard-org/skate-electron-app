@@ -11,12 +11,12 @@ import {
   EXECUTION_FAILED
 } from './actions';
 
-export default function executeCommand(
+const executeCommand = (
   botName: string,
   botParam: string,
   responseType: string,
   type: string
-) {
+) => {
   return function action(dispatch: Dispatch, getState: GetState) {
     dispatch({
       type: EXECUTION_STARTED
@@ -56,28 +56,7 @@ export default function executeCommand(
         .then(handleExecution)
         .catch(handleError);
     }
-
-    // const app = commandMapper(botName);
-
-    // app(botParam)
-    //   .then((res: Response) => {
-    //     console.log(res);
-    //     if (res.success) {
-    //     }
-    //     return dispatch({
-    //       type: EXECUTION_FAILED,
-    //       payload: {
-    //         data: res.data,
-    //         success: res.success,
-    //         responseType
-    //       }
-    //     });
-    //   })
-    //   .catch((error: any) => {
-    //     console.log(error);
-    //     return dispatch({
-    //       type: EXECUTION_FAILED
-    //     });
-    //   });
   };
-}
+};
+
+export default executeCommand;

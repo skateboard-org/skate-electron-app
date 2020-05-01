@@ -2,7 +2,7 @@ import { CHOOSE_RESULT } from './actions';
 
 import { GetState, Dispatch } from '../reducers/types';
 
-export default function chooseResult(bot: string, param: string) {
+const chooseResult = (bot: string, param: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     const { searchingFor } = getState();
 
@@ -19,4 +19,6 @@ export default function chooseResult(bot: string, param: string) {
     }
     // }
   };
-}
+};
+
+export default chooseResult;

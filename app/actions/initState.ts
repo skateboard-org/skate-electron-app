@@ -4,7 +4,7 @@ import { getAllBots } from '../bots/index';
 
 import { GetState, Dispatch } from '../reducers/types';
 
-export default function initState() {
+const initState = () => {
   setUpWindow();
 
   return (dispatch: Dispatch, getState: GetState) => {
@@ -22,4 +22,6 @@ export default function initState() {
         });
     }
   };
-}
+};
+
+export default initState;

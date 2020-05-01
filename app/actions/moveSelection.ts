@@ -7,7 +7,7 @@ import {
 
 import { GetState, Dispatch } from '../reducers/types';
 
-export default function moveSelection(direction: string) {
+const moveSelection = (direction: string) => {
   return (dispatch: Dispatch, getState: GetState) => {
     const { searchResult } = getState();
     if (direction === 'first') {
@@ -23,4 +23,5 @@ export default function moveSelection(direction: string) {
       dispatch({ type: REMOVE_SELECTION });
     }
   };
-}
+};
+export default moveSelection;

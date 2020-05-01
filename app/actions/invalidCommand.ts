@@ -2,9 +2,7 @@ import { UNKNOWN_COMMAND, REQUEST_PARAMETER } from './actions';
 
 import { Dispatch } from '../reducers/types';
 
-export default function invalidCommand(
-  problem: 'requestParameter' | 'unknownCommond'
-) {
+const invalidCommand = (problem: 'requestParameter' | 'unknownCommond') => {
   return (dispatch: Dispatch) => {
     if (problem === 'requestParameter') {
       dispatch({ type: REQUEST_PARAMETER });
@@ -13,4 +11,5 @@ export default function invalidCommand(
       dispatch({ type: UNKNOWN_COMMAND });
     }
   };
-}
+};
+export default invalidCommand;
