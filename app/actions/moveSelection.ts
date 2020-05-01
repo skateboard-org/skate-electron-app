@@ -1,27 +1,49 @@
-import {
-  NEXT_RESULT,
-  PREVIOUS_RESULT,
-  FIRST_RESULT,
-  REMOVE_SELECTION
-} from './actions';
+import { UPDATE_SELECTED_RESULT } from './actions';
 
 import { GetState, Dispatch } from '../reducers/types';
 
-const moveSelection = (direction: string) => {
+export enum moveSelectionOptions {
+  FIRST = 'FIRST',
+  NEXT = 'NEXT',
+  PREVIOUS = 'PREVIOUS',
+  REMOVE = 'REMOVE'
+}
+
+const moveSelection = (direction: moveSelectionOptions) => {
   return (dispatch: Dispatch, getState: GetState) => {
-    const { searchResult } = getState();
-    if (direction === 'first') {
-      dispatch({ type: FIRST_RESULT, payload: { searchResult } });
+    const { searchResult, selectedResult } = getState();
+    let newSelectedResult;
+    if (direction === moveSelectionOptions.FIRST) {
+      if (searchResult.length > 0) {
+        newSelectedResult = searchResult[0];
+      } else if (searchResult.length === 0) {
+        newSelectedResult = '';
+      }
     }
-    if (direction === 'next') {
-      dispatch({ type: NEXT_RESULT, payload: { searchResult } });
+    if (direction === moveSelectionOptions.NEXT) {
+      const index = searchResult.indexOf(selectedResult);
+      const nextIndex = index === -1 ? 0 : index + 1;
+      if (nextIndex <= searchResult.length - 1) {
+        newSelectedResult = searchResult[nextIndex];
+      } else {
+        newSelectedResult = searchResult[0];
+      }
     }
-    if (direction === 'previous') {
-      dispatch({ type: PREVIOUS_RESULT, payload: { searchResult } });
+    if (direction === moveSelectionOptions.PREVIOUS) {
+      const index = searchResult.indexOf(selectedResult);
+      const nextIndex = index === -1 ? searchResult.length - 1 : index - 1;
+      if (nextIndex >= 0) {
+        newSelectedResult = searchResult[nextIndex];
+      } else {
+        newSelectedResult = searchResult[searchResult.length - 1];
+      }
     }
-    if (direction === 'remove') {
-      dispatch({ type: REMOVE_SELECTION });
+
+    if (direction === moveSelectionOptions.REMOVE) {
+      newSelectedResult = '';
     }
+
+    dispatch({ type: UPDATE_SELECTED_RESULT, payload: { newSelectedResult } });
   };
 };
 export default moveSelection;

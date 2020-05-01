@@ -23,6 +23,7 @@ import {
 
 import { contractWindow, expandWindow } from '../../utils/window';
 import StatusLight from './StatusLight';
+import { moveSelectionOptions } from '../../actions/moveSelection';
 
 type BoardState = {
   placeholder: string;
@@ -37,7 +38,7 @@ type Props = {
     responseType: string,
     type: string
   ) => void;
-  moveSelection: (direction: string) => void;
+  moveSelection: (direction: moveSelectionOptions) => void;
   chooseResult: (bot: string, param: string) => void;
   invalidCommand: (problem: 'unknownCommand' | 'requestParam') => void;
   reset: () => void;
@@ -229,7 +230,7 @@ export default class Board extends Component<Props, BoardState> {
 
         updateCommandStatus('bot', botStatusMessages.Valid);
         chooseResult(botString, '');
-        moveSelection('remove');
+        moveSelection(moveSelectionOptions.REMOVE);
 
         if (this.doesThisBotRequireParam(botString)) {
           updateCommandStatus(
@@ -248,7 +249,7 @@ export default class Board extends Component<Props, BoardState> {
       } else {
         // IF BOTSTRING IS NOT A VALID BOT
         search('bots', botString, allBotsNames);
-        moveSelection('first');
+        moveSelection(moveSelectionOptions.FIRST);
       }
     } else if (result === strfn.MORE_THAN_ONE_TOKEN_PRESENT) {
       markSearch('parameter');
@@ -264,7 +265,7 @@ export default class Board extends Component<Props, BoardState> {
               }
             } else {
               search('params', paramString, options);
-              moveSelection('first');
+              moveSelection(moveSelectionOptions.FIRST);
               if (!this.areThereAnySearchResults()) {
                 updateCommandStatus(
                   'param',
@@ -283,7 +284,7 @@ export default class Board extends Component<Props, BoardState> {
           }
         } else {
           if (this.isthereAnythingSelected()) {
-            moveSelection('remove');
+            moveSelection(moveSelectionOptions.REMOVE);
           }
           updateCommandStatus(
             'param',
@@ -341,10 +342,10 @@ export default class Board extends Component<Props, BoardState> {
 
     if (keyPressed === KEY_UP) {
       event.preventDefault();
-      moveSelection('previous');
+      moveSelection(moveSelectionOptions.PREVIOUS);
     } else if (keyPressed === KEY_DOWN) {
       event.preventDefault();
-      moveSelection('next');
+      moveSelection(moveSelectionOptions.NEXT);
     } else if (keyPressed === KEY_RIGHT || keyPressed === KEY_TAB) {
       if (isCursorAtTheEnd(event)) {
         event.preventDefault();

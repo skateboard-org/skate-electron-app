@@ -158,7 +158,6 @@ export const processCommandStatus = (
     animate
   };
 };
-
 export interface CommandStatusType {
   botStatus: botStatusMessages;
   paramStatus: paramStatusMessages;
