@@ -13,13 +13,16 @@ $status-success-colour: rgb(40, 205, 65);
   display: inline-block;
 }
 
+.status-light-container {
+}
+
 .status-light {
   height: 18px;
   width: 18px;
   border-radius: 50%;
   display: inline-block;
-  margin-bottom: 0.2em;
-  margin-left: 0.15em;
+  padding-bottom: 0.2em;
+  padding-left: 0.15em;
 }
 
 .default {
