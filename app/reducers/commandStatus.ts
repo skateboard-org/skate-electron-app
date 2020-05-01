@@ -21,8 +21,28 @@ export enum paramStatusMessages {
   ParamInvalid = 'ParamInvalid',
   Valid = 'Valid',
   Undefined = 'Undefined',
-  NoExactMatch = 'NoExactMatch'
+  NoExactMatch = 'NoExactMatch',
+  Empty = 'Empty'
 }
+
+const messageTypes = {
+  Error: {
+    priority: 4,
+    colour: 'error'
+  },
+  Warning: {
+    priority: 3,
+    colour: 'warning'
+  },
+  Default: {
+    priority: 2,
+    colour: 'default'
+  },
+  Success: {
+    priority: 1,
+    colour: 'success'
+  }
+};
 
 const paramStatusMapper = (status: paramStatusMessages) => {
   switch (status) {
@@ -51,6 +71,12 @@ const paramStatusMapper = (status: paramStatusMessages) => {
       };
 
     case paramStatusMessages.NoExactMatch:
+      return {
+        paramMessage: null,
+        paramMessageType: messageTypes.Warning
+      };
+
+    case paramStatusMessages.Empty:
       return {
         paramMessage: null,
         paramMessageType: messageTypes.Warning
@@ -107,25 +133,6 @@ const botStatusMapper = (status: botStatusMessages) => {
         botMessage: null,
         botMessageType: messageTypes.Default
       };
-  }
-};
-
-const messageTypes = {
-  Error: {
-    priority: 4,
-    colour: 'error'
-  },
-  Warning: {
-    priority: 3,
-    colour: 'warning'
-  },
-  Default: {
-    priority: 2,
-    colour: 'default'
-  },
-  Success: {
-    priority: 1,
-    colour: 'success'
   }
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { ChangeEvent, Component } from 'react';
 
 import {
@@ -135,13 +136,18 @@ export default class Board extends Component<Props, BoardState> {
     return false;
   };
 
-  isThisAValidParam = (paramString: string, paramArray?: string[]): boolean => {
-    if (paramString && paramString.length > 0) {
-      if (paramArray) {
-        if (paramArray.indexOf(paramString) < 0) {
-          return false;
-        }
+  isThisAValidParam = (paramString: string, paramArray: string[]): boolean => {
+    if (paramArray && paramString) {
+      if (paramArray.indexOf(paramString) < 0) {
+        return false;
       }
+      return true;
+    }
+    return false;
+  };
+
+  isThisParamProper = (paramString: string): boolean => {
+    if (paramString && paramString.length > 0) {
       return true;
     }
     return false;
@@ -232,10 +238,14 @@ export default class Board extends Component<Props, BoardState> {
         moveSelection(moveSelectionOptions.REMOVE);
 
         if (this.doesThisBotRequireParam(botString)) {
-          updateCommandStatus(
-            'param',
-            paramStatusMessages.ParamRequiredAndNotGiven
-          );
+          if (shouldExecute) {
+            updateCommandStatus(
+              'param',
+              paramStatusMessages.ParamRequiredAndNotGiven
+            );
+          } else {
+            updateCommandStatus('param', paramStatusMessages.Empty);
+          }
         } else {
           updateCommandStatus(
             'param',
@@ -272,14 +282,23 @@ export default class Board extends Component<Props, BoardState> {
                 );
               }
             }
-          } else if (this.isThisAValidParam(paramString)) {
-            updateCommandStatus('param', paramStatusMessages.Valid);
-            this.tellUserTheyCanExecute();
-            if (shouldExecute) {
-              this.execute(botString, paramString);
-            }
           } else {
-            updateCommandStatus('param', paramStatusMessages.ParamInvalid);
+            if (this.isThisParamProper(paramString)) {
+              updateCommandStatus('param', paramStatusMessages.Valid);
+              this.tellUserTheyCanExecute();
+              if (shouldExecute) {
+                this.execute(botString, paramString);
+              }
+            } else {
+              if (shouldExecute) {
+                updateCommandStatus(
+                  'param',
+                  paramStatusMessages.ParamRequiredAndNotGiven
+                );
+              } else {
+                updateCommandStatus('param', paramStatusMessages.Empty);
+              }
+            }
           }
         } else {
           if (this.isthereAnythingSelected()) {
