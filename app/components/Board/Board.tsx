@@ -212,7 +212,8 @@ export default class Board extends Component<Props, BoardState> {
       search,
       moveSelection,
       markSearch,
-      updateCommandStatus
+      updateCommandStatus,
+      allBotsNames
     } = this.props;
 
     const { result, botString, paramString } = strfn.stringAnalysis(text);
@@ -246,13 +247,8 @@ export default class Board extends Component<Props, BoardState> {
         }
       } else {
         // IF BOTSTRING IS NOT A VALID BOT
-        updateCommandStatus('bot', botStatusMessages.NoExactMatch);
-        search('bots', botString);
+        search('bots', botString, allBotsNames);
         moveSelection('first');
-
-        if (this.areThereAnySearchResults()) {
-          updateCommandStatus('bot', botStatusMessages.BotNotFound);
-        }
       }
     } else if (result === strfn.MORE_THAN_ONE_TOKEN_PRESENT) {
       markSearch('parameter');
@@ -267,7 +263,6 @@ export default class Board extends Component<Props, BoardState> {
                 this.execute(botString, paramString);
               }
             } else {
-              updateCommandStatus('param', paramStatusMessages.ParamInvalid);
               search('params', paramString, options);
               moveSelection('first');
               if (!this.areThereAnySearchResults()) {

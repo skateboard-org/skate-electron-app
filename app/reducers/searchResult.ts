@@ -12,26 +12,10 @@ import {
 export default function searchResult(state = [], action: Action<string>) {
   switch (action.type) {
     case SEARCH_PARAMETERS: {
-      const myAllParamNames = action.payload.allParamNames;
-
-      // if (action.payload.searchTerm === '') {
-      //   return [];
-      // }
-
-      const newArray = myAllParamNames.filter(param =>
-        param.includes(action.payload.searchTerm)
-      );
-
-      return newArray;
+      return action.payload.searchResult;
     }
     case SEARCH_BOTS: {
-      const myAllBotsNames = action.payload.allBotsNames;
-
-      const newArray = myAllBotsNames.filter(botName =>
-        botName.includes(action.payload.searchTerm)
-      );
-
-      return newArray;
+      return action.payload.searchResult;
     }
 
     case CHOOSE_RESULT: {
