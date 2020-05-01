@@ -1,5 +1,9 @@
 $spinner-color: #69717d !default;
 $spinner-size: 24px !default;
+$status-error-colour: rgb(255, 59, 48);
+$status-warning-colour: rgb(255, 149, 0);
+$status-default-colour: rgb(0, 122, 255);
+$status-success-colour: rgb(40, 205, 65);
 
 .icon-container {
   width: 1em;
@@ -7,6 +11,31 @@ $spinner-size: 24px !default;
   font-size: $spinner-size;
   position: relative;
   display: inline-block;
+}
+
+.status-light {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 0.2em;
+  margin-left: 0.15em;
+}
+
+.default {
+  background-color: $status-default-colour;
+}
+
+.warning {
+  background-color: $status-warning-colour;
+}
+
+.error {
+  background-color: $status-error-colour;
+}
+
+.success {
+  background-color: $status-success-colour;
 }
 
 .overlay {

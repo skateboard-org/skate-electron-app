@@ -5,7 +5,7 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as actions from '../actions/index';
-import { counterStateType } from '../reducers/types';
+import { StateType } from '../reducers/types';
 
 declare global {
   interface Window {
@@ -25,7 +25,7 @@ const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: counterStateType) => {
+const configureStore = (initialState?: StateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];

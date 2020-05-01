@@ -7,6 +7,7 @@ import {
 } from '../actions/actions';
 
 export enum botStatusMessages {
+  NoExactMatch = 'NoExactMatch',
   BotNotFound = 'BotNotFound',
   Valid = 'Valid',
   Undefined = 'Undefined'

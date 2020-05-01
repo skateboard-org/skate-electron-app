@@ -22,7 +22,7 @@ import {
 } from '../../reducers/commandStatus';
 
 import { contractWindow, expandWindow } from '../../utils/window';
-import Loader from './Loader';
+import StatusLight from './StatusLight';
 
 type BoardState = {
   placeholder: string;
@@ -246,14 +246,11 @@ export default class Board extends Component<Props, BoardState> {
         }
       } else {
         // IF BOTSTRING IS NOT A VALID BOT
-
+        updateCommandStatus('bot', botStatusMessages.NoExactMatch);
         search('bots', botString);
         moveSelection('first');
 
-        if (!this.areThereAnySearchResults()) {
-          if (this.isthereAnythingSelected()) {
-            moveSelection('remove');
-          }
+        if (this.areThereAnySearchResults()) {
           updateCommandStatus('bot', botStatusMessages.BotNotFound);
         }
       }
@@ -380,7 +377,7 @@ export default class Board extends Component<Props, BoardState> {
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className="column is-12 board-padding">
+      <div className="column board-padding">
         <div className="skateBoardContainer" data-tid="skate">
           <div className="control has-icons-right">
             <input
@@ -396,7 +393,7 @@ export default class Board extends Component<Props, BoardState> {
               ref={this.skateBoardInputRef}
             />
             <span className="icon is-right loaderContainer">
-              <Loader
+              <StatusLight
                 isLoaderVisible={isLoading === 'running'}
                 commandStatus={commandStatus}
               />
