@@ -217,11 +217,6 @@ export default class Board extends Component<Props, BoardState> {
 
     const { result, botString, paramString } = strfn.stringAnalysis(text);
 
-    // SELECT THE FIRST OPTION BY DEFAULT
-    if (this.areThereAnySearchResults() && !this.isthereAnythingSelected()) {
-      moveSelection('first');
-    }
-
     if (result === strfn.ONE_TOKEN_PRESENT) {
       // IF THERE ONLY ONE TOKEN IN THE STRING
 
@@ -253,6 +248,7 @@ export default class Board extends Component<Props, BoardState> {
         // IF BOTSTRING IS NOT A VALID BOT
 
         search('bots', botString);
+        moveSelection('first');
 
         if (!this.areThereAnySearchResults()) {
           if (this.isthereAnythingSelected()) {
@@ -276,9 +272,8 @@ export default class Board extends Component<Props, BoardState> {
             } else {
               updateCommandStatus('param', paramStatusMessages.ParamInvalid);
               search('params', paramString, options);
-              if (this.areThereAnySearchResults()) {
-                moveSelection('first');
-              } else {
+              moveSelection('first');
+              if (!this.areThereAnySearchResults()) {
                 updateCommandStatus(
                   'param',
                   paramStatusMessages.ParamNotFoundInOptions
