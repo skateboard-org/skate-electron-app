@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Options from './Options';
 
-import { chooseResult } from '../../actions/index';
+import { storeBotName } from '../../actions/index';
 
 import { StateType } from '../../reducers/types';
 
@@ -17,7 +17,7 @@ function mapStateToProps(state: StateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      chooseResult
+      storeBotName
     },
     dispatch
   );

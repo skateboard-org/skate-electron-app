@@ -39,7 +39,7 @@ type Props = {
     type: string
   ) => void;
   moveSelection: (direction: moveSelectionOptions) => void;
-  chooseResult: (bot: string, param: string) => void;
+  storeBotName: (bot: string) => void;
   invalidCommand: (problem: 'unknownCommand' | 'requestParam') => void;
   reset: () => void;
   search: (
@@ -209,7 +209,7 @@ export default class Board extends Component<Props, BoardState> {
 
   processText = (text: string, shouldExecute: boolean) => {
     const {
-      chooseResult,
+      storeBotName,
       search,
       moveSelection,
       markSearch,
@@ -229,7 +229,7 @@ export default class Board extends Component<Props, BoardState> {
         // IF BOTSTRING IS A VALID BOT
 
         updateCommandStatus('bot', botStatusMessages.Valid);
-        chooseResult(botString, '');
+        storeBotName(botString);
         moveSelection(moveSelectionOptions.REMOVE);
 
         if (this.doesThisBotRequireParam(botString)) {

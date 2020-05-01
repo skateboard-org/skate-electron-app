@@ -3,7 +3,6 @@ import { Action } from 'redux';
 import {
   SEARCH_PARAMETERS,
   SEARCH_BOTS,
-  CHOOSE_RESULT,
   RESET,
   EXECUTION_STARTED,
   UNKNOWN_COMMAND
@@ -16,10 +15,6 @@ export default function searchResult(state = [], action: Action<string>) {
     }
     case SEARCH_BOTS: {
       return action.payload.searchResult;
-    }
-
-    case CHOOSE_RESULT: {
-      return [];
     }
 
     case EXECUTION_STARTED: {
