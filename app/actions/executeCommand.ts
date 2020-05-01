@@ -18,9 +18,15 @@ const executeCommand = (
   type: string
 ) => {
   return function action(dispatch: Dispatch, getState: GetState) {
-    dispatch({
-      type: EXECUTION_STARTED
-    });
+    const { allBotsDictionary, isLoading } = getState();
+
+    if (isLoading === 'idle') {
+      dispatch({
+        type: EXECUTION_STARTED
+      });
+    } else {
+      return;
+    }
 
     const handleExecution = (res: any) => {
       return dispatch({
@@ -50,7 +56,6 @@ const executeCommand = (
         .catch(handleError);
     }
     if (type === typesOfBots.Terminal) {
-      const { allBotsDictionary } = getState();
       const { terminalCommandTemplate } = allBotsDictionary.get(botName);
       executeTerminalBot(terminalCommandTemplate, botParam)
         .then(handleExecution)
