@@ -4,7 +4,7 @@ import { ResponseTypes } from '../../bots/types';
 import ListOfLinksView from './views/ListOfLinksView';
 import ListOfImagesView from './views/ListOfImagesView';
 import ListOfGifsView from './views/ListOfGifsView';
-import TextView from './views/TextView';
+import ListOfTextView from './views/ListOfTextView';
 
 type Props = {
   skatePanel: any[];
@@ -35,7 +35,7 @@ function contentTypeMapper(data: any, responseType: string) {
       return <ListOfLinksView data={data} />;
     }
     case ResponseTypes.Text:
-      return <TextView data={data} />;
+      return <ListOfTextView data={data} />;
     default:
       return null;
   }
