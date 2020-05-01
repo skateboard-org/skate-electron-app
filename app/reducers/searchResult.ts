@@ -1,6 +1,6 @@
 import { Action } from 'redux';
-
 import {
+  STORE_BOT_NAME,
   SEARCH_PARAMETERS,
   SEARCH_BOTS,
   RESET,
@@ -15,6 +15,10 @@ export default function searchResult(state = [], action: Action<string>) {
     }
     case SEARCH_BOTS: {
       return action.payload.searchResult;
+    }
+
+    case STORE_BOT_NAME: {
+      return [];
     }
 
     case EXECUTION_STARTED: {
