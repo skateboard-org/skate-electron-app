@@ -2,7 +2,6 @@ import initState from './initState';
 import executeCommand from './executeCommand';
 import moveSelection from './moveSelection';
 import storeBotName from './storeBotName';
-import invalidCommand from './invalidCommand';
 import reset from './reset';
 import search from './search';
 import updateSkateBoardText from './updateSkateBoardText';
@@ -14,7 +13,6 @@ export {
   executeCommand,
   moveSelection,
   storeBotName,
-  invalidCommand,
   reset,
   search,
   updateSkateBoardText,

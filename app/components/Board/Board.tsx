@@ -40,7 +40,6 @@ type Props = {
   ) => void;
   moveSelection: (direction: moveSelectionOptions) => void;
   storeBotName: (bot: string) => void;
-  invalidCommand: (problem: 'unknownCommand' | 'requestParam') => void;
   reset: () => void;
   search: (
     type: 'bots' | 'params',
