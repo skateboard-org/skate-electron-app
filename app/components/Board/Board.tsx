@@ -305,22 +305,23 @@ export default class Board extends Component<Props, BoardState> {
   chooseOption = () => {
     const {
       searchingFor,
-      chooseResult,
       selectedBot,
       selectedResult,
-      updateCommandStatus
+      updateSkateBoardText
     } = this.props;
-    if (this.isthereAnythingSelected()) {
-      // AND IF THERE IS ANYTHING SELECTION
-      // CHOOSE IT
-      if (searchingFor === 'bot') {
-        updateCommandStatus('bot', botStatusMessages.Valid);
-        chooseResult(selectedResult, '');
-      }
-      if (searchingFor === 'parameter') {
-        updateCommandStatus('param', paramStatusMessages.Valid);
-        chooseResult(selectedBot, selectedResult);
-      }
+
+    let updatedText;
+    if (searchingFor === 'bot') {
+      updatedText = selectedResult;
+    }
+    if (searchingFor === 'parameter') {
+      updatedText = `${selectedBot} ${selectedResult}`;
+    }
+    if (updatedText) {
+      updateSkateBoardText(updatedText);
+      this.processText(updatedText, true);
+    } else {
+      console.log('Error');
     }
   };
 

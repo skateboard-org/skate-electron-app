@@ -6,11 +6,10 @@ import React from 'react';
 type Props = {
   searchResult: [string];
   selectedResult: string;
-  chooseResult: (selection?: 0 | string) => void;
 };
 
 export default function Options(props: Props) {
-  const { searchResult, selectedResult, chooseResult } = props;
+  const { searchResult, selectedResult } = props;
 
   const botClass = (botName: string) => {
     if (botName === selectedResult)
@@ -18,20 +17,17 @@ export default function Options(props: Props) {
     return '';
   };
 
-  const shortcut = (botName: string, index: number) => {
+  const shortcut = (botName: string) => {
     if (botName === selectedResult) {
       return `↩`;
     }
+    return '';
     // return `⌘ + ${index + 1}`;
   };
 
   if (searchResult && searchResult.length > 0) {
     const allSearchResult = searchResult.map((result, index) => (
-      <div
-        key={result}
-        className={`option-container ${botClass(result)}`}
-        onClick={e => chooseResult(result)}
-      >
+      <div key={result} className={`option-container ${botClass(result)}`}>
         <div className="level is-mobile">
           <div className="level-left">
             <div className="level-item">
