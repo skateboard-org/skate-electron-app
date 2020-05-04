@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "1.1.0",
+  "productName": "Skateboard",
+  "version": "1.0.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -52,15 +52,16 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "Skateboard",
+    "appId": "org.develar.skateboard",
     "files": [
       "dist/",
       "node_modules/",
       "app.html",
       "main.prod.js",
       "main.prod.js.map",
-      "package.json"
+      "package.json",
+      "icon.png"
     ],
     "dmg": {
       "contents": [
@@ -304,6 +305,7 @@
     "react-truncate": "^2.4.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "request": "2.79.0",
     "source-map-support": "^0.5.16",
     "temp": "^0.9.1",
     "title-case": "^3.0.2",

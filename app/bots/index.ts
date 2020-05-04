@@ -2,7 +2,7 @@ import axios from 'axios';
 import executeTerminalBot from './TerminalBots';
 import executeCloudBot from './CloudBots';
 
-import serverConstants from '../constants/server.json';
+import url from './api';
 
 enum typesOfBots {
   Cloud = 'cloud',
@@ -11,7 +11,7 @@ enum typesOfBots {
 
 const getAllBots = async () => {
   const allBots = await axios
-    .get(`${serverConstants.devApiUrl}/bot/all`)
+    .get(`${url}/bot/all`)
     .then((res: any) => {
       if (res.data.success) return res.data.bots;
       throw new Error();

@@ -15,7 +15,8 @@ import {
   ipcMain,
   globalShortcut,
   Tray,
-  Menu
+  Menu,
+  nativeImage
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -150,6 +151,11 @@ const createWindow = async () => {
     hideMainWindow();
   });
 
+  ipcMain.on('quit-app', () => {
+    console.log('ipcMain');
+    app.quit();
+  });
+
   ipcMain.on('show-main-window', () => {
     if (mainWindow === null) createWindow();
     else showMainWindow();
@@ -177,7 +183,15 @@ app.on('window-all-closed', () => {
 
 let tray;
 const createTray = () => {
-  tray = new Tray(`${__dirname}/assests/images/icon.png`);
+  const iconPath =
+    process.env.NODE_ENV === 'production'
+      ? path.join(__dirname, 'icon.png')
+      : path.join(__dirname, 'icon.png');
+
+  console.log(iconPath);
+  console.log(path.join(__dirname, 'icon.png'));
+  const icon = nativeImage.createFromPath(iconPath);
+  tray = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Quit',
@@ -194,6 +208,12 @@ app.on('ready', () => {
   app.dock.hide();
   createWindow();
   createTray();
+});
+
+app.on('window-all-closed', app.quit);
+app.on('before-quit', () => {
+  mainWindow.removeAllListeners('close');
+  mainWindow.close();
 });
 
 app.on('activate', () => {

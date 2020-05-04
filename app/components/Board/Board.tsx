@@ -25,6 +25,7 @@ import {
 import { contractWindow, expandWindow } from '../../utils/window';
 import StatusLight from './StatusLight';
 import { moveSelectionOptions } from '../../actions/moveSelection';
+import { quitWindow } from '../../utils/ipc';
 
 type BoardState = {
   placeholder: string;
@@ -123,6 +124,13 @@ export default class Board extends Component<Props, BoardState> {
       return true;
     }
     if (newText === 'clear') {
+      return true;
+    }
+    return false;
+  };
+
+  doesUserWantsToQuit = (newText: string): boolean => {
+    if (newText === 'quit') {
       return true;
     }
     return false;
@@ -348,6 +356,10 @@ export default class Board extends Component<Props, BoardState> {
 
     if (this.doesUserWantsToReset(newText)) {
       reset();
+    }
+
+    if (this.doesUserWantsToQuit(newText)) {
+      quitWindow();
     }
 
     this.processText(newText, false);

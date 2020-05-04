@@ -1,5 +1,5 @@
 import axios from 'axios';
-import serverConstants from '../constants/server.json';
+import url from './api';
 
 const executeCloudBot = async (botName: string, botParam: string) => {
   let param = botParam;
@@ -7,7 +7,7 @@ const executeCloudBot = async (botName: string, botParam: string) => {
     param = 'null';
   }
   const data = await axios
-    .get(`${serverConstants.devApiUrl}/bot/exec/${botName}/${param}`)
+    .get(`${url}/bot/exec/${botName}/${param}`)
     .then((res: any) => {
       return res.data;
     })

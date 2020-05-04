@@ -16,6 +16,11 @@ export function hideMainWindow(): void {
   ipcRenderer.send('hide-main-window');
 }
 
+export function quitWindow(): void {
+  console.log('ipcRenderer');
+  ipcRenderer.send('quit-app');
+}
+
 export function openLinkInDefaultBrowser(
   event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   link: string
