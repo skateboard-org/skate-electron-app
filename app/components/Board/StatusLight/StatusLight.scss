@@ -6,8 +6,6 @@ $status-default-colour: rgb(0, 122, 255);
 $status-success-colour: rgb(40, 205, 65);
 
 .icon-container {
-  width: 1em;
-  height: 1em;
   font-size: $spinner-size;
   position: relative;
   display: inline-block;
@@ -16,13 +14,16 @@ $status-success-colour: rgb(40, 205, 65);
 .status-light-container {
 }
 
+.spinner-container {
+  width: 1em;
+  height: 1em;
+}
+
 .status-light {
-  height: 18px;
   width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: inline-block;
-  padding-bottom: 0.2em;
-  padding-left: 0.15em;
 }
 
 .default {

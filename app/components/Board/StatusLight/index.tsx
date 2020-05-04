@@ -13,7 +13,9 @@ type Props = {
 export default function Loader(props: Props) {
   const loaderGenerator = (shouldLoaderBeShown: boolean) => {
     return (
-      <div className={shouldLoaderBeShown ? '' : 'is-invisible'}>
+      <div
+        className={shouldLoaderBeShown ? 'spinner-container' : 'is-invisible'}
+      >
         <div className="spinner">
           <div className="spinner-blade" />
           <div className="spinner-blade" />
