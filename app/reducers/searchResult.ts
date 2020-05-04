@@ -4,8 +4,7 @@ import {
   SEARCH_PARAMETERS,
   SEARCH_BOTS,
   RESET,
-  EXECUTION_STARTED,
-  UNKNOWN_COMMAND
+  EXECUTION_STARTED
 } from '../actions/actions';
 
 export default function searchResult(state = [], action: Action<string>) {
@@ -25,9 +24,6 @@ export default function searchResult(state = [], action: Action<string>) {
       return [];
     }
 
-    case UNKNOWN_COMMAND: {
-      return [];
-    }
     case RESET: {
       return [];
     }
