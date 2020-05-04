@@ -85,7 +85,7 @@ const paramStatusMapper = (status: paramStatusMessages) => {
     case paramStatusMessages.ParamNotRequiredAndGiven:
       return {
         paramMessage: 'The parameter you have entered is redundant',
-        paramMessageType: messageTypes.Success
+        paramMessageType: messageTypes.Warning
       };
 
     case paramStatusMessages.ParamNotRequiredAndNotGiven:
