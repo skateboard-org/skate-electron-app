@@ -9,7 +9,14 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  globalShortcut,
+  Tray,
+  Menu
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -168,9 +175,25 @@ app.on('window-all-closed', () => {
   }
 });
 
+let tray;
+const createTray = () => {
+  tray = new Tray(`${__dirname}/assests/images/icon.png`);
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Quit',
+      click: () => {
+        app.quit();
+      }
+    }
+  ]);
+  tray.setToolTip('Skateboard');
+  tray.setContextMenu(contextMenu);
+};
+
 app.on('ready', () => {
   app.dock.hide();
   createWindow();
+  createTray();
 });
 
 app.on('activate', () => {
