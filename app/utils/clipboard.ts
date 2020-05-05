@@ -5,9 +5,9 @@ import downloadImage from './download-image';
 import { hideMainWindow } from './ipc';
 import { ResponseTypes } from '../bots/types';
 
-export function copyText(text: string): Promise<void> {
+function copyText(text: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    clipboard.writeText(text);
+    clipboard.writeText(String(text));
     resolve();
   });
 }
@@ -37,10 +37,7 @@ export async function copyImageFromUrl(url: string): Promise<void> {
   });
 }
 
-export function copyContent(
-  content: string,
-  contentType: string
-): Promise<void> {
+function copyContent(content: string, contentType: string): Promise<void> {
   return new Promise((resolve, reject) => {
     if (
       contentType === ResponseTypes.ListOfLinks ||
