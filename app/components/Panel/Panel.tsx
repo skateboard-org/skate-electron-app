@@ -33,7 +33,7 @@ function contentTypeMapper(data: any, responseType: string) {
     case ResponseTypes.ListOfLinks: {
       return <ListOfLinksView data={data} />;
     }
-    case ResponseTypes.Text:
+    case ResponseTypes.ListOfText:
       return <ListOfTextView data={data} />;
     default:
       return null;

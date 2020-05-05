@@ -41,7 +41,9 @@ export default function ListOfLinks(props: Props) {
               <div className="buttons has-addons">
                 <button
                   type="button"
-                  onClick={() => copyAndExit(linkItem.link, ResponseTypes.Text)}
+                  onClick={() =>
+                    copyAndExit(linkItem.link, ResponseTypes.ListOfText)
+                  }
                   className={`button is-small ${styles.copyBtn} `}
                 >
                   Copy Link

@@ -44,7 +44,7 @@ export function copyContent(
   return new Promise((resolve, reject) => {
     if (
       contentType === ResponseTypes.ListOfLinks ||
-      contentType === ResponseTypes.Text ||
+      contentType === ResponseTypes.ListOfText ||
       contentType === ResponseTypes.ListOfText ||
       contentType === ResponseTypes.ListOfGifs
     ) {

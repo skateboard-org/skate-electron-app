@@ -20,7 +20,7 @@ export default function Text(props: Props) {
         <div className="has-text-right">
           <button
             type="button"
-            onClick={() => copyAndExit(data.text, ResponseTypes.Text)}
+            onClick={() => copyAndExit(data.text, ResponseTypes.ListOfText)}
             className={`button ${styles.copyBtn} `}
           >
             Copy Text

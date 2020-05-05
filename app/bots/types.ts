@@ -1,5 +1,4 @@
 export enum ResponseTypes {
-  Text = 'Text',
   ListOfImages = 'ListOfImages',
   ListOfGifs = 'ListOfGifs',
   ListOfLinks = 'ListOfLinks',
