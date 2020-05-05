@@ -1,26 +1,27 @@
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Panel from './Panel';
+import StatusLight from './StatusLight';
 
-import { reset } from '../../actions/index';
+import { updateCommandStatus } from '../../actions/index';
 
 import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
-  const { skatePanel, botResponseType, isLoading } = state;
+  const { allBotsNames, commandStatus, isLoading } = state;
   return {
-    skatePanel,
-    botResponseType
+    allBotsNames,
+    commandStatus,
+    isLoading
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      reset
+      updateCommandStatus
     },
     dispatch
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Panel);
+export default connect(mapStateToProps, mapDispatchToProps)(StatusLight);

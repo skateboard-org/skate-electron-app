@@ -1,19 +1,23 @@
 import React from 'react';
-import SkateOptions from '../components/Options/OptionsContainer';
-import SkatePanel from '../components/Panel/PanelContainer';
-import SkateBoard from '../components/Board/BoardContainer';
-import InfoPage from '../components/Info/InfoContainer';
+import Option from '../components/Options/OptionsContainer';
+import Panel from '../components/Panel/PanelContainer';
+import Board from '../components/Board/BoardContainer';
+import Info from '../components/Info/InfoContainer';
+import HelperBar from '../components/HelperBar/HelperBarContainer';
 
 export default function Skate() {
   return (
-    <div className="container is-fullhd is-clipped">
-      <div className="columns is-mobile">
-        <SkateBoard />
+    <div className="container is-fullhd is-clipped skate-page">
+      <div className="columns is-mobile top-section">
+        <Board />
       </div>
-      <div className="columns is-mobile">
-        <SkateOptions />
-        <SkatePanel />
-        <InfoPage />
+      <div className="columns is-mobile main-section">
+        <Option />
+        <Panel />
+        <Info />
+      </div>
+      <div className="columns is-mobile bottom-section">
+        <HelperBar />
       </div>
     </div>
   );

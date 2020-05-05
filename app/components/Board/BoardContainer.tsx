@@ -24,9 +24,7 @@ function mapStateToProps(state: StateType) {
     allBotsDictionary,
     allBotsNames,
     skateBoardText,
-    isLoading,
-    selectedBot,
-    commandStatus
+    selectedBot
   } = state;
   return {
     searchResult,
@@ -35,9 +33,7 @@ function mapStateToProps(state: StateType) {
     allBotsDictionary,
     allBotsNames,
     skateBoardText,
-    isLoading,
-    selectedBot,
-    commandStatus
+    selectedBot
   };
 }
 

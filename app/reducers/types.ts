@@ -11,7 +11,7 @@ export type StateType = {
   searchResult: [string];
   selectedBot: string;
   selectedResult: string;
-  isLoading: string;
+  isLoading: boolean;
   skatePanel: [any];
   botResponseType: string;
   commandStatus: CommandStatusType;

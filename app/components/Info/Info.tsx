@@ -25,8 +25,8 @@ export default function Options(props: Props) {
     if (bot !== undefined) {
       return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div className="column is-equal infoPadding">
-          <div className="container is-fullhd has-text-centered">
+        <div className="column is-equal">
+          <div className="container is-fullhd has-text-centered info-padding">
             <div className="column is-12 botIconContainer">
               <span className="icon is-large fas fa-3x">
                 <i className={`${bot.icon} botIcon`} />

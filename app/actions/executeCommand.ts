@@ -20,7 +20,7 @@ const executeCommand = (
   return function action(dispatch: Dispatch, getState: GetState) {
     const { allBotsDictionary, isLoading } = getState();
 
-    if (isLoading === 'idle') {
+    if (isLoading === false) {
       dispatch({
         type: EXECUTION_STARTED
       });

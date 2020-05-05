@@ -47,7 +47,7 @@ export default function Options(props: Props) {
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className="column is-equal options-padding">
+      <div className="column is-equal">
         <div className="container is-fullhd">
           <div className="columns">
             <div className="column">{allSearchResult}</div>

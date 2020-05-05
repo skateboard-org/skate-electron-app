@@ -23,7 +23,7 @@ import {
 } from '../../reducers/commandStatus';
 
 import { contractWindow, expandWindow } from '../../utils/window';
-import StatusLight from './StatusLight';
+import StatusLight from '../StatusLight/StatusLightContainer';
 import { moveSelectionOptions } from '../../actions/moveSelection';
 import { quitWindow } from '../../utils/ipc';
 
@@ -62,11 +62,6 @@ type Props = {
   allBotsNames: string[];
   selectedBot: string;
   skateBoardText: string;
-  isLoading: string;
-  commandStatus: {
-    botStatus: botStatusMessages;
-    paramStatus: paramStatusMessages;
-  };
 };
 
 export default class Board extends Component<Props, BoardState> {
@@ -393,8 +388,13 @@ export default class Board extends Component<Props, BoardState> {
     }
   };
 
+  areBotsIntialising = () => {
+    const { allBotsNames } = this.props;
+    return allBotsNames.length === 0;
+  };
+
   render() {
-    const { skateBoardText, isLoading, commandStatus } = this.props;
+    const { skateBoardText } = this.props;
     const { placeholder } = this.state;
 
     if (skateBoardText.length > 0) {
@@ -403,7 +403,7 @@ export default class Board extends Component<Props, BoardState> {
 
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div className="column board-padding">
+      <div className="column">
         <div className="skateBoardContainer" data-tid="skate">
           <div className="control has-icons-right">
             <input
@@ -414,15 +414,14 @@ export default class Board extends Component<Props, BoardState> {
               className="input skateBoard"
               data-tid="skateBoard"
               onChange={e => this.onTextUpdate(e.target.value)}
-              placeholder={placeholder}
+              placeholder={
+                this.areBotsIntialising() ? 'Initialising...' : placeholder
+              }
               onBlur={e => this.selectAllText(e)}
               ref={this.skateBoardInputRef}
             />
             <span className="icon is-right loaderContainer">
-              <StatusLight
-                isLoaderVisible={isLoading === 'running'}
-                commandStatus={commandStatus}
-              />
+              <StatusLight />
             </span>
           </div>
         </div>

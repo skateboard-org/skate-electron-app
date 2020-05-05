@@ -9,7 +9,6 @@ import ListOfTextView from './views/ListOfTextView';
 type Props = {
   skatePanel: any[];
   botResponseType: string;
-  isLoading: 'running' | 'idle';
   reset: () => void;
 };
 

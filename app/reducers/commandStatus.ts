@@ -49,60 +49,70 @@ const paramStatusMapper = (status: paramStatusMessages) => {
     case paramStatusMessages.ParamInvalid:
       return {
         paramMessage: 'The parameter you have entered is invalid',
+        paramSuggestion: null,
         paramMessageType: messageTypes.Error
       };
 
     case paramStatusMessages.ParamNotFoundInOptions:
       return {
         paramMessage: 'The parameter you have entered is not an option',
+        paramSuggestion: null,
         paramMessageType: messageTypes.Error
       };
 
     case paramStatusMessages.ParamRequiredAndNotGiven:
       return {
         paramMessage: 'Parameter required',
+        paramSuggestion: null,
         paramMessageType: messageTypes.Error
       };
 
     case paramStatusMessages.Undefined:
       return {
         paramMessage: null,
+        paramSuggestion: null,
         paramMessageType: messageTypes.Default
       };
 
     case paramStatusMessages.NoExactMatch:
       return {
         paramMessage: null,
+        paramSuggestion: null,
         paramMessageType: messageTypes.Warning
       };
 
     case paramStatusMessages.Empty:
       return {
         paramMessage: null,
+        paramSuggestion: 'parameter required',
         paramMessageType: messageTypes.Warning
       };
 
     case paramStatusMessages.ParamNotRequiredAndGiven:
       return {
-        paramMessage: 'The parameter you have entered is redundant',
+        paramMessage: null,
+        paramSuggestion: 'The parameter you have entered is redundant',
         paramMessageType: messageTypes.Warning
       };
 
     case paramStatusMessages.ParamNotRequiredAndNotGiven:
       return {
         paramMessage: null,
+        paramSuggestion: 'press enter to run',
         paramMessageType: messageTypes.Success
       };
 
     case paramStatusMessages.Valid:
       return {
         paramMessage: null,
+        paramSuggestion: 'press enter to run',
         paramMessageType: messageTypes.Success
       };
 
     default:
       return {
         paramMessage: null,
+        paramSuggestion: null,
         paramMessageType: messageTypes.Default
       };
   }
@@ -113,25 +123,33 @@ const botStatusMapper = (status: botStatusMessages) => {
     case botStatusMessages.BotNotFound:
       return {
         botMessage: 'No such bot found',
-        botMessageType: messageTypes.Error
+        botMessageType: messageTypes.Error,
+        botSuggestion: null
       };
     case botStatusMessages.NoExactMatch:
       return {
         botMessage: null,
-        botMessageType: messageTypes.Warning
+        botMessageType: messageTypes.Warning,
+        botSuggestion: null
       };
 
     case botStatusMessages.Undefined:
       return {
         botMessage: null,
-        botMessageType: messageTypes.Default
+        botMessageType: messageTypes.Default,
+        botSuggestion: null
       };
     case botStatusMessages.Valid:
-      return { botMessage: null, botMessageType: messageTypes.Success };
+      return {
+        botMessage: null,
+        botMessageType: messageTypes.Success,
+        botSuggestion: 'press enter to run'
+      };
     default:
       return {
         botMessage: null,
-        botMessageType: messageTypes.Default
+        botMessageType: messageTypes.Default,
+        botSuggestion: null
       };
   }
 };
@@ -139,30 +157,29 @@ const botStatusMapper = (status: botStatusMessages) => {
 export const processCommandStatus = (
   commandStatusInstance: CommandStatusType
 ) => {
-  const { botMessage, botMessageType } = botStatusMapper(
+  const { botMessage, botMessageType, botSuggestion } = botStatusMapper(
     commandStatusInstance.botStatus
   );
 
-  const { paramMessage, paramMessageType } = paramStatusMapper(
+  const { paramMessage, paramMessageType, paramSuggestion } = paramStatusMapper(
     commandStatusInstance.paramStatus
   );
 
-  const colour =
-    botMessageType.priority >= paramMessageType.priority
-      ? botMessageType.colour
-      : paramMessageType.colour;
+  const biggestErrorIsInBot =
+    botMessageType.priority >= paramMessageType.priority;
 
-  const message =
-    botMessageType.priority >= paramMessageType.priority
-      ? botMessage
-      : paramMessage;
+  const colour = biggestErrorIsInBot
+    ? botMessageType.colour
+    : paramMessageType.colour;
 
-  const animate = botMessageType.priority > 3 || paramMessageType.priority > 3;
+  const message = biggestErrorIsInBot ? botMessage : paramMessage;
+
+  const suggestion = biggestErrorIsInBot ? botSuggestion : paramSuggestion;
 
   return {
     colour,
     message,
-    animate
+    suggestion
   };
 };
 export interface CommandStatusType {

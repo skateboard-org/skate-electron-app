@@ -3,14 +3,17 @@ import { AnimateKeyframes } from 'react-simple-animate';
 import {
   CommandStatusType,
   processCommandStatus
-} from '../../../reducers/commandStatus';
+} from '../../reducers/commandStatus';
 
 type Props = {
-  isLoaderVisible: boolean;
+  isLoading: boolean;
   commandStatus: CommandStatusType;
+  allBotsNames: string[];
 };
 
 export default function Loader(props: Props) {
+  const { isLoading, commandStatus, allBotsNames } = props;
+
   const loaderGenerator = (shouldLoaderBeShown: boolean) => {
     return (
       <div
@@ -51,12 +54,18 @@ export default function Loader(props: Props) {
     return null;
   };
 
-  const { isLoaderVisible, commandStatus } = props;
+  const shouldLoaderBeShown = () => {
+    return allBotsNames.length === 0 || isLoading;
+  };
+
+  const shouldStatusLightBeShow = () => {
+    return !shouldLoaderBeShown();
+  };
 
   return (
     <div className="icon-container">
-      {statusLight(!isLoaderVisible, commandStatus)}
-      {loaderGenerator(isLoaderVisible)}
+      {statusLight(shouldStatusLightBeShow(), commandStatus)}
+      {loaderGenerator(shouldLoaderBeShown())}
     </div>
   );
 }

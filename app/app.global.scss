@@ -15,7 +15,8 @@ $box-shadow: 0 0.2em 0.2em -0.125em rgba(10, 10, 10, 0.1),
 @import './components/Panel/Panel.scss';
 @import './components/Options/Options.scss';
 @import './components/Info/Info.scss';
-@import './components/Board/StatusLight/StatusLight.scss';
+@import './components/StatusLight/StatusLight.scss';
+@import './containers/Container.scss';
 
 /*
  @import '~bulma/sass/utilities/_all.sass';
