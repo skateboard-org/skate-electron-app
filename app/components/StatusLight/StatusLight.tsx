@@ -4,15 +4,16 @@ import {
   CommandStatusType,
   processCommandStatus
 } from '../../reducers/commandStatus';
+import { isInitialisingType } from '../../reducers/isInitialising';
 
 type Props = {
   isLoading: boolean;
+  isInitialising: isInitialisingType;
   commandStatus: CommandStatusType;
-  allBotsNames: string[];
 };
 
 export default function Loader(props: Props) {
-  const { isLoading, commandStatus, allBotsNames } = props;
+  const { isLoading, commandStatus, isInitialising } = props;
 
   const loaderGenerator = (shouldLoaderBeShown: boolean) => {
     return (
@@ -55,7 +56,7 @@ export default function Loader(props: Props) {
   };
 
   const shouldLoaderBeShown = () => {
-    return allBotsNames.length === 0 || isLoading;
+    return isInitialising.status || isLoading;
   };
 
   const shouldStatusLightBeShow = () => {

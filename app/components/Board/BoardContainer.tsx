@@ -23,7 +23,8 @@ function mapStateToProps(state: StateType) {
     allBotsDictionary,
     allBotsNames,
     skateBoardText,
-    selectedBot
+    selectedBot,
+    isInitialising
   } = state;
   return {
     searchResult,
@@ -32,7 +33,8 @@ function mapStateToProps(state: StateType) {
     allBotsDictionary,
     allBotsNames,
     skateBoardText,
-    selectedBot
+    selectedBot,
+    isInitialising
   };
 }
 

@@ -1,4 +1,5 @@
 export const LOAD_BOTS = 'LOAD_BOTS';
+export const LOADING_BOTS = 'LOADING_BOTS';
 export const LOAD_BOT_NAMES = 'LOAD_BOT_NAMES';
 
 export const UPDATE_SKATEBOARD_TEXT = 'UPDATE_SKATEBOARD_TEXT';

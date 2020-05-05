@@ -1,5 +1,6 @@
 /* eslint-disable no-lonely-if */
 import React, { ChangeEvent, Component } from 'react';
+import { setUpWindow, contractWindow, expandWindow } from '../../utils/window';
 
 import {
   keyMapper,
@@ -22,10 +23,10 @@ import {
   paramStatusMessages
 } from '../../reducers/commandStatus';
 
-import { contractWindow, expandWindow } from '../../utils/window';
 import StatusLight from '../StatusLight/StatusLightContainer';
 import { moveSelectionOptions } from '../../actions/moveSelection';
 import { quitWindow } from '../../utils/ipc';
+import { isInitialisingType } from '../../reducers/isInitialising';
 
 type BoardState = {
   placeholder: string;
@@ -61,6 +62,7 @@ type Props = {
   allBotsNames: string[];
   selectedBot: string;
   skateBoardText: string;
+  isInitialising: isInitialisingType;
 };
 
 export default class Board extends Component<Props, BoardState> {
@@ -77,6 +79,7 @@ export default class Board extends Component<Props, BoardState> {
 
   componentDidMount() {
     this.focusInputField();
+    setUpWindow();
     // Attach callback to event listener
   }
 
@@ -385,13 +388,8 @@ export default class Board extends Component<Props, BoardState> {
     }
   };
 
-  areBotsIntialising = () => {
-    const { allBotsNames } = this.props;
-    return allBotsNames.length === 0;
-  };
-
   render() {
-    const { skateBoardText } = this.props;
+    const { skateBoardText, isInitialising } = this.props;
     const { placeholder } = this.state;
 
     if (skateBoardText.length > 0) {
@@ -412,7 +410,7 @@ export default class Board extends Component<Props, BoardState> {
               data-tid="skateBoard"
               onChange={e => this.onTextUpdate(e.target.value)}
               placeholder={
-                this.areBotsIntialising() ? 'Initialising...' : placeholder
+                isInitialising.status ? 'Initialising...' : placeholder
               }
               onBlur={e => this.selectAllText(e)}
               ref={this.skateBoardInputRef}
