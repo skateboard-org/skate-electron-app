@@ -33,7 +33,6 @@ type BoardState = {
 };
 
 type Props = {
-  initState: () => void;
   executeCommand: (
     botName: string,
     botParam: string,
@@ -77,8 +76,6 @@ export default class Board extends Component<Props, BoardState> {
   }
 
   componentDidMount() {
-    const { initState } = this.props;
-    initState();
     this.focusInputField();
     // Attach callback to event listener
   }

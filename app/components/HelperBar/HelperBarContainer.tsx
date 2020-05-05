@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import HelperBar from './HelperBar';
 
-import { storeBotName } from '../../actions/index';
+import { loadBots } from '../../actions/index';
 
 import { StateType } from '../../reducers/types';
 
@@ -16,7 +16,7 @@ function mapStateToProps(state: StateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      storeBotName
+      loadBots
     },
     dispatch
   );

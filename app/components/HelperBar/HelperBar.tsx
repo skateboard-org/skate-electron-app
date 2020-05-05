@@ -10,11 +10,13 @@ import {
 
 type Props = {
   commandStatus: CommandStatusType;
+  loadBots: () => void;
 };
 
 export default function HelperBar(props: Props) {
-  const { commandStatus } = props;
+  const { commandStatus, loadBots } = props;
   const { suggestion } = processCommandStatus(commandStatus);
+  loadBots();
   if (suggestion) {
     return (
       <div className="column">

@@ -2,7 +2,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Info from './Info';
 
-import { initState } from '../../actions/index';
+import { loadBots } from '../../actions/index';
 
 import { StateType } from '../../reducers/types';
 
@@ -18,7 +18,7 @@ function mapStateToProps(state: StateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      initState
+      loadBots
     },
     dispatch
   );

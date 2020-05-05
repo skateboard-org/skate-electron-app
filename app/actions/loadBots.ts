@@ -4,7 +4,7 @@ import { getAllBots } from '../bots/index';
 
 import { GetState, Dispatch } from '../reducers/types';
 
-const initState = () => {
+const loadBots = () => {
   setUpWindow();
 
   return (dispatch: Dispatch, getState: GetState) => {
@@ -24,4 +24,4 @@ const initState = () => {
   };
 };
 
-export default initState;
+export default loadBots;

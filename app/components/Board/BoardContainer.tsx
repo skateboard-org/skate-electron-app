@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Board from './Board';
 
 import {
-  initState,
   executeCommand,
   moveSelection,
   storeBotName,
@@ -40,7 +39,6 @@ function mapStateToProps(state: StateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      initState,
       executeCommand,
       moveSelection,
       storeBotName,

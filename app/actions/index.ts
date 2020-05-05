@@ -1,4 +1,4 @@
-import initState from './initState';
+import loadBots from './loadBots';
 import executeCommand from './executeCommand';
 import moveSelection from './moveSelection';
 import storeBotName from './storeBotName';
@@ -9,7 +9,7 @@ import markSearch from './markSearch';
 import updateCommandStatus from './updateCommandStatus';
 
 export {
-  initState,
+  loadBots,
   executeCommand,
   moveSelection,
   storeBotName,
