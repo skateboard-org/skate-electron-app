@@ -7,7 +7,7 @@ import HelperBar from '../components/HelperBar/HelperBarContainer';
 
 export default function Skate() {
   return (
-    <div className="container is-fullhd is-clipped skate-page">
+    <div className="container is-fullhd is-clipped skate-page has-navbar-fixed-bottom">
       <div className="columns is-mobile top-section">
         <Board />
       </div>

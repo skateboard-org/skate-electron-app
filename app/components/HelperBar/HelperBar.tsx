@@ -48,7 +48,7 @@ export default function HelperBar(props: Props) {
 
   return (
     <div className="bottom-section">
-      <nav className="navbar">
+      <nav className="navbar navbar-class is-fixed-bottom">
         <div className="navbar-menu" id="navMenu">
           <div className="navbar-start">
             <div className="navbar-item update-text-container">
