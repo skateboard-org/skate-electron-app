@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
@@ -5,7 +6,8 @@ import React from 'react';
 
 import {
   CommandStatusType,
-  processCommandStatus
+  processCommandStatus,
+  botStatusMessages
 } from '../../reducers/commandStatus';
 import { isInitialisingType } from '../../reducers/isInitialising';
 
@@ -22,6 +24,10 @@ export default function HelperBar(props: Props) {
 
   if (allBotsNames.length === 0 && !isInitialising.status) {
     loadBots();
+  }
+
+  if (commandStatus.botStatus === botStatusMessages.Undefined) {
+    return null;
   }
 
   const lastUpdateTime = new Date(isInitialising.lastUpdateTime);
@@ -41,25 +47,28 @@ export default function HelperBar(props: Props) {
     : 'check for update ⬇️';
 
   return (
-    <div className="column">
-      <div className="level is-mobile">
-        <div className="level-left">
-          <div className="level-item">
-            <button
-              type="button"
-              className={`button is-text has-text-grey is-pulled-left is-size-7 update-text ${updateButtonClass}`}
-              onClick={() => update()}
-            >
-              {updateButtonText}
-            </button>
+    <div className="bottom-section">
+      <nav className="navbar">
+        <div className="navbar-menu" id="navMenu">
+          <div className="navbar-start">
+            <div className="navbar-item update-text-container">
+              <a
+                className={`button is-text has-text-grey is-size-7 update-text ${updateButtonClass}`}
+                onClick={() => update()}
+              >
+                {updateButtonText}
+              </a>
+            </div>
+          </div>
+          <div className="navbar-end">
+            <div className="navbar-item suggestion-text-container">
+              <div className="has-text-grey is-size-7 suggestion-text">
+                {suggestion}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="level-right">
-          <div className="level-item has-text-grey is-pulled-right is-size-7 helper-bar-text">
-            {suggestion}
-          </div>
-        </div>
-      </div>
+      </nav>
     </div>
   );
 }

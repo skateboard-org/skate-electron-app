@@ -399,7 +399,7 @@ export default class Board extends Component<Props, BoardState> {
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div className="column">
-        <div className="skateBoardContainer" data-tid="skate">
+        <div className="skate-board-container" data-tid="skate">
           <div className="control has-icons-right">
             <input
               onKeyDown={e => this.onKeyDown(e)}

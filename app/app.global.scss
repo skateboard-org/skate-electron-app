@@ -2,10 +2,14 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+
+@charset "utf-8";
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
 $box-shadow: 0 0.2em 0.2em -0.125em rgba(10, 10, 10, 0.1),
   0 0px 0 1px rgba(10, 10, 10, 0.02);
+
+$navbar-breakpoint: 100px;
 
 @import '~bulma/bulma.sass';
 

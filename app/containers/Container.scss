@@ -1,21 +1,25 @@
 .skate-page {
 }
 
+// total hight
+
 .top-section {
-  height: 60px;
+  min-height: 60px;
+  margin-bottom: 0em !important;
+  z-index: 30;
 }
 
 .main-section {
-  padding-top: 0.5em;
   padding-left: 0.75em;
   padding-right: 0.75em;
-  margin-bottom: 0.3em !important;
-  height: 510px;
+  margin-bottom: 0em !important;
+  overflow-y: auto;
+  max-height: 495px;
+  min-height: 495px;
 }
 
 .bottom-section {
   margin-left: 0.75em;
   margin-right: 0.75em;
-  margin-bottom: 1em !important;
-  height: 30px;
+  max-height: 30px;
 }

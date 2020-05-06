@@ -47,7 +47,7 @@ export default function Panel(props: Props) {
       const content = contentTypeMapper(skatePanel, botResponseType);
 
       return (
-        <div className="column is-equal">
+        <div className="column is-equal is-paddingless">
           <div className={styles.content}>{content}</div>
         </div>
       );

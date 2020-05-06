@@ -1,7 +1,21 @@
-.helper-bar-text {
-  margin-right: -0.75em;
+.update-text {
+  margin-bottom: 1em;
+  padding-left: 0em;
 }
 
-.update-text {
-  margin-left: -1.5em;
+.update-text-container {
+  padding-left: 0em;
+}
+
+.suggestion-text {
+  margin-bottom: 1em;
+  padding-right: 0em;
+}
+
+.suggestion-text-container {
+  padding-right: 0em;
+}
+
+.navbar-class {
+  min-height: 60px !important;
 }

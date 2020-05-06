@@ -16,9 +16,7 @@ export default function Skate() {
         <Panel />
         <Info />
       </div>
-      <div className="columns is-mobile bottom-section">
-        <HelperBar />
-      </div>
+      <HelperBar />
     </div>
   );
 }
