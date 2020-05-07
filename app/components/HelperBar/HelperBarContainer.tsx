@@ -7,11 +7,19 @@ import { loadBots } from '../../actions/index';
 import { StateType } from '../../reducers/types';
 
 function mapStateToProps(state: StateType) {
-  const { commandStatus, isInitialising, allBotsNames } = state;
+  const {
+    commandStatus,
+    isInitialising,
+    allBotsNames,
+    botResponseType,
+    skatePanel
+  } = state;
   return {
     commandStatus,
     isInitialising,
-    allBotsNames
+    allBotsNames,
+    botResponseType,
+    skatePanel
   };
 }
 
