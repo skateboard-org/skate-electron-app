@@ -46,14 +46,24 @@ export default function HelperBar(props: Props) {
   const updateTextGenerator = () => {
     const timeElasped = () => Math.abs(new Date() - lastUpdateTime);
     const lastUpdateTime = new Date(isInitialising.lastUpdateTime);
-    const timeLimit = 1000 * 60;
+    const timeLimit = 1000 * 1;
+    const hasRecentlyUpdated = timeElasped() < timeLimit;
 
-    const updateButtonClass = isInitialising.status ? 'is-loading' : '';
+    const updateButtonClass = () => {
+      if (isInitialising.status) {
+        return 'button is-text is-loading';
+      }
+      if (hasRecentlyUpdated) {
+        return '';
+      }
+      return 'button is-text';
+    };
 
-    const updateButtonText =
-      timeElasped() < timeLimit ? 'recently updated 💚' : 'check for update ⬇️';
+    const updateButtonText = hasRecentlyUpdated
+      ? 'recently updated 💚'
+      : 'check for update ⬇️';
 
-    return { updateButtonClass, updateButtonText };
+    return { updateButtonClass: updateButtonClass(), updateButtonText };
   };
 
   const { updateButtonClass, updateButtonText } = updateTextGenerator();
@@ -82,9 +92,7 @@ export default function HelperBar(props: Props) {
       botResponseType.length > 0
     ) {
       const responseSuggestion = responseTypeSuggestion(botResponseType);
-      if (responseSuggestion) {
-        return responseSuggestion;
-      }
+      return responseSuggestion;
     }
     const { suggestion } = processCommandStatus(commandStatus);
     return suggestion;
@@ -97,7 +105,7 @@ export default function HelperBar(props: Props) {
           <div className="navbar-start">
             <div className="navbar-item update-text-container">
               <a
-                className={`button is-text has-text-grey is-size-7 update-text ${updateButtonClass}`}
+                className={`${updateButtonClass} has-text-grey is-size-7 update-text`}
                 onClick={() => update()}
               >
                 {updateButtonText}
