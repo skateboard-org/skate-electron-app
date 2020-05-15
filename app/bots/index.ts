@@ -1,12 +1,14 @@
 import axios from 'axios';
 import executeTerminalBot from './TerminalBots';
 import executeCloudBot from './CloudBots';
+import executeScriptBot from './ScriptBots';
 
 import url from './api';
 
 enum typesOfBots {
   Cloud = 'cloud',
-  Terminal = 'terminal'
+  Terminal = 'terminal',
+  Script = 'script'
 }
 
 const getAllBots = async () => {
@@ -20,4 +22,10 @@ const getAllBots = async () => {
   return allBots;
 };
 
-export { getAllBots, executeCloudBot, executeTerminalBot, typesOfBots };
+export {
+  getAllBots,
+  executeCloudBot,
+  executeTerminalBot,
+  executeScriptBot,
+  typesOfBots
+};
