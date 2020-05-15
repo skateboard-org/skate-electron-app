@@ -2,6 +2,7 @@ import { Dispatch, GetState } from '../reducers/types';
 import {
   typesOfBots,
   executeCloudBot,
+  executeScriptBot,
   executeTerminalBot
 } from '../bots/index';
 
@@ -58,6 +59,11 @@ const executeCommand = (
     if (type === typesOfBots.Terminal) {
       const { terminalCommandTemplate } = allBotsDictionary.get(botName);
       executeTerminalBot(terminalCommandTemplate, botParam)
+        .then(handleExecution)
+        .catch(handleError);
+    }
+    if (type === typesOfBots.Script) {
+      executeScriptBot(botName, botParam, botSource)
         .then(handleExecution)
         .catch(handleError);
     }
