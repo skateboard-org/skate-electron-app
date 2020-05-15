@@ -63,6 +63,7 @@ const executeCommand = (
         .catch(handleError);
     }
     if (type === typesOfBots.Script) {
+      const botSource = 'http://localhost:4000/bot/add';
       executeScriptBot(botName, botParam, botSource)
         .then(handleExecution)
         .catch(handleError);
