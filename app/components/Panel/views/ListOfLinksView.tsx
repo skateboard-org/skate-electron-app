@@ -4,9 +4,9 @@
 import React from 'react';
 import Truncate from 'react-truncate';
 import styles from '../Panel.scss';
-import { copyAndExit } from '../../../utils/clipboard';
 import { ResponseTypes, LinkItemType } from '../../../bots/types';
 import { openLinkInDefaultBrowser } from '../../../utils/ipc';
+import CopyBtn from './CopyBtn';
 
 type Props = {
   data: [LinkItemType];
@@ -39,15 +39,10 @@ export default function ListOfLinks(props: Props) {
           <div className="column">
             <div className="is-pulled-right">
               <div className="buttons has-addons">
-                <button
-                  type="button"
-                  onClick={() =>
-                    copyAndExit(linkItem.link, ResponseTypes.ListOfText)
-                  }
-                  className={`button is-small ${styles.copyBtn} `}
-                >
-                  Copy Link
-                </button>
+                <CopyBtn
+                  data={linkItem.link}
+                  dataType={ResponseTypes.ListOfText}
+                />
                 <button
                   type="button"
                   onClick={e => openLinkInDefaultBrowser(e, linkItem.link)}

@@ -23,9 +23,13 @@
 }
 
 .textContainer {
-  margin: 0.5rem 1.5rem 1.5rem 1.5rem;
   font-size: x-large;
-  border: 1px;
+  margin-bottom: 0.1rem !important;
+  min-height: 5em;
+}
+
+.textsContainer {
+  margin: 0.5rem 1.5rem 1.5rem 1.5rem;
 }
 
 .linksContainer {
