@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { ResponseTypes, TextItemType } from '../../../bots/types';
-import CopyBtn from './CopyBtn''
+import CopyBtn from './CopyBtn';
 import styles from '../Panel.scss';
 
 type Props = {
@@ -27,13 +27,12 @@ export default function ListOfTextView(props: Props) {
           <div className="column">
             <div className="is-pulled-right">
               <div className="buttons has-addons">
-                <CopyBtn data={item.text} dataType={ResponseTypes.ListOfText}/>
+                <CopyBtn data={item.text} dataType={ResponseTypes.ListOfText} />
               </div>
             </div>
           </div>
         </div>
       </div>
-
     );
   });
   return <div className={`${styles.textsContainer}`}>{texts}</div>;

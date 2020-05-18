@@ -31,7 +31,11 @@ export default function HelperBar(props: Props) {
     skatePanel
   } = props;
 
-  if (allBotsNames.length === 0 && !isInitialising.status) {
+  if (
+    allBotsNames.length === 0 &&
+    !isInitialising.status &&
+    !isInitialising.didInitialisingFail
+  ) {
     loadBots();
   }
 

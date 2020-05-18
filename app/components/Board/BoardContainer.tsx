@@ -10,7 +10,8 @@ import {
   search,
   updateSkateBoardText,
   markSearch,
-  updateCommandStatus
+  updateCommandStatus,
+  loadBots
 } from '../../actions/index';
 
 import { StateType } from '../../reducers/types';
@@ -48,7 +49,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
       search,
       updateSkateBoardText,
       markSearch,
-      updateCommandStatus
+      updateCommandStatus,
+      loadBots
     },
     dispatch
   );

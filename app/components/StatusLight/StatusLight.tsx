@@ -40,7 +40,16 @@ export default function Loader(props: Props) {
 
   const statusLight = (isVisible: boolean, status: CommandStatusType) => {
     if (isVisible) {
-      const { colour, message } = processCommandStatus(status);
+      let colour: string;
+      let message: string | null;
+      if (isInitialising.didInitialisingFail === true) {
+        colour = 'error';
+        message = 'Initialisation Failed!';
+      } else {
+        const statusLightProperties = processCommandStatus(status);
+        colour = statusLightProperties.colour;
+        message = statusLightProperties.message;
+      }
 
       const tooltipClass = 'has-tooltip-left has-tooltip-active';
       return (

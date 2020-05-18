@@ -1,20 +1,61 @@
 import { Action } from 'redux';
-import { LOAD_BOTS, LOADING_BOTS } from '../actions/actions';
+import {
+  LOADING_TIME_ELAPSED,
+  LOAD_BOTS,
+  LOADING_BOTS,
+  LOADING_FAILED
+} from '../actions/actions';
 
 export type isInitialisingType = {
   status: boolean;
   lastUpdateTime: Date;
+  didInitialisingFail: boolean;
 };
 
 export default function isInitialising(
-  state = { status: false, lastUpdateTime: null },
+  state = {
+    status: false,
+    lastUpdateTime: null,
+    didInitialisingFail: null
+  },
   action: Action<string>
 ) {
+  const onSuccess = () => {
+    return {
+      status: false,
+      lastUpdateTime: new Date(),
+      didInitialisingFail: false
+    };
+  };
+
+  const onFailure = () => {
+    return {
+      status: false,
+      lastUpdateTime: state.lastUpdateTime,
+      didInitialisingFail: true
+    };
+  };
+
+  const onInit = () => {
+    return {
+      status: true,
+      lastUpdateTime: state.lastUpdateTime,
+      didInitialisingFail: null
+    };
+  };
+
   switch (action.type) {
     case LOADING_BOTS:
-      return { status: true, lastUpdateTime: state.lastUpdateTime };
+      return onInit();
+    case LOADING_TIME_ELAPSED:
+      if (state.status === true) {
+        return onFailure();
+      }
+      return onSuccess();
     case LOAD_BOTS:
-      return { status: false, lastUpdateTime: new Date() };
+      return onSuccess();
+    case LOADING_FAILED:
+      return onFailure();
     default:
       return state;
   }

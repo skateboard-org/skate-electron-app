@@ -54,6 +54,7 @@ type Props = {
     type: 'bot' | 'param',
     status: botStatusMessages | paramStatusMessages
   ) => void;
+  loadBots: () => void;
 
   searchResult: [string];
   selectedResult: string;
@@ -340,7 +341,12 @@ export default class Board extends Component<Props, BoardState> {
   };
 
   onTextUpdate = (newText: string) => {
-    const { updateSkateBoardText, reset } = this.props;
+    const {
+      updateSkateBoardText,
+      reset,
+      loadBots,
+      isInitialising
+    } = this.props;
 
     if (this.doesContainInvalidStrings(newText)) {
       return;
@@ -351,6 +357,14 @@ export default class Board extends Component<Props, BoardState> {
 
     if (this.doesUserWantsToReset(newText)) {
       reset();
+    }
+
+    if (
+      isInitialising.didInitialisingFail === true &&
+      (newText === 'R' || newText === 'r')
+    ) {
+      reset();
+      loadBots();
     }
 
     if (this.doesUserWantsToQuit(newText)) {
@@ -388,9 +402,21 @@ export default class Board extends Component<Props, BoardState> {
     }
   };
 
-  render() {
-    const { skateBoardText, isInitialising } = this.props;
+  generatePlaceholder = () => {
     const { placeholder } = this.state;
+    const { isInitialising } = this.props;
+
+    if (isInitialising.status === true) {
+      return 'Initialising...';
+    }
+    if (isInitialising.didInitialisingFail === true) {
+      return 'Type \'r\' to retry';
+    }
+    return placeholder;
+  };
+
+  render() {
+    const { skateBoardText } = this.props;
 
     if (skateBoardText.length > 0) {
       expandWindow();
@@ -409,9 +435,7 @@ export default class Board extends Component<Props, BoardState> {
               className="input skateBoard"
               data-tid="skateBoard"
               onChange={e => this.onTextUpdate(e.target.value)}
-              placeholder={
-                isInitialising.status ? 'Initialising...' : placeholder
-              }
+              placeholder={this.generatePlaceholder()}
               onBlur={e => this.selectAllText(e)}
               ref={this.skateBoardInputRef}
             />
