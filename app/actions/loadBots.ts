@@ -13,8 +13,6 @@ let initialisationTimer: NodeJS.Timeout;
 
 const loadBots = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    const { isInitialising } = getState();
-
     dispatch({
       type: LOADING_BOTS
     });

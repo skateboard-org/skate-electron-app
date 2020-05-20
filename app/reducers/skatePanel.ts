@@ -1,6 +1,6 @@
 import { Action } from 'redux';
-
 import {
+  EXECUTION_TIMED_OUT,
   EXECUTION_STARTED,
   EXECUTION_COMPLETED,
   EXECUTION_FAILED,
@@ -20,6 +20,9 @@ export default function skatePanel(state = [], action: Action<string>) {
       return [];
     }
     case EXECUTION_FAILED: {
+      return [];
+    }
+    case EXECUTION_TIMED_OUT: {
       return [];
     }
     case RESET: {

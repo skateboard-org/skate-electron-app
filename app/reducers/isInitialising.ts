@@ -51,6 +51,7 @@ export default function isInitialising(
       if (state.status === true) {
         return onFailure();
       }
+      // WHATS THE POINT OF THIS ELSE CASE
       return onSuccess();
     case LOAD_BOTS:
       return onSuccess();

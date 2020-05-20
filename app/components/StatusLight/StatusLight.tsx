@@ -5,9 +5,10 @@ import {
   processCommandStatus
 } from '../../reducers/commandStatus';
 import { isInitialisingType } from '../../reducers/isInitialising';
+import { isLoadingType } from '../../reducers/isLoading';
 
 type Props = {
-  isLoading: boolean;
+  isLoading: isLoadingType;
   isInitialising: isInitialisingType;
   commandStatus: CommandStatusType;
 };
@@ -45,6 +46,9 @@ export default function Loader(props: Props) {
       if (isInitialising.didInitialisingFail === true) {
         colour = 'error';
         message = 'Initialisation Failed!';
+      } else if (isLoading.didExecutionFail === true) {
+        colour = 'error';
+        message = 'Request Timed Out!';
       } else {
         const statusLightProperties = processCommandStatus(status);
         colour = statusLightProperties.colour;
@@ -65,7 +69,7 @@ export default function Loader(props: Props) {
   };
 
   const shouldLoaderBeShown = () => {
-    return isInitialising.status || isLoading;
+    return isInitialising.status || isLoading.status;
   };
 
   const shouldStatusLightBeShow = () => {

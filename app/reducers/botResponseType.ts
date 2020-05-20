@@ -1,6 +1,6 @@
 import { Action } from 'redux';
-
 import {
+  EXECUTION_TIMED_OUT,
   EXECUTION_STARTED,
   EXECUTION_COMPLETED,
   EXECUTION_FAILED,
@@ -16,6 +16,9 @@ export default function botResponseType(state = '', action: Action<string>) {
       if (action.payload.success) {
         return action.payload.responseType;
       }
+      return '';
+    }
+    case EXECUTION_TIMED_OUT: {
       return '';
     }
     case EXECUTION_FAILED: {
