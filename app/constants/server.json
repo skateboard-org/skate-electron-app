@@ -1,4 +1,4 @@
 {
-  "prodApiUrl": "https://us-central1-skate-board.cloudfunctions.net/default/api",
-  "devApiUrl": "http://0.0.0.0:5000/skate-board/us-central1/default/api"
+  "prodApiUrl": "https://us-central1-skate-board.cloudfunctions.net",
+  "devApiUrl": "http://localhost:5001/skate-board/us-central1"
 }

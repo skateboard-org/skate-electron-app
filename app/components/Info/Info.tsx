@@ -7,15 +7,7 @@ type Props = {
   searchingFor: string;
 };
 
-const botPropertiesKeys = [
-  'name',
-  'title',
-  'icon',
-  'desc',
-  'responseType',
-  'inputParameter',
-  'parameterDesc'
-];
+const botPropertiesKeys = ['name', 'title', 'icon', 'desc'];
 
 export default function Options(props: Props) {
   const { allBotsDictionary, selectedResult, searchingFor } = props;
@@ -47,9 +39,6 @@ export default function Options(props: Props) {
                 {`${bot.desc}`}
               </div>
             </div>
-
-            {/* <div className="column">{` ${bot.inputParameter}`}</div> */}
-            {/* <div className="column">{bot.parameterDesc}</div> */}
           </div>
         </div>
       );

@@ -6,19 +6,13 @@ export interface BotType {
   title: string;
   icon: string;
   desc: string;
+  type: string;
   url: string;
   responseType: string;
-  inputParameter: string;
-  parameterDesc: string;
-  typeAheadUrl: string;
   parameterEnabled: boolean;
   typeAheadEnabled: boolean;
-
-  terminalCommandTemplate: string;
-
-  type: string;
-  typeAheadSource: string;
   typeAheadOptions: string[];
+  author: string;
 }
 
 export default function allBotsDictionary(
@@ -40,13 +34,9 @@ export default function allBotsDictionary(
           url: bot.url,
           responseType: bot.responseType,
           parameterEnabled: bot.parameterEnabled,
-          inputParameter: bot.inputParameter,
-          parameterDesc: bot.parameterDesc,
           typeAheadEnabled: bot.typeAheadEnabled,
-          typeAheadUrl: bot.typeAheadUrl,
-          typeAheadSource: bot.typeAheadSource,
           typeAheadOptions: bot.typeAheadOptions,
-          terminalCommandTemplate: bot.terminalCommandTemplate
+          author: bot.author
         };
 
         myAllBotsDictionary.set(bot.name, newBot);

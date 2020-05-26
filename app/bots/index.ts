@@ -11,9 +11,13 @@ enum typesOfBots {
 
 const getAllBots = async () => {
   const allBots = await axios
-    .get(`${url}/bot/all`)
+    .post(`${url}/getAllBots`, {
+      data: {}
+    })
     .then((res: any) => {
-      if (res.data.success) return res.data.bots;
+      if (!res.data.result.data.error) {
+        return res.data.result.data;
+      }
       throw new Error();
     })
     .catch((error: any) => error);

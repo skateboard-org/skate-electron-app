@@ -77,7 +77,8 @@ const executeCommand = (
     };
 
     if (type === typesOfBots.Cloud) {
-      executeCloudBot(botName, botParam)
+      const { url } = allBotsDictionary.get(botName);
+      executeCloudBot(botName, botParam, url)
         .then(handleExecution)
         .catch(handleError);
     }

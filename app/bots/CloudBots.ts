@@ -1,15 +1,23 @@
 import axios from 'axios';
-import url from './api';
 
-const executeCloudBot = async (botName: string, botParam: string) => {
+const executeCloudBot = async (
+  botName: string,
+  botParam: string,
+  botUrl: string
+) => {
   let param = botParam;
   if (botParam === undefined || botParam.length === 0) {
     param = 'null';
   }
   const data = await axios
-    .get(`${url}/bot/exec/${botName}/${param}`)
+    .post(`${botUrl}`, {
+      data: {
+        botName,
+        param
+      }
+    })
     .then((res: any) => {
-      return res.data;
+      return res.data.result;
     })
     .catch((error: any) => error);
   return data;
